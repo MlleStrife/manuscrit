@@ -1,0 +1,16 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {french}{}
+\babel@toc {french}{}
+\babel@toc {french}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Introduction}{7}{chapter*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Titre du premier chapitre}{9}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}ceci est un long titre}{11}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Conclusion}{13}{chapter*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{15}{section*.5}
+\babel@toc {french}{}
+\babel@toc {english}{}

@@ -1,0 +1,29 @@
+[0] Config.pm:302> INFO - This is Biber 2.9
+[0] Config.pm:305> INFO - Logfile is 'main.blg'
+[19] biber:313> INFO - === lun. nov.  2, 2020, 16:27:27
+[35] Biber.pm:371> INFO - Reading 'main.bcf'
+[78] Biber.pm:854> INFO - Using all citekeys in bib section 0
+[87] Biber.pm:3981> INFO - Processing section 0
+[95] Biber.pm:4154> INFO - Looking for bibtex format file './biblio/biblio.bib' for section 0
+[97] bibtex.pm:1468> INFO - LaTeX decoding ...
+[130] bibtex.pm:1294> INFO - Found BibTeX data source './biblio/biblio.bib'
+[367] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 5, warning: 69 characters of junk seen at toplevel
+[367] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 38, warning: 78 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 125, warning: 656 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 159, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 185, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 219, warning: 5 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 229, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 255, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 273, warning: 5 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 283, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 301, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 319, warning: 23 characters of junk seen at toplevel
+[368] Utils.pm:169> WARN - BibTeX subsystem: /tmp/FPEMQdUd3O/biblio.bib_18379.utf8, line 363, warning: 57 characters of junk seen at toplevel
+[402] UCollate.pm:68> INFO - Overriding locale 'fr-FR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[403] UCollate.pm:68> INFO - Overriding locale 'fr-FR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[403] Biber.pm:3809> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'fr-FR'
+[403] Biber.pm:3815> INFO - No sort tailoring available for locale 'fr-FR'
+[435] bbl.pm:617> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[449] bbl.pm:720> INFO - Output to main.bbl
+[449] Biber.pm:110> INFO - WARNINGS: 13
