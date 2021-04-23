@@ -90,6 +90,8 @@ Les modèles de Markov cachés sont massivement utilisés notamment en reconnais
 \subsection{Réseau de neurones}
 Les réseaux de neurones ont été conçus en s'inspirant du fonctionnement du cerveau humain. Ils sont donc composés d'une succession de neurones qui sont interconnectés entre eux pouvant ainsi propager des signaux.
 Afin de mieux comprendre leur fonctionnement, il est intéressant de les mettre en relation avec la biologie du système nerveux de l'humain.
+
+\input{./Chapitre2/figures/neuroneBio}
 Au début du XXe siècle, les avancées de la biologie ont permis de mettre en lumière les méthodes de fonctionnement de notre système nerveux. On définit alors les neurones en tant que corps cellulaire muni d’un axone et de dendrites. Cette cellule, décrite dans la figure~\ref{fig:neuroneBio} est traversée par des influx nerveux de type électrique, qui entre par les dendrites et ressort par les synapses de son axone. Chaque neurone peut être reliés par un ou plusieurs neurones, que ce soit en entrée ou en sortie.
 C'est en 1943 que Warren Sturgis McCulloch et Walter Pitts proposent une représentation mathématique des neurones, qu'on appelle neurone logique dans la suite de ce document. Ils définissent plusieurs principes :
 \begin{itemize}
@@ -105,15 +107,18 @@ C'est à partir de ces règles que les réseaux de neurones profonds, appelé de
 Les réseaux de neurones profonds sont aujourd'hui très à la mode. Pourtant, ils ne sont pas récents : le premier algorithme d'apprentissage utilisant un réseau de neurone date de 1957 où Franck Rosenblatt propose le perceptron.
 
 \subsection{Du perception au multicouche}
+\input{./Chapitre2/figures/perceptron}
 Le perceptron, schématisé dans la figure~\ref{fig:perceptron}, est un modèle qui permet de classifier les données en deux classes. Il s'agit donc d'un modèle qui permet de faire de la classification et de la régression de manière supervisée. Ce modèle binaire utilise un neurone pour l'apprentissage et la prédiction de la classe de chaque document. Un document est défini par x caractéristiques, chacune d'entre elles étant considérés comme une entrée du perceptron. Lors de l'apprentissage, des poids, initialisés de façon aléatoires, sont mis à jour pour chacune des entrées en fonction du taux d'apprentissage, appelé learning rate en anglais, afin de retrouver les étiquettes déjà connues des données d'apprentissage. En plus du poids, le biais est également défini lors de l'apprentissage. Le biais correspond à un unique poids qui sera utilisé pour la prédiction des étiquettes des données. Les entrées sont ainsi agrégées en les pondérant selon leur poids. La fonction d'agrégation est explicité par l'équation~\ref{eq:aggregation}, où $i$ correspond à l'entrée i, $w_i$ correspond au poids associé à l'entrée i et $\theta$ correspond au biais.
 \begin{equation}
   z = \sum_{i=1}^{n}(w_i*i) - \theta
+  \label{eq:aggregation}
 \end{equation}
 Une fonction d'activation est ensuite appliquée : selon la valeur de $z$, la fonction donne un résultat de 0 si elle n'est pas activée ou de 1 si elle est activée. Dans le cas du perceptron de Rosenblatt, soit le tout premier perceptron, la fonction d'activation est définie par une fonction non linéaire qui prend une valeur de 0 si $z$ est inférieur ou égal à 0 et une valeur de 1 s'il est strictement supérieur à 0.
 Il existe d'autres fonctions d'activation qui peuvent être utilisées, elles sont définie dans la section~\ref{sec:fonctionActivation}.
 
 Le perceptron est une architecture très simple qui est de moins en moins utilisée. En effet, elle permet de résoudre uniquement des problèmes binaires linéairement séparables. Le perceptron multicouche est notamment capable de palier à ces inconvénients.
 
+\input{./Chapitre2/figures/perceptronMLP}
 Le perceptron multicouche, appelé multilayer perceptron (MLP) en anglais, assemble plusieurs perceptrons entre eux comme illustré dans la figure~\ref{fig:perceptronMLP}. Un ou plusieurs neurones sont donc assemblées les uns à la suite des autres. Ils peuvent également formés des couches (layers) lorsqu'il y a plus d'un neurone qui traite les entrées. On a donc forcément une couche de neurones en entrée, donc qui prennent les données et une couche de neurones en sortie qui vont prendre la décision finale. Entre les deux, on peut retrouver des couches intermédiaires dites cachées, qui vont prendre en entrées les sorties de la couche précédente (soit la couche d'entrée, soit une autre couche cachée) et en sortie la couche suivante (soit une autre couche cachée soit la couche de sortie).
 Les informations vont donc être propagées de gauche à droite, c'est-à-dire de la couche d'entrée à la couche de sortie. On appelle donc cette propagation, propagation directe avant, forward propagation en anglais. Le nombre de couche et le nombre de neurone par couche doit être défini par l'utilisateur pour être en adéquation avec la tache visée. Par exemple, le nombre de neurones de sortie permet de définir le nombre de classes dans une classification.
 Si on se replace dans le contexte de l'apprentissage neuronal profond, le perceptron multicouche correspond à l'une des premières architectures dite profonde. En effet, elle est constituée d'au moins deux couches. Les chercheurs admettent que le nombre de couche est croissant en fonction de la difficulté de la tache à accomplir. Mais plus le système est complexe, donc plus il a de couches et de neurones par couche, plus il sera difficile de l'apprendre car il demandera beaucoup de données et de puissance de calcul.
@@ -146,6 +151,7 @@ La descente du gradient est utilisée pour apprendre à minimiser la fonction de
 La méthode de descente en gradient consiste à mettre en place une variation des paramètres de la fonction de coût par des itérations successives. Ce pas est défini par le taux d'apprentissage (learning rate en anglais) noté $\alpha$. Ce taux permet de faire varier les paramètres de la fonction de cout lors des itérations. Pour chaque paramètres $x_1$, $x_2$, $x_n$ de la fonction de coût, la descente de gradient se définit par l'équation~\ref{eq:descente} :
 \begin{equation}
   x_n+1 = x_n - \alpha*(\dfrac{dC(x)}{dx})
+  \label{eq:descente}
 \end{equation}
 
 Cet algorithme n'est pas exempt d'inconvénients. En effet, selon la fonction de coût considérée, il est possible qu'il existe plusieurs minimums mais qui ne correspondent pas au minimal global. On appelle ces zones des minima locaux : converger dans une de ces zones signifie une suboptimalité du réseau de neurones. En fonction du taux d'apprentissage utilisé, il est donc possible que l'algorithme de descente de gradient converge vers un minimum local à la place du minimum global. Plus le taux d'apprentissage est petit, plus il est possible de tomber dans cette configuration.
@@ -292,18 +298,3 @@ Le dropout, introduit par Srivastava et al.~\cite{Srivastava2014} est une normal
 Ainsi, en fonction d'une probabilité $P$ de désactivation des neurones, souvent fixée à 0.5, le réseau aura plus ou moins de neurones désactivés et devra palier à ce manque de représentation.
 
 Toutes ces méthodes permettent de garantir un fonctionnement correct voir optimal d'un système neuronal.
-
-\section{Les architectures de couches neuronales utilisées dans le traitement de la parole}
-Dans le cadre de cette thèse, nous travaillons sur les informations contenues dans la parole. Dans ce cadre, l'utilisation du MLP n'est pas la plus performante pour représenter les données de type parole. Il existe d'autres architectures de couches neuronales bien plus compatible avec ces données. En effet, le principe inconvénient du MLP, c'est qu'il n'y a pas d'influence des données précédentes et futures. Une entrée est donc considérée seule et sans contexte.
-
-Hors nous savons que la parole est caractérisée par l'entièreté de sa séquence. Si nous faisons un parallèle avec un texte, une lettre seule ne veut rien dire. Accompagné d'autres lettres, elles forment un mot. Ces mots sont eux-mêmes agencés avec d'autres mots pour former un sens à une phrase.
-
-Comme la parole est dépendante des états précédents, il est nécessaire d'utiliser des réseaux permettant de prendre en compte les états précédents voir les états suivants. Dans cette section, nous allons décrire des architectures neuronales permettant de conserver l'historique des états précédents, qui sont par conséquent utilisées dans le traitement de la parole.
-
-\subsection{Réseau Convolutif}
-Les réseaux neuronaux convolutifs (Convolutional Neural Network en anglais), abbrégé CNN~\cite{LeCun1990} sont prépondérant dans l'analyse d'image. En effet ils traitent des données représentées en deux dimensions comme des images (disposition des pixel en 2D). Ils sont également utilisés en parole, lorsque l'on considère le signal comme un spectrogramme.
-
-Comme son nom l'indique, ce réseau effectue des produits de convolutions en fonction de la configuration de son champ recepteur. Il se décompose en trois opérations : la convolution, le pooling puis l'activation de type ReLu.
-\subsection{RNN}
-\subsection{LSTM et biLSTM}
-\subsection{Encoder Decoder}
