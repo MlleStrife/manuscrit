@@ -1,0 +1,26 @@
+\begin{table}[]
+    \centering
+    \begin{tabular}{| l | l | c | c | c |}
+        \hline
+        \textbf{Models} &\textbf{Features} &\multicolumn{3}{c|}{\textbf{SEWA}} \\ \cline{3-5}
+        & &activation &valence &liking \\
+        \hline
+        \multicolumn{5}{|l|}{AVEC 2017~\cite{AVEC2017} : Sur les conversations allemandes} \\
+        \hline
+        SVR      &BoTW       &.373  &.390 &.314 \\
+       \hline
+       \multicolumn{5}{|l|}{Huang et al.~\cite{Huang2017} : Sur les conversations allemandes} \\
+       \hline
+       LSTM     &BoTW        &.451  &.518 &.473 \\
+        \hline
+       \multicolumn{5}{|l|}{Huang et al.~\cite{Huang2018} : Sur les conversations allemandes} \\
+       \hline
+       LSTM       &Word2Vec-300   &\textbf{.597}  &\textbf{.600} &.454 \\
+       LSTM-2     &BoW            &  & &.407 \\
+       LSTM-2     &Word2Vec       &  & &\textbf{.480} \\
+       LSTM-2     &GloVe          &  & &.413 \\
+       \hline
+    \end{tabular}
+    \caption{Compilation des scores de CCC sur l'ensemble de développement de SEWA sur les 3 dimensions : activation, valence et \textit{liking}. L'accronyme BoTW signifie \textit{Bag-of-text-words}, SVR signifie Support Vector Regression~\cite{Smola2004}, proche des SVM mais applicable à des problèmes de régression et donc à une annotation continue.}
+    \label{tab:avectexte}
+\end{table}

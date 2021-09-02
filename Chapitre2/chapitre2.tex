@@ -1,105 +1,164 @@
 \chapter{Apprentissage automatique pour le traitement de la parole}
-"La tristesse de l'intelligence artificielle est qu'elle est sans artifice, donc sans intelligence." 1987 -
-Jean Baudrillard
+«La tristesse de l'intelligence artificielle est qu'elle est sans artifice, donc sans intelligence.»  (Jean Baudrillard, 1987)
 
 \section{Apprentissage automatique : définition}
 
-Dans le domaine de l'intelligence artificielle (IA), l'apprentissage automatique (machine learning, abrégé ML en anglais) regroupe des méthodes permettant à un système d'apprendre un comportement. Généralement, l'apprentissage automatique permet, à partir de données plus ou moins massives, d'apprendre à caractériser de nouvelles données de même nature par une classification ou une régression. On apprend donc des faits à partir de données connues, pour les appliquer sur des nouvelles situations. On dit alors qu'un système automatique a été entraîné avec des données d’entraînement (première étape) afin de permettre la prédiction des caractéristiques de nouvelles données similaires (seconde étape) appelées données de développement, de test ou de validation.
+Dans le domaine de l'intelligence artificielle (IA), l'apprentissage automatique (machine learning, abrégé ML en anglais) regroupe des méthodes permettant à un système d'apprendre un comportement. Selon le Journal Officiel (shorturl.at/oxzAL), l'apprentissage se définit par un~\textit{processus par lequel un algorithme évalue et améliore ses performances sans l'intervention d'un programmeur, en répétant son exécution sur des jeux de données jusqu'à obtenir, de manière régulière, des résultats pertinents}. Généralement, l'apprentissage automatique permet, à partir de données plus ou moins massives, d'apprendre à caractériser de nouvelles données de même nature par une classification ou une régression. On apprend donc des faits à partir de données connues, pour les appliquer sur des nouvelles situations. On dit alors qu'un système automatique a été entraîné avec des données d’entraînement (première étape) afin de permettre la prédiction des caractéristiques de nouvelles données similaires (seconde étape) appelées données de développement, de test ou de validation.
 
+\input{./Chapitre2/figures/apprentissageE_S}
+
+%Concretement, l'apprentissage sert à apprendre les différentes variables d'une fonction mathématique permettant de séparer les données en différents ensembles grâce à une fonction de cout.
+Concrètement, si on regarde la figure~\ref{fig:apprentissageE_S}, nous prenons en exemple la caractérisation de l'image d'entrée par la présence ou l'absence d'hippopotame. L'apprentissage sert à construire un modèle mathématique et apprendre les différentes variables $\theta_i$ de celui-ci à partir de données pré-traitées que l'on nomme d'entrées $x_i$. Les différents paramètres sont actualisés au fur et à mesure de l'apprentissage par minimisation de la fonction de coût. Les sorties $y_i$ de cette fonction mathématique peuvent être analysées afin de caractériser les données d'entrées.
+  %Tous ces termes seront définis dans les prochaines sections.
 
 \subsection{Classification et régression}
 La classification et la régression sont les deux grandes familles d'apprentissage automatique.
 La classification correspond à résoudre un problème d'affectation de classes. Par exemple, on peut apprendre à détecter la présence d'hippopotame au sein d'une image. Nous avons alors deux réponses possibles : la présence ou l'absence de l'animal. Ces réponses se transforment donc en classes, qui seront apprises par un apprentissage automatique de type classification. Nous avons donc un nombre défini et connu de catégories, donc un espace discret, qui sera utilisé par le système pour catégoriser chacune des données.
 
-La régression quant à elle ne permet pas de catégoriser les données en classes, elle les inscrit dans un espace continu. Par exemple, on peut apprendre à  prédire la valeur d'un stock en bourses à partir des valeurs des jours précédents. Les réponses sont donc des nombres qui peuvent être positifs ou négatifs et qui ont une précision infinie. Nous avons donc une échelle de valeur dans laquelle le système va inscrire sa prédiction.
+La régression quant à elle ne permet pas de catégoriser les données en classes, elle les inscrit dans un espace continu. Par exemple, on peut apprendre à  prédire la valeur d'un stock en bourses à partir des valeurs des jours précédents. On peut également prédire une valeur représentant le niveau de satisfaction d'un client à partir d'un questionnaire. Les réponses sont donc des nombres réels qui peuvent être positifs ou négatifs. Nous avons donc une échelle de valeur dans laquelle le système va inscrire sa prédiction.
 
-\input{./Chapitre2/figures/classifVSreg}
+%\input{./Chapitre2/figures/classifVSreg}
 
-Dans la figure~\ref{fig:classifVSreg}, on retrouve la différence graphique entre la classification et la régression. Pour une classification, le système automatique va chercher à mettre en place une démarcation entre les données de classes différentes, ici pour séparer les points verts et rouges. Cela permet de positionner une nouvelle donnée dans la classe la plus proche. Tandis que pour une régression, le système va chercher la courbe qui minimise la somme des écarts de chaque point avec la courbe. On aura donc une courbe de tendance qui permet de prédire les caractérisques des nouvelles données.
+On peut retrouver graphiquement la différence entre la classification et la régression. Pour une classification, le système automatique va chercher à mettre en place une démarcation entre les données de classes différentes, ici pour séparer les points verts et rouges. Cela permet de positionner une nouvelle donnée dans la classe la plus proche. Tandis que pour une régression, le système va chercher la courbe qui minimise la somme des écarts de chaque point avec la courbe. On aura donc une courbe de tendance qui permet de prédire les caractéristiques des nouvelles données.
 Afin d'avoir des systèmes performants, il est important de bien configurer leur apprentissage.
 
 \subsection{Les facteurs de l'apprentissage automatique}
-Un facteur crucial garantissant la qualité de ces systèmes automatiques réside dans les données d’entraînement. Plus elles sont qualitatifs, c'est-à-dire qu'elles sont les plus proches des données réelles que nous voulons analyser, et plus le système sera performant dans sa tache de prédiction. Mais la qualité ne fait pas tout dans ce contexte, la quantité et l'exhaustivité sont tout aussi important. Par exemple dans une tache de reconnaissance d'hippopotame au sein d'une image, si on présente uniquement des animaux noirs alors le système pourra mal classifier des hippopotames marrons.
+Un facteur crucial garantissant la qualité de ces systèmes automatiques réside dans les données d’entraînement. Plus elles sont qualitatives, c'est-à-dire qu'elles sont les plus proches des données réelles que nous voulons analyser, et plus le système sera performant dans sa tâche de prédiction. Mais la qualité ne fait pas tout dans ce contexte, la diversité et l'exhaustivité sont tout aussi important. Par exemple dans une tâche de reconnaissance d'hippopotame au sein d'une image, si on présente uniquement des animaux noirs alors le système pourra mal classifier des hippopotames marrons.
 
-Mais les données ne font pas tout, le choix de l'algorithme mis en place pour apprendre le système automatique est tout aussi important. Il existe de nombreuses méthodes mathématiques permettant de modéliser un système automatique. Ces derniers sont communément divisés en deux groupes, les méthodes d'apprentissage automatique et les méthodes de réseaux de neurones, appelé Deep Neural Network en anglais (DNN) ou Deep Learning.
+Mais les données ne font pas tout, le choix de l'algorithme mis en place pour apprendre le système automatique est tout aussi important. Il existe de nombreuses méthodes mathématiques permettant de modéliser un système automatique.Ces méthodes d'apprentissage automatique sont diverses et les méthodes de réseaux de neurones, appelé Deep Neural Network en anglais (DNN) ou Deep Learning en font partie.
 Du coup, lorsque nous cherchons à mettre en place un apprentissage automatique ces deux facteurs sont décisifs : les données et le choix de l'algorithme.
 
 Ces choix doivent être en adéquation avec le type de caractérisation recherchée. En effet, il existe deux principaux types d'apprentissage : l'apprentissage supervisé et l'apprentissage non-supervisé.
 
 \subsection{Apprentissage supervisé et non supervisé}
 
+Il existe de nombreux type d'apprentissage dont les principaux sont présentés dans la figure~\ref{fig:typesApprentissage}. Dans le contexte de cette thèse, nous ne parlerons que d'apprentissage supervisé, non-supervisé et auto-supervisé.
+
+Dans le cas de l'apprentissage supervisé, l'humain va \textit{guider} l’algorithme en fournissant des exemples concrets qui sont eux-même étiquetés avec les résultats attendus, comme dans la Figure~\ref{fig:apprentissageE_S}. Concrètement, pour apprendre à discerner des images contenant des hippopotames, on va collecter un ensemble d'image contenant ou non un hippopotame, et pour chaque image, on va lui attribuer une étiquette \textit{présence} ou \textit{absence}. Cette étiquette peut également être appelée référence, annotation ou label. Ainsi nous avons un ensemble d'exemples concrets que nous pouvons soumettre à notre algorithme d'apprentissage.
+Le système va alors apprendre à partir de chaque exemple, ses différents paramètres de façon à diminuer l’écart entre le résultat obtenu et le résultat attendu. La marge d’erreur se réduit avec chaque itération de l'apprentissage, avec pour but, d’être capable de généraliser son apprentissage à de nouveaux cas. Ce type d'apprentissage ne peut donc être mis en place que lorsque nous avons des données d’entraînement qui sont annotées. Cette annotation peut être effectuée soit par l'humain soit par la machine.
+
 \input{./Chapitre2/figures/typeApprentissage}
-Il existe de nombreux type d'apprentissage dont les principaux sont présentés dans la figure~\ref{fig:typesApprentissage}. Dans le contexte de cette thèse, nous ne parlerons que d'apprentissage supervisé, non supervisé et auto-supervisé.
 
-Lorsque nous parlons d'apprentissage supervisé, nous connaissons déjà les sorties souhaitées pour nos données d’entraînement. Nous avons une référence pour chaque document contenu dans les données d’entraînement et nous apprenons au système à retrouver ces références.
-Il y a plusieurs mots pour définir ces références. On peut parler d'étiquettes, d'annotation ou de label. Ce type d'apprentissage ne peut donc être mis en place que lorsque nous avons des données d’entraînement qui sont annotées. Cette annotation peut être effectuée soit par l'humain soit par la machine : un autre système d'apprentissage, un ensemble de règles, ... L'apprentissage supervisé peut être soit une classification, soit une régression.
+%Dans l'apprentissage supervisé, nous connaissons déjà les sorties souhaitées pour nos données d’entraînement. Nous avons une référence pour chaque document contenu dans les données d’entraînement et nous apprenons au système à retrouver ces références. Il y a plusieurs mots pour définir ces références. On peut parler d'étiquettes, d'annotation ou de label. Ce type d'apprentissage ne peut donc être mis en place que lorsque nous avons des données d’entraînement qui sont annotées. Cette annotation peut être effectuée soit par l'humain soit par la machine : un autre système d'apprentissage, un ensemble de règles, ... L'apprentissage supervisé peut être soit une classification, soit une régression.
 
-Tandis que pour l'apprentissage non supervisé, nous ne connaissons pas les sorties attendues pour nos données d’entraînement. L'objectif du système automatique est donc de proposer une caractérisation des données d'entrée, en se basant sur des comparaisons entre ces dernières. Par exemple, on peut détecter la présence d'un hippopotame dans des images sans pour autant avoir des données annotées. Nous spécifions le nombre de classe au système et il va essayer d'apprendre tout seul ce qui différencie les images en entrée, ici la présence ou l'absence de l'animal. L'apprentissage non supervisé peut également servir à prédire une régression.
+Dans l'apprentissage non supervisé, les sorties attendues pour nos données d’entraînement ne sont connues. L'objectif du système automatique est donc d'inférer une caractérisation des données d'entrée, en se basant sur des comparaisons entre ces dernières : il doit comprendre de lui-même les structures sous-jacentes aux données. Il n'y a donc pas d'humain pour \textit{guider} l'apprentissage. Par exemple, on peut détecter la présence d'un hippopotame dans des images sans pour autant avoir des données annotées. Nous spécifions le nombre de classe au système et il va essayer d'apprendre tout seul ce qui différencie les images en entrée, ici la présence ou l'absence de l'animal.
 
-Un nouveau type d'apprentissage est de plus en plus utilisé, notamment dans le domaine de traitement des langages naturels (TALN). On l'appelle apprentissage auto-supervisé, self supervised learning en anglais (SSL). Il s'agit d'un apprentissage où l'on n'a pas de références pour nos données d'apprentissage. Pour compenser leur absence, on prend une très grande masse de données et on en cache une partie. Le système devra alors retrouver les parties cachées à partir des parties disponibles. Ainsi le système crée à la volée des étiquettes qui lui permettront d'apprendre.
+Cet apprentissage se base principalement sur deux méthodes: la méthode par partitionnement et la méthode de regroupement hiérarchique. Pour le partitionnement, on va chercher à diviser les entrées en un nombre $k$ de partition. Pour cela, on peut comparer la distance entre les différents échantillons d'entrée, par le calcul d'une distance euclidienne par exemple. Le regroupement hiérarchique, appelé clustering en anglais, va chercher à minimiser l'inertie intra-classe, c'est à dire les distances entre les échantillons d'une même classe. Elle va en même temps chercher à maximiser l'inertie inter-classe, c'est à dire les distances entre les centres de chaque classes. %L'apprentissage non supervisé peut également servir à prédire une régression.
+
+Un nouveau type d'apprentissage est de plus en plus utilisé depuis ces trois dernières années, notamment dans le domaine de traitement des langages naturels (TALN). On l'appelle apprentissage auto-supervisé, self supervised learning en anglais (SSL). Comme pour l'apprentissage non-supervisé, il s'agit d'un apprentissage où l'on n'a pas de références pour nos données d'apprentissage. Pour compenser leur absence, on prend une très grande masse de données et on en cache une partie. Le système devra alors retrouver les parties cachées à partir des parties disponibles. Ainsi le système crée à la volée des étiquettes qui lui permettront d'apprendre. Il s'agit en fait de mélanger les avantages de l'apprentissage supervisé et non-supervisé.
 Cette technique est utilisé par exemple dans la traduction de texte, où l'on apprend à représenter deux langues différentes puis en comparant ces deux représentations. On est ainsi capable de passer d'une langue A à une langue B sans avoir fourni au système des traductions d'un document de la langue A vers la langue B.
-\textcolor{red}{est ce que je parle de l'apprentissage par renforcement?}
 
-Il existe de nombreux algorithmes permettant l'apprentissage de ces systèmes, que la tache soit de nature supervisée ou non.
+L'apprentissage par renforcement consiste à laisser le système faire ces propres décisions et le récompenser positivement ou négativement en fonction de sa réponse. Le système va alors chercher, en répétant les expériences, la meilleure stratégie qui maximise la somme des récompenses au cours du temps. Cet apprentissage est très utilisé dans les jeux vidéos ou de société, où la récompense peut se traduire par la victoire ou la défaite du système par exemple. On peut citer AlphaZéro~\cite{Silver2018}, un système automatique qui a battu les meilleurs systèmes automatiques ayant eux-même battu les champions du monde humains de Go, de shogi et d'échecs.
+
+Il existe de nombreux algorithmes permettant l'apprentissage de ces systèmes, que la tâche soit de nature supervisée, non-supervisé ou auto-supervisé.
 
 \section{Quelques familles d'apprentissage automatique}
 Dans le contexte de la reconnaissance d'émotion, de nombreuses méthodes d'apprentissage automatique sont utilisées, que ce soit pour faire de la classification lorsque l'on considère une émotion comme discrète ou de la régression quand on considère une émotion comme continue.
 Dans les sections suivantes, nous détaillerons certaines d'entre elles.
 
-\subsection{K moyennes et K plus proche voisin}
-Le k-moyennes~\cite{Lloyd1982}, appelé k-means en anglais, et le k plus proche voisin~\cite{Fix1951,Cover1967}, appelé k-nearest neighbors (KNN) sont des algorithmes de classification très simples. Ils sont principalement utilisés pour de la classification.
+\subsection{k-moyennes et k plus proche voisin}
+Le k-moyennes~\cite{Lloyd1982}, appelé k-means en anglais, et le k-plus proches voisins~\cite{Fix1951,Cover1967}, appelé k-nearest neighbors (KNN) sont des algorithmes de classification très simples.
+
+%\newline
+% \begin{center}\fbox{\begin{minipage}{15cm}
+% \begin{center}
+%   \textbf{k-moyennes}
+% \end{center}
+Soit un ensemble de points $X_i$ avec $i=1,2,...,n$ que l'on souhaite classer en $k$ classes $C_i$ avec $i=1,2,...,n$. L’algorithme k-moyennes cherche le meilleur partitionnement afin de minimiser la sommes des erreurs quadratiques entre les centres des classes et tous les points qui leur sont affectés.
+L’erreur quadratique $E$ entre de le centre $C$ de la classe $C_n$ et tous les points $X_i$ appartenant à cette classe $C_n$ est définie par l'équation~\ref{eq:quadratique}.
+\begin{equation}
+  E(C_n) = \sum_{X_i\epsilon C_n}   \| x_i - C \|^2
+  \label{eq:quadratique}
+\end{equation}
+Les k premières données $X_1,...,X_k$ sont définies comme les centres $C$ des classes $C_1,...,C_k$ puis on considère la distance entre les nouvelles données $X_{k+1},...X_n$ et ces centres pour leur affecter une classe. Le centre de la classe $C$ est donc recalculé à chaque nouvelle donnée assignée à la classe.
+
+% \begin{center}
+%   \textbf{k-plus proches voisins}
+% \end{center}
+
+En ce qui concerne l'algorithme du k plus proche voisin, il est très semblable au k-moyennes. Le centre de chaque classe est cependant fixé par l'expérimentateur et ne sera pas recalculé.
+% \end{minipage}}
+% \end{center}
+
 \input{./Chapitre2/figures/clustering}
 
-Le k-moyennes permet de diviser les données en k groupes distincts, appelés clusters. Le nombre de classe k est fixé par l'humain. Par exemple, dans la figure~\ref{fig:clustering}, on considère 3 classes. Nous sommes donc dans un contexte d'apprentissage non supervisé.
-Les k premières données sont définies comme les références des k classes puis on considère la distance entre les nouvelles données et ces références pour leur affecter une classe. La fonction à minimiser est donc la somme des carrées de ces distances.
+Le k-moyennes permet de diviser les données en k groupes distincts, appelés clusters. Par exemple, dans la figure~\ref{fig:clustering}, on considère trois classes. Nous sommes donc dans un contexte d'apprentissage non supervisé.
 
-Le k plus proche voisin est, quant à lui, un algorithme utilisé en classification supervisé. Le nombre de classe k est donc connu et on cherche à caractériser des données en fonction de leur distance avec les données contenues dans les k classes. On décide donc de la classe d'une donnée en fonction de celle de ces plus proches voisins.
+Le k plus proches voisins est, quant à lui, un algorithme utilisé en classification supervisé : on connaît les références attendues pour les centres de classes. Le nombre de classe k est lui aussi connu et on cherche à caractériser des données en fonction de leur distance avec les données contenues dans les k classes. On décide donc de la classe d'une donnée en fonction de celle de ces plus proches voisins.
 
-Ces deux algorithmes est donc très dépendants de l'initialisation du système : le nombre de classe ainsi que l'ordre de visualisation des données dans l'apprentissage sont des paramètres critiques.
+Ces deux algorithmes sont donc très dépendants de l'initialisation du système : le nombre de classe ainsi que l'ordre de présentation des données dans l'apprentissage sont des paramètres critiques, mais reste très utilisé~\cite{Jain2010}.
+
+On retrouve des utilisations de ces algorithmes en NLP et en parole, par exemple avec Kamper et al. qui utilise l'algorithme du k-moyennes pour de la segmentation de parole non annotée~\cite{Kamper2017}, la classification d'actes de parole dans des jeux éducatifs~\cite{Rus2012} ou l'utilisation de l'algorithme k plus proche voisin pour la classification de texte~\cite{Zhou2015}.
 
 
-\subsection{Classification naïve bayésienne}
-La classification naïve bayésienne se base sur le théorème de Bayes~\cite{Bayes1763}. Ce théorème, qui se traduit par l'équation~\ref{eq:bayes} permet de prédire la probabilité conditionnelle de l'évènement A sachant B ($P(A|B)$) à partir des probabilités de l'évènement A ($P(A)$), l'évènement B ($P(B)$) et la probabilité de l'évènement B sachant A ($P(B|A)$).
-\begin{equation}
-    P(A|B) = \dfrac{P(B|A)*P(A)}{P(B)}
-    \label{eq:bayes}
-\end{equation}
-
-Il prend chacune des caractéristiques des données indépendamment pour faire sa classification : ce théorème suppose une indépendance entre les différentes caractéristiques, d'où son appellation de \textit{naïf}. Par exemple pour la présence d'hippopotame dans un zoo, la présence d'un bassin et le nombre d'animaux possédé par le zoo ne seront pas pris en compte conjointement.
-
-Son plus grand avantage c'est qu'il nécessite relativement peu de données d'entraînement pour estimer les paramètres nécessaires à la classification, à savoir les moyennes et les variances des différentes caractéristiques. Grâce au principe d'indépendance des caractéristiques, on n'a pas besoin de calculer la covariance entre ces dernières. Cela permet au classifieur d'être rapide et peu coûteux en puissance de calcul lors de sa phase d'apprentissage~\cite{Hand2001}.
+% \subsection{Classification naïve bayésienne}
+% La classification naïve bayésienne se base sur le théorème de Bayes~\cite{Bayes1763}. Ce théorème, qui se traduit par l'équation~\ref{eq:bayes} permet de prédire la probabilité conditionnelle de l'évènement A sachant B ($P(A|B)$) à partir des probabilités de l'évènement A ($P(A)$), l'évènement B ($P(B)$) et la probabilité de l'évènement B sachant A ($P(B|A)$).
+% \begin{equation}
+%     P(A|B) = \dfrac{P(B|A)xP(A)}{P(B)}
+%     \label{eq:bayes}
+% \end{equation}
+%
+% Il prend chacune des caractéristiques des données indépendamment pour faire sa classification : ce théorème suppose une indépendance entre les différentes caractéristiques, d'où son appellation de \textit{naïf}. Par exemple pour la présence d'hippopotame dans un zoo, la présence d'un bassin et le nombre d'animaux possédé par le zoo ne seront pas pris en compte conjointement.
+%
+% Son plus grand avantage c'est qu'il nécessite relativement peu de données d'entraînement pour estimer les paramètres nécessaires à la classification, à savoir les moyennes et les variances des différentes caractéristiques. Grâce au principe d'indépendance des caractéristiques, on n'a pas besoin de calculer la covariance entre ces dernières. Cela permet au classifieur d'être rapide et peu coûteux en puissance de calcul lors de sa phase d'apprentissage~\cite{Hand2001}.
 
 \subsection{Régression Linéaire}
-La régression linéaire permet de catégoriser des sous-espaces en fonction de la proximité des données. Elle est à l'origine mise en place pour des régressions mais peut également être utilisée pour des classifications. Ce type de système apprend pour chaque classe une fonction de régression linéaire qui est la plus optimale pour représenter les données de la classe. La régression linéaire peut être simple, représentée par une fonction affine $a*x+b$.
+La régression linéaire permet de catégoriser des sous-espaces en fonction de la proximité des données. %Elle est à l'origine mise en place pour des régressions mais peut également être utilisée pour des classifications.
+Ce type de système apprend pour chaque classe une fonction de régression linéaire qui est la plus optimale pour représenter les données de la classe. Son objectif est d'expliquer une variable $y$ à l'aide d'une ou plusieurs variables $X$. La régression linéaire peut être simple, représentée par une fonction affine $y=ax+b$ avec $y$ représentant la variable à expliquer, $x$ correspondant à une caractéristique de la donnée, $a$ le coefficient associé à la caractéristique et $b$ une constante.
 %Pour des données mettant en lien deux variables, par exemple prédire la présence d'un hippopotame dans un zoo.
-Elle peut également être multiple, représentée par une fonction de type $a_1*x_1 + a_2*x_2 +... + b$ lorsque plusieurs données sont prises en compte. Par exemple pour prédire la présence d'un hippopotame dans un zoo, les données peuvent contenir la présence d'un zoo dans une ville, le nombre d'animaux qui le compose, la présence d'un bassin, ...
+Elle peut également être multiple, représentée par l'équation~\ref{eq:regression_lineaire} lorsque plusieurs caractéristiques des données sont prises en compte. Ici, on dispose de $n$ observations appelées $y_i$ que l'on souhaite expliquer par les caractéristiques $x_{i,j}$.
 
-Afin de classifier une nouvelle donnée, le système va la comparer avec les différentes courbes de régression apprises en calculant l'écart de cette donnée à ces courbes. On appelle cette méthode, l'estimateur des moindres carrés.
-\textcolor{red}{besoin d'expliciter la méthode des moindres carrés?}
-Cette méthode éprouvée depuis plus de deux cents ans~\cite{Gauss1809,Legendre1805,Adrain1808} est simple, explicable et facile à mettre en place.  L'apprentissage est également très rapide. Mais elle ne fonctionne pas pour toutes les tâches et toutes les données. En effet, elle implique que les caractéristiques des données ont toutes une forte corrélation entre elles, ce qui n'est pas forcément le cas.
+\begin{equation}
+  \begin{pmatrix} y_1\\ ...\\ y_n \end{pmatrix}
+=
+\begin{pmatrix} x_{1,1}& ...  & x_{1,p}  \\ ...& ... & ... \\ x_{n,1}& ... & x_{n,p}  \\ \end{pmatrix}
+\begin{pmatrix} a_0\\ ...\\ a_p\end{pmatrix}
++
+\begin{pmatrix} b_1\\ ...\\ b_n \end{pmatrix}
+  \label{eq:regression_lineaire}
+\end{equation}
+
+Par exemple pour prédire la présence d'un hippopotame dans un zoo ($y_1$), les données peuvent contenir la présence d'un zoo dans une ville ($x_{1,1}$), le nombre d'animaux qui le compose ($x_{1,2}$), la présence d'un bassin ($x_{1,3}$), ...
+
+Afin de classer une nouvelle donnée, le système va la comparer avec les différentes courbes de régression apprises en calculant l'écart de cette donnée à ces courbes. On appelle cette méthode, l'estimateur des moindres carrés.
+
+Cette méthode éprouvée depuis plus de deux cents ans~\cite{Gauss1809,Legendre1805,Adrain1808} est simple, explicable et facile à mettre en place.  L'apprentissage est également très rapide. Mais elle ne fonctionne pas pour toutes les tâches et toutes les données. En effet, elle implique que les caractéristiques des données permettent d'expliquer la caractéristique recherchée. Dans notre exemple, la présence d'un bibliothèque dans la ville ($x_{1,4}$) ne permettra probablement pas de prédire la présence d'un hippopotame dans un zoo.
+
+Cet algorithme est utilisé dans des problématiques de NLP, notamment avec la détection de vrai ou fausse note de suicide~\cite{Pestian2010}, la classification de rapport d'accident de site de construction~\cite{Zhang2019} pour déterminer la cause des incidents en combinant différents algorithmes ou encore dans la reconnaissance de la parole afin de réorganiser les meilleurs hypothèses de transcription~\cite{Chotimongkol2001}.
 
 \subsection{Machine à vecteurs de support}
-Cette méthode, appelée Support Vecteur Machine (SVM) en anglais~\cite{Cortes1995}, est utilisée pour résoudre des tâches de classification principalement et dans une moindre mesure de régression de façon supervisée. Elle consiste en la séparation linéaire des données projetées dans un espace en utilisant un hyperplan optimal. Cette séparation va être effectuée en maximisant la marge entre les données de chaque classe : l'hyperplan optimal doit être le plus éloigné des données des différentes classes tout en les séparant.
+%\textcolor{red}{un peu de math, ça ferait pas de mal, mais je veux pas non plus que ce soit trop long}
+Cette méthode, appelée Support Vecteur Machine (SVM) en anglais~\cite{Cortes1995}, est principalement utilisée pour résoudre des tâches de classification supervisée. Elle consiste en la séparation linéaire des données projetées dans un espace en utilisant un hyperplan optimal. Cette séparation va être effectuée en maximisant la marge entre les données de chaque classe : l'hyperplan optimal doit être le plus éloigné des données des différentes classes tout en les séparant.
 
-Afin de classifier une nouvelle donnée, le système va donc placer cette donnée dans l'espace de représentation et situer son emplacement par l'hyperplan séparateur.
+Afin de classer une nouvelle donnée, le système va donc placer cette donnée dans l'espace de représentation et situer son emplacement par rapport à l'hyperplan séparateur.
 Cette méthode est très utilisée en classification, étant simple à mettre en place et rapide à apprendre. De plus, elle est très performante lorsque l'on possède peu de données d'apprentissage.
 
-\subsection{Modèle de Markov cachés et modèle de mélange gaussien}
+On retrouve des utilisations de SVM dans les domaines de l'ASR, notamment couplé à d'autres algorithmes dans~\cite{Solera2007}, dans la reconnaissance d'émotion, des SVM sont utilisés dans les arbres de décisions de~\cite{Rozgic2012} pour déterminer si une phrase énoncée fait partie des quatre catégories (joie, colère, tristesse et neutre) ou encore dans la tâche de reconnaissance d'entités nommés dans la langue arabe~\cite{Benajiba2008}.
 
-Le modèle de Markov caché, appelé hidden Markov model (HMM) en anglais~\cite{Rabiner1986}, est un modèle statistique à base d'automates. Ces automates se composent d'états qui sont reliés par des transitions. Chaque transition va vers l'avant et correspond à la probabilité de changer de l'état courant pour le suivant. Comme le changement d'état n'est pas obligatoire, une transition circulaire est mise en place pour boucler sur l'état courant.
-Utilisée en classification principalement, en apprentissage supervisé ou non, il va considérer chaque caractéristique d'une donnée une par une pour prédire son état final.
+\subsection{Modèle de Markov cachés et prédiction de séquence}
 
-Le modèle de mélange gaussien, appelé Gaussien Mixture Model (GMM) en anglais, est très souvent associé aux HMM. En effet, il permet d'associer un ensemble de densités de probabilités aux différents états, selon une loi gaussienne. Les paramètres de ces dernières sont apprises lors de la phase d'apprentissage par la maximisation de la vraisemblance. Le nombre de gaussiennes est un hyper-paramètre fixé par l'humain.
+Le modèle de Markov caché, appelé hidden Markov model (HMM) en anglais~\cite{Rabiner1986}, est un modèle statistique à base d'automates. Ces automates se composent d'états qui sont reliés par des transitions, comme montré sur la figure~\ref{fig:hmm}.
 
-Les modèles de Markov cachés sont massivement utilisés notamment en reconnaissance d'écriture manuscrite~\cite{Hu1996}, en intelligence artificielle~\cite{Gales2008} ou encore en traitement automatique du langage naturel~\cite{Campbell2006}. Couplée aux GMM, ils ont longtemps été les systèmes à l'état de l'art pour la reconnaissance de la parole.
-\textcolor{red}{besoin de plus d'explication? Figure, équation ou exemple concret ?}
+\input{./Chapitre2/figures/hmm}
+
+Chaque transition va vers l'avant et correspond à la probabilité de changer de l'état courant pour le suivant. Comme le changement d'état n'est pas obligatoire, une transition circulaire est mise en place pour boucler sur l'état courant.
+Utilisé en classification principalement, en apprentissage supervisé ou non, il va considérer chaque caractéristique d'une donnée de manière séquentielle pour prédire son état final.
+
+Les modèles de Markov cachés sont massivement utilisés notamment en reconnaissance d'écriture manuscrite~\cite{Hu1996}, en intelligence artificielle~\cite{Gales2008}, en traitement automatique du langage naturel~\cite{Campbell2006} ou en segmentation et regroupement de locuteurs~\cite{Ajmera2002}.
+
+\subsection{Modèle de mélange gaussien}
+Le modèle de mélange gaussien, appelé Gaussien Mixture Model (GMM) en anglais, est très souvent associé aux HMM. En effet, il permet d'associer un ensemble de densités de probabilités aux différents états, selon une loi gaussienne. Les paramètres de ces dernières sont apprises lors de la phase d'apprentissage par la maximisation de la vraisemblance. Le nombre de gaussiennes est un hyper-paramètre fixé par l'humain. Sur la figure~\ref{fig:gmm}, on peut voir un modèle de trois gaussiennes.
+
+\input{./Chapitre2/figures/gmm}
+
+Les GMM sont notamment utilisé dans des tâches de NLP tel que le résumé automatique de texte~\cite{Fattah2009} ou encore pour la vérification de locuteur~\cite{Baker2005}. Couplée aux HMM, ils ont longtemps été les systèmes à l'état de l'art majoritaires pour la reconnaissance de la parole, jusque dans les années 2010~\cite{Hinton2012}. Aujourd'hui, les réseaux de neurone sont de plus en plus utilisés pour améliorer notamment la reconnaissance de la parole.
 
 \subsection{Réseau de neurones}
 Les réseaux de neurones ont été conçus en s'inspirant du fonctionnement du cerveau humain. Ils sont donc composés d'une succession de neurones qui sont interconnectés entre eux pouvant ainsi propager des signaux.
 Afin de mieux comprendre leur fonctionnement, il est intéressant de les mettre en relation avec la biologie du système nerveux de l'homme.
 
 \input{./Chapitre2/figures/neuroneBio}
-Au début du XXe siècle, les avancées de la biologie ont permis de mettre en lumière les méthodes de fonctionnement de notre système nerveux~\cite{Cajal1906}. On définit alors les neurones en tant que corps cellulaire muni d’un axone et de dendrites. Cette cellule, décrite dans la figure~\ref{fig:neuroneBio} est traversée par des influx nerveux de type électrique, qui entrent par les dendrites et ressort par les synapses de son axone. Chaque neurone peut être relié à un ou plusieurs neurones, que ce soit en entrée ou en sortie.
+Au début du XXe siècle, les avancées de la biologie ont permis de mettre en lumière les méthodes de fonctionnement de notre système nerveux~\cite{Cajal1906}. On définit alors les neurones en tant que corps cellulaire muni d’un axone et de dendrites. Cette cellule, illustrée dans la figure~\ref{fig:neuroneBio} est traversée par des influx nerveux de type électrique, qui entrent par les dendrites et ressort par les synapses de son axone. Chaque neurone peut être relié à un ou plusieurs neurones, que ce soit en entrée ou en sortie.
 C'est en 1943 que Warren Sturgis McCulloch et Walter Pitts proposent une représentation mathématique des neurones~\cite{McCulloch1943}, que l'on appelle neurone logique dans la suite de ce document. Ils définissent plusieurs principes :
 \begin{itemize}
   \item un neurone biologique peut être représenté par un neurone logique,
@@ -113,114 +172,139 @@ C'est à partir de ces règles que les réseaux de neurones profonds, appelé de
 \section{Réseau de neurones profonds}
 Les réseaux de neurones profonds sont de nos jours de plus en plus utilisés. Pourtant, ils ne sont pas récents : le premier algorithme d'apprentissage utilisant un réseau de neurone a plus de 50 ans. Il s'agit du perceptron de Frank Rosenblatt~\cite{Rosenblatt1957}.
 
-\subsection{Du perception au multicouche}
+\subsection{Du perceptron au multicouche}
 \input{./Chapitre2/figures/perceptron}
-Le perceptron, schématisé dans la figure~\ref{fig:perceptron}, est un modèle qui permet de discriminer les données en deux classes. Il s'agit donc d'un modèle qui permet de faire de la classification et de la régression de manière supervisée. Ce modèle binaire utilise un neurone pour l'apprentissage et la prédiction de la classe de chaque document. Un document est défini par un nombre $x$ de caractéristiques, chacune d'entre elles étant considérées comme une entrée du perceptron.
+Le perceptron, schématisé dans la figure~\ref{fig:perceptron}, est un modèle qui permet de discriminer les données en deux classes. Il s'agit donc d'un modèle qui permet de faire de la classification et de la régression de manière supervisée. Ce modèle binaire utilise un neurone pour l'apprentissage et la prédiction de la classe de chaque document. Un document est défini par un nombre $n$ de caractéristiques, chacune d'entre elles étant considérées comme une entrée du perceptron.
 
-Lors de l'apprentissage, des poids, initialisés de façon aléatoire, sont mis à jour pour chacune des entrées. Cette mise à jour est effectuée en fonction du taux d'apprentissage, appelé learning rate en anglais, afin de retrouver les étiquettes déjà connues des données d'apprentissage. En plus du poids, le biais est également défini lors de l'apprentissage. Il correspond à un unique poids qui sera utilisé pour la prédiction des étiquettes des données. Les entrées sont ainsi agrégées en les pondérant selon leur poids. La fonction d'agrégation est explicité par l'équation~\ref{eq:aggregation}, où $i$ correspond à l'entrée i, $w_i$ correspond au poids associé à l'entrée i et $\theta$ correspond au biais.
+Lors de l'apprentissage, des poids $w_i$, initialisés de façon aléatoire, sont mis à jour pour chacune des entrées. Cette mise à jour est effectuée en fonction du taux d'apprentissage, appelé learning rate en anglais, afin de retrouver les étiquettes déjà connues des données d'apprentissage. En plus du poids, le biais est également défini lors de l'apprentissage. Il correspond à un unique poids qui sera utilisé pour la prédiction des étiquettes des données. Les entrées sont ainsi agrégées en les pondérant selon leur poids. La fonction d'agrégation est explicité par l'équation~\ref{eq:aggregation}, où $i$ correspond à l'entrée i, $w_i$ correspond au poids associé à l'entrée i et $\theta$ correspond au biais.
 \begin{equation}
   z = \sum_{i=1}^{n}(w_i*i) - \theta
   \label{eq:aggregation}
 \end{equation}
 
-Une fonction d'activation est ensuite appliquée : selon la valeur de $z$, la fonction donne un résultat de 0 si elle n'est pas activée ou de 1 si elle est activée. Dans le cas du perceptron de Rosenblatt, soit le tout premier perceptron, la fonction d'activation est définie par une fonction non linéaire qui prend une valeur de 0 si $z$ est inférieur ou égal à 0 et une valeur de 1 s'il est strictement supérieur à 0.
+Une fonction d'activation est ensuite appliquée. Dans le cas du perceptron de Rosenblatt, soit le tout premier perceptron, la fonction d'activation est définie par une fonction échelon qui prend une valeur de 0 si $z$ est inférieur ou égal à 0 et une valeur de 1 s'il est strictement supérieur à 0.
 \input{./Chapitre2/figures/activation}
 
-Il existe d'autres fonctions d'activation qui peuvent être utilisées. Les deux autres fonctions les plus usitées sont les fonctions sigmoide et tanh qui sont décrites dans la figure~\ref{fig:activation}. Le choix de ces différentes fonctions influence le résultat de la classification ou de la régression.
+Il existe d'autres fonctions d'activation qui peuvent être utilisées. Les deux autres fonctions les plus usitées sont les fonctions sigmoïde et tangente hyperbolique qui sont décrites dans la figure~\ref{fig:activation}. La fonction sigmoïde est définie par l'équation~\ref{eq:sigmoide} et la fonction tangente hyperbolique, abrégé tanh, est définie par l'équation~\ref{eq:tangente}. Le choix de ces différentes fonctions influence le résultat de la classification ou de la régression.
+
+\begin{equation}
+  f(x) = \frac{1}{1+ e^{-x}}
+  \label{eq:sigmoide}
+\end{equation}
+
+\begin{equation}
+  tanh(x) = \frac{1-e^{-2z}}{1+e^{-2z}}
+  \label{eq:tangente}
+\end{equation}
 
 Le perceptron est une architecture très simple qui est de moins en moins utilisée. En effet, elle permet de résoudre uniquement des problèmes binaires linéairement séparables. Le perceptron multicouche est notamment capable de palier à ces inconvénients.
 
 \input{./Chapitre2/figures/perceptronMLP}
-Ce dernier, appelé multilayer perceptron (MLP) en anglais, assemble plusieurs perceptrons entre eux comme illustré dans la figure~\ref{fig:perceptronMLP}. Un ou plusieurs neurones sont donc assemblées les uns à la suite des autres. Ils peuvent également former des couches (layers) lorsqu'il y a plus d'un neurone qui traite les entrées. On a donc forcément une couche de neurones en entrée, donc qui reçoit les caractéristiques de chaque donnée et une couche de neurones en sortie qui prend la décision finale. Entre les deux, on peut retrouver des couches intermédiaires dites cachées, qui vont prendre en entrées les sorties de la couche précédente (soit la couche d'entrée, soit une autre couche cachée) et en sortie la couche suivante (soit une autre couche cachée soit la couche de sortie).
+Ce dernier, appelé multilayer perceptron (MLP) en anglais, assemble plusieurs perceptrons entre eux comme illustré dans la figure~\ref{fig:perceptronMLP}. Un ou plusieurs neurones sont assemblés les uns à la suite des autres. On a donc forcément une couche de neurones (ou un neurone seul) en entrée, qui reçoit les caractéristiques de chaque donnée et une couche de neurones (ou un neurone seul) en sortie qui prend la décision finale. Entre les deux, on trouve éventuellement des couches intermédiaires dites cachées, qui vont prendre en entrées les sorties de la couche précédente (soit la couche d'entrée, soit une autre couche cachée) et en sortie la couche suivante (soit une autre couche cachée soit la couche de sortie).
 
-Les informations vont donc être propagées de gauche à droite, c'est-à-dire de la couche d'entrée à la couche de sortie. On appelle donc cette propagation, propagation directe avant, ou forward propagation en anglais. Le nombre de couche et le nombre de neurones par couche doit être défini par l'utilisateur afin d'être en adéquation avec la tache visée. Par exemple, le nombre de neurones de sortie permet de définir le nombre de classes dans une classification.
+Les informations vont donc être propagées de gauche à droite, c'est-à-dire de la couche d'entrée à la couche de sortie. On appelle cette propagation, propagation directe avant, ou forward propagation en anglais. Le nombre de couches et le nombre de neurones par couche doit être défini par l'utilisateur afin d'être en adéquation avec la tâche visée. Par exemple, le nombre de neurones de sortie permet de définir le nombre de classes dans une classification.
 
-Le perceptron multicouche correspond à l'une des premières architectures dite profonde. En effet, elle est constituée d'au moins deux couches. Les chercheurs admettent que le nombre de couche est croissant en fonction de la difficulté de la tache à accomplir~\cite{Goodfellow2016}. Mais plus le système est complexe (plus il a de couches et de neurones par couche), plus la phase d'apprentissage sera compliquée car elle demandera beaucoup de données et de puissance de calcul.
+Le perceptron multicouche correspond à l'une des premières architectures dites profondes. En effet, il est constitué d'au moins deux couches. Les chercheurs admettent que le nombre de couches est croissant en fonction de la difficulté de la tâche à accomplir~\cite{Goodfellow2016}. Mais plus le système est complexe (plus il a de couches et de neurones par couche), plus la phase d'apprentissage sera compliquée car elle demandera beaucoup de données et de puissance de calcul.
 En partant du principe de couches successives, de nombreuses architectures particulières ont vu le jour. Les architectures utilisées dans le Speech Emotion Recognition sont décrites dans le prochain chapitre. Mais avant d'explorer les architectures, nous allons nous intéresser aux méthodes d'apprentissages.
 
 \subsection{Algorithme d'apprentissage}
-L'apprentissage des réseaux de neurones correspond à apprendre différents paramètres, dont notamment des poids et des biais. Ces paramètres permettent de prédire une référence, que ce soit une classe (classification) ou une valeur numérique (régression). Cette prédiction est obtenue à partir d'un ensemble de caractéristiques, appelés features en anglais, d'une données. Ces paramètres sont ajustés au fur et à mesure de la visualisation des données d'apprentissage, afin de trouver des paramètres optimaux qui permettent de maximiser les bonnes prédictions. Il est donc essentiel de mettre en place cet apprentissage sur des données cohérentes avec la tache visée.
+L'apprentissage des réseaux de neurones correspond à apprendre différents paramètres, dont notamment des poids et des biais. Il est important de dissocier les paramètres des hyper-paramètres. Ces derniers sont définis au préalable de l'apprentissage, par l'évaluateur. Par exemple pour un réseau de neurone, on retrouve comme hyper-paramètres le nombre de couches, le nombre de neurones par couches, le taux d'apprentissage. Il est également essentiel de définir la présentation des données, quelle soit à l'unité, soit une par une ou en lot (batch). La présentation par lot permet généralement d'avoir des systèmes ayant un pouvoir de généralisation plus grand, puisqu'on laisse le système voir plusieurs données avant d'actualiser ces paramètres. De même le nombre d'époque, soit le nombre de fois que le système voit les données, est un hyper-paramètre essentiel dans la configuration d'un système d'apprentissage.
 
-Afin de réaliser cette phase d'apprentissage, il est nécessaire de définir la fonction de coût et le gradient. La fonction de coût correspond à une fonction que l'apprentissage va chercher à minimiser ou à maximiser et qui correspond à une distance entre les valeurs prédites par le système et les valeurs attendues (les références). Le gradient correspond au vecteur regroupant toutes les dérivées partielles de la fonction de coût.
+En apprenant les paramètres, le système peut alors s'en servir pour prédire une référence, que ce soit une classe (classification) ou une valeur numérique (régression). Cette prédiction est obtenue à partir d'un ensemble de caractéristiques, appelés features en anglais, d'une donnée. Ces paramètres sont mis à jour au fur et à mesure de la présentation des données d'apprentissage au réseau, afin de trouver des paramètres optimaux qui permettent de maximiser les bonnes prédictions. Il est donc essentiel de mettre en place cet apprentissage sur des données cohérentes avec la tâche visée.
+
+Afin de réaliser cette phase d'apprentissage, il est nécessaire de définir une fonction de coût et le gradient. La fonction de coût correspond à une fonction que l'apprentissage va chercher à minimiser et qui correspond à une distance entre les valeurs prédites par le système et les valeurs attendues (les références). Le gradient correspond au vecteur regroupant toutes les dérivées partielles de la fonction de coût.
 
 \subsubsection{Fonction de coût}
-Il existe de nombreuses fonctions de coût qui permettent de calculer l'écart entre les valeurs prédites et les valeurs de références. Grâce à des méthodes mettant en jeu le gradient, le rôle de l'apprentissage automatique sera de minimiser l'écart entre ces deux valeurs, afin de se rapprocher le plus possible des références et donc d'avoir un système performant.
-Par exemple l'erreur quadratique moyenne, appelée mean square error (MSE) en anglais, est une fonction de coût très utilisée qui a pour avantage d'être simple et rapide à calculer. Elle consiste à calculer la différence entre l'observation, notée $O$, et la prédiction, notée $p$, d'une donnée selon l'équation~\ref{eq:mse} :
+Il existe de nombreuses fonctions de coût qui permettent de calculer l'écart entre les valeurs prédites et les valeurs de références. %Grâce à des méthodes mettant en jeu le gradient, le rôle de l'apprentissage automatique sera de minimiser l'écart entre ces deux valeurs, afin de se rapprocher le plus possible des références et donc d'avoir un système performant.
+Par exemple l'erreur quadratique moyenne, appelée mean square error (MSE) en anglais, est une fonction de coût très utilisée qui a pour avantage d'être simple et rapide à calculer. Elle consiste à calculer la différence quadratique entre l'observation, notée $O$, et la prédiction, notée $p$, d'une donnée selon l'équation~\ref{eq:mse} :
 \begin{equation}
-  MSE = 1/n*\sum_{i=1}^{n}(O-p)^2
+  MSE = \frac{1}{n}\sum_{i=1}^{n}(O-p)^2
   \label{eq:mse}
 \end{equation}
-$n$ correspond aux nombres d'observation. Parmi les fonctions de coût les plus utilisées, on peut notamment citer la Racine de l'erreur quadratique moyenne (RMSE), la Classification Temporelle Connexionniste (CTC)~\cite{Graves2006} ou encore la somme des carrés des résidus (SCR). C'est donc cette fonction de coût que l'on va dériver pour récupérer la valeur du gradient, que l'on utilise pour apprendre un système automatique.
+$n$ correspond aux nombres d'observation lors des différentes époques. Parmi les fonctions de coût les plus utilisées, on peut notamment citer l'entropie croisée~\cite{Stemmer2002}, la Classification Temporelle Connexionniste (CTC)~\cite{Graves2006} ou encore la somme des carrés des résidus (SCR). C'est donc cette fonction de coût que l'on va dériver pour récupérer la valeur du gradient, que l'on utilise pour apprendre un système automatique.
+%\textcolor{red}{a part pour etre exhaustif, expliciter les fonctions de cout ne me semble pas pertinent, puisqu'on ne les utilise pas par la suite.}
 
 \subsubsection{Rétropropagation du gradient}
+Lors de la phase d'apprentissage, le système va chercher à minimiser les erreurs de prédiction. Pour ce faire, nous allons chercher la meilleure configuration de poids possible. L'algorithme de rétropropagation du gradient (backpropagation en anglais) va nous permettre de calculer l'erreur $E$ pour chacun des neurones en partant de la dernière couche et en remontant jusqu'à la première. Cette méthode, introduite par Rumelhart et al.~\cite{Rumelhart1986}, se divise en deux parties. Tout d'abord on calcule l'erreur globale $\delta E$ en comparant les prédictions et les références, en utilisant la fonction de coût. Les prédictions sont obtenues en soumettant le système à une donnée et elles sont directement impactées par la matrice de poids $W$ des neurones de chaque couche. Puis on va propager la dérivée partielle de l'erreur $\frac{\delta E}{\delta W}$ de couche en couche en fonction des poids du réseau $W$, de la dernière jusqu'à la première.
 
-Lors de la phase d'apprentissage, le système va chercher à minimiser les erreurs de prédiction. Pour ce faire, nous allons chercher la meilleure configuration de poids possible. L'algorithme de rétropropagation du gradient (backpropagation en anglais) va nous permettre de calculer l'erreur pour chacun des neurones en partant de la dernière couche et en remontant jusqu'à la première. Cette méthode, introduite par Rumelhart et al.~\cite{Rumelhart1986}, se divise en deux parties. Tout d'abord on calcule l'erreur globale en comparant les prédictions et les références, en utilisant la fonction de coût. Puis on va propager l'erreur de couche en couche, de la dernière jusqu'à la première.
+Ainsi, la propagation des erreurs va permettre de modifier les poids associés à chaque neurone, en prenant en compte leur part dans l'erreur calculée. En fonction de la part de "responsabilité" d'un neurone dans l'erreur, son poids associé $W'$ va être plus ou moins modifié pour que le neurone devienne plus activateur ou plus inhibiteur selon l'équation~\ref{eq:poids}.
 
-Ainsi, la propagation des erreurs va permettre de modifier les poids associés à chaque neurone, en prenant en compte leur part dans l'erreur calculée. En fonction de la part de "responsabilité" d'un neurone dans l'erreur, son poids associé va être plus ou plus grandement modifié pour que le neurone devienne plus activateur ou plus inhibiteur.
-\textcolor{red}{besoin d'expliciter l'algo ?}
+\begin{equation}
+  W' = W - \lambda \frac{\delta E}{\delta W}
+  \label{eq:poids}
+\end{equation}
+
+$\lambda$ correspond au taux d'apprentissage, ou learning rate, qui permet de contrôler l'intensité de la variation entre deux mises à jour. Un taux faible équivaut à des variations faibles rendant l’apprentissage lent mais qui peut garantir une certaine stabilité. L'impact de ce taux sera détaillé dans la prochaine section.
 
 \subsubsection{Descente de gradient}
-La descente du gradient est utilisée pour apprendre à minimiser la fonction de coût $C$. Comme nous l'avons défini plus tôt, le gradient correspond à un vecteur regroupant les dérivées partielles de la fonction de coût. Si on se place dans un système à une seule variable, le gradient correspond au coefficient directeur de la droite de régression linéaire. Comme il y a autant de dérivées partielles que de variables, le calcul de la valeur minimisant la fonction de coût demande trop de combinaison à tester. On utilise donc l'algorithme de descente de gradient qui revient à effectuer une approximation du minimum (ou du maximum dans certains cas) de la fonction de coût.
+La descente du gradient est utilisée pour apprendre à minimiser la fonction de coût $C$. Comme nous l'avons défini plus tôt, le gradient correspond à un vecteur regroupant les dérivées partielles de la fonction de coût. Si on se place dans un système à un seul paramètre, le gradient correspond au coefficient directeur de la droite de régression linéaire. %Comme il y a autant de dérivées partielles que de variables, le calcul de la valeur minimisant la fonction de coût demande trop de combinaison à calculer. On utilise donc un algorithme de descente de gradient qui revient à effectuer une approximation du minimum de la fonction de coût.
 
-La méthode de descente du gradient consiste à mettre en place une variation des paramètres de la fonction de coût par des itérations successives. Ce pas est défini par le taux d'apprentissage (learning rate en anglais) noté $\alpha$. Ce taux permet de faire varier les paramètres de la fonction de coût lors des itérations. Pour chaque paramètres $x_1$, $x_2$, $x_n$ de la fonction de coût, la descente de gradient se définit par l'équation~\ref{eq:descente} :
+La méthode de descente du gradient consiste à mettre en place une variation des paramètres de la fonction de coût par des itérations successives. Ce pas est défini par le taux d'apprentissage noté $\lambda$. Ce taux permet de faire varier les paramètres de la fonction de coût lors des itérations. Pour chaque paramètres $\theta_1$, $\theta_2$, $\theta_n$ de la fonction de coût, la descente de gradient se définit par l'équation~\ref{eq:descente} :
 \begin{equation}
-  x_n+1 = x_n - \alpha*(\dfrac{dC(x)}{dx})
+  x_{n+1} = x_n - \lambda (\dfrac{\delta C(x)}{\delta x_i})
   \label{eq:descente}
 \end{equation}
 
-Cet algorithme n'est pas exempt d'inconvénients. En effet, selon la fonction de coût considérée, il est possible qu'il existe plusieurs minimums mais qui ne correspondent pas au minimal global. On appelle ces zones des minima locaux : converger dans une de ces zones signifie une suboptimalité du réseau de neurones. En fonction du taux d'apprentissage utilisé, il est donc possible que l'algorithme de descente de gradient converge vers un minimum local à la place du minimum global. Plus le taux d'apprentissage est petit, plus il est possible de tomber dans cette configuration.
+\input{./Chapitre2/figures/tauxApprentissage}
 
-Cette descente de gradient connaît deux principales variantes : la descente de gradient stochastique et la descente de gradient par lot (batch en anglais). La descente de gradient stochastique va mettre a jour les paramètres après chacun des échantillons vus lors de l'apprentissage. La descente de gradient par lot va mettre à jour les paramètres après avoir vu tous les échantillons. La méthode de mini-batch correspond quant à elle à une méthode inspirée des deux variantes : la mise à jour des paramètres se fait après avoir vu un ensemble d'échantillons. Cette mise à jour est déterminée par l'équation~\ref{eq:SGD} où $W$ correspond aux poids, $\alpha$ au taux d'apprentissage et $C$ à la fonction de coût.
-\begin{equation}
-  w_{t+1} = w_{t} - \alpha\hat{\nabla}_{w}{C(w_{t})}
-  \label{eq:SGD}
-\end{equation}
-Dans les systèmes de neurone actuels, cette troisième solution hybride est la plus utilisée puisqu'elle permet de diminuer le temps d'apprentissage tout en garantissant de bonnes performances.
+Cet algorithme n'est pas exempt d'inconvénients. En effet, selon la fonction de coût considérée, il est possible qu'il existe plusieurs minimums mais qui ne correspondent pas au minimal global. On appelle ces zones des minima locaux : converger dans une de ces zones signifie une suboptimalité du réseau de neurones. En fonction du taux d'apprentissage utilisé, il est donc possible que l'algorithme de descente de gradient converge vers un minimum local à la place du minimum global.
+
+Comme illustré dans la figure~\ref{fig:tauxApprentissage}, plus le taux d'apprentissage est petit, le temps d'apprentissage est long. Cependant si le taux d'apprentissage est trop grand, il est tout à fait possible de ne jamais converger vers un minima. L'initialisation de ce taux est donc très important.
+
+Cette descente de gradient connaît deux principales variantes : la descente de gradient stochastique et la descente de gradient par lot (batch en anglais). La descente de gradient stochastique va mettre a jour les paramètres après chacun des échantillons des données d'apprentissage vus lors de l'apprentissage. La descente de gradient par lot va mettre à jour les paramètres après avoir vu tous les échantillons. La mise à jour se fait en considérant la moyenne des gradients. La méthode de mini-batch correspond quant à elle à une méthode inspirée des deux variantes : la mise à jour des paramètres se fait après avoir vu un ensemble d'échantillons.
+% Cette mise à jour est définie par l'équation~\ref{eq:SGD} où $w$ correspond aux poids, $\lambda$ au taux d'apprentissage et $C$ à la fonction de coût.
+% \begin{equation}
+%   w_{t+1} = w_{t} - \lambda\hat{\nabla}_{w}{C(w_{t})}
+%   \label{eq:SGD}
+% \end{equation}
+Dans les systèmes neuronaux actuels, cette troisième solution hybride est la plus utilisée puisqu'elle permet de diminuer le temps d'apprentissage tout en garantissant de bonnes performances.
 
 
 \subsubsection{Algorithme d'optimisation du gradient}
-Afin de rendre nos réseaux plus performants mais également à répondre à des problématiques de coût matériel et temporel, on utilise des algorithmes d'optimisation du gradient. Ces algorithmes ont été développés dans un premier temps pour répondre à la problématique des minimaux locaux mais ils sont aujourd'hui notamment utilisés pour diminuer le temps d'apprentissage sur des configurations matérielles limitées.
+Afin de rendre nos réseaux plus performants mais également répondre à des problématiques de coût matériel et temporel, on utilise des algorithmes d'optimisation du gradient. Ces algorithmes ont été développés dans un premier temps pour répondre à la problématique des minimaux locaux, mais ils sont aujourd'hui notamment utilisés pour diminuer le temps d'apprentissage sur des configurations matérielles limitées.
 Les algorithmes d'optimisation adaptatifs que sont AdaGrad et Adam sont les plus utilisés de nos jours. Ces derniers ont pour objectifs de changer dynamiquement les paramètres du système lors de l'apprentissage.
 
 \paragraph{AdaGrad}
 AdaGrad, notation pour Adaptive gradient, a été introduit par Duchi et al.~\cite{Duchi2011}. Cette méthode d'optimisation de gradient permet d'adapter dynamiquement le taux d'apprentissage. La variation du taux d'apprentissage est proportionnelle à l'historique des mises à jour des paramètres du réseau de neurones. Ainsi, si un paramètre est peu fréquent, la mise à jour sera plus important et inversement s'il est moins fréquent. Ce nouveau taux d'apprentissage est défini à chaque époque par l'équation~\ref{eq:adagrad}.
 \begin{equation}
-  \theta_{t+1, i} = \theta_{t, i} - \frac{\alpha}{\sqrt{G_{t, ii} + \epsilon}}g_{t, i}
+  \theta_{t+1, i} = \theta_{t, i} - \frac{\lambda}{\sqrt{G_{t, ii} + \epsilon}}g_{t, i}
   \label{eq:adagrad}
 \end{equation}
-$\theta$ correspond au paramètre en cours de mise à jour, $\alpha$ au taux d'apprentissage. $G$ représente l'historique accumulé lors des précédentes époques. On ajoute un coefficient $\epsilon$ pour éviter la division par zéro, dans le cas où l'historique du gradient est égal à zéro. AdaGrad permet donc de faire évoluer le taux d'apprentissage automatiquement, rendant l'apprentissage plus efficace et robuste.
+$\theta$ correspond au paramètre en cours de mise à jour, $\lambda$ au taux d'apprentissage. $G$ représente l'historique accumulé lors des précédentes époques. On ajoute un coefficient $\epsilon$ pour éviter la division par zéro, dans le cas où l'historique du gradient est égal à zéro. AdaGrad permet donc de faire évoluer le taux d'apprentissage automatiquement, rendant l'apprentissage plus efficace et robuste.
 
 Cependant l'algorithme tend à abaisser le taux d'apprentissage de façon drastique en fin d'apprentissage, ce qui stoppe l'apprentissage du système. Pour remédier à ce problème, une autre méthode est proposée.
 
 \paragraph{Rprop et RMSprop}
-Rprop, introduit par Riedmiller et al.~\cite{Riedmiller1993} en 1993, est un algorithme d'optimisation de gradient par lot entier. Son objectif est de palier au problème des trop grandes variations du gradient. Quand des gradients sont très grands et que d'autres gradients sont très petits, il est alors compliqué de déterminer un taux d'apprentissage pertinent. De ce fait, cette méthode propose d'utiliser uniquement le signe des gradients. Ainsi on garantit une évolution de même ordre pour tous les poids. Cette évolution tend à éviter les plateaux et les minimums locaux, pour optimiser la convergence du système neuronal. Cet algorithme peut être divisé en trois étapes :
+Rprop, abréviation de resilient backpropagation, introduit par Riedmiller et al.~\cite{Riedmiller1993} en 1993, est un algorithme d'optimisation de gradient par lot entier. Son objectif est de palier au problème des trop grandes variations du gradient. Quand les gradients sont très grands et que d'autres gradients sont très petits, il est alors compliqué de déterminer un taux d'apprentissage pertinent. Cela peut être du à une disparité dans les données ou une tâche compliquée par exemple. Cette méthode propose d'utiliser uniquement le signe des gradients. Ainsi on garantit une évolution de même ordre pour toutes les mises à jour des poids. Cette évolution tend à éviter les plateaux et les minimums locaux, pour optimiser la convergence du système neuronal. Cet algorithme peut être divisé en trois étapes :
 \begin{itemize}
   \item On considère le signe des deux derniers gradients et on les compare.
-  \item S'ils sont du même signe et donc qu'ils vont dans la même direction, le prochain pas est multiplié par $1.2$ pour aller plus vite dans la bonne direction. S'ils sont de signes contraires, alors notre ancien pas était trop important, on le diminue donc en multipliant par $0.5$.
+  \item S'ils sont du même signe et donc qu'ils vont dans la même direction, le prochain pas d'apprentissage est multiplié par $1.2$ pour aller plus vite dans la bonne direction. S'ils sont de signes contraires, alors notre ancien pas était trop important, on le diminue donc en multipliant par $0.5$~\cite{Riedmiller1993}.
   \item On s'arrête quand on atteint une taille de pas défini par l'utilisateur en amont, en fonction des données.
 \end{itemize}
 
-Le problème de cet algorithme, c'est qu'il n'est pas performant pour une considération en mini-batch. RMSprop (Root Mean Square propagation), proposé par Tieleman et Hinton~\cite{Tieleman2012}, a pour objectif de palier à ce problème. Pour cela, on va conserver la moyenne glissante des carrés des gradients pour tous les poids. Ainsi on adapte le taux d'apprentissage avec la moyenne glissante et non avec la moyenne de chaque mini-batch. La moyenne glissante est calculée selon l'équation~\ref{eq:movingAVG} où $E[g^{2}]$ correspond à la moyenne glissante des gradients et $\gamma$ à une constante souvent fixée à 0.9.
+Le problème de cet algorithme, c'est qu'il n'est pas performant pour une considération en mini-batch. RMSprop (Root Mean Square propagation), proposé par Tieleman et Hinton~\cite{Tieleman2012}, a pour objectif de palier à ce problème. Pour cela, on va conserver la moyenne glissante des carrés des gradients pour tous les poids. Ainsi on adapte le taux d'apprentissage avec la moyenne glissante et non avec la moyenne de chaque mini-batch. La moyenne glissante est calculée selon l'équation~\ref{eq:movingAVG} à un instant $t$ où $E[g^{2}]$ correspond à la moyenne glissante des gradients $g$ et $\gamma$ à une constante du momentum souvent fixée à 0.9~\cite{Tieleman2012}.
+
 \begin{equation}
   E\left[g^{2}\right]_{t} = \gamma E\left[g^{2}\right]_{t-1} + \left(1 - \gamma\right) g^{2}_{t}
   \label{eq:movingAVG}
 \end{equation}
-Une fois la moyenne glissante calculée, on peut définir le nouveau taux d'apprentissage selon l'équation~\ref{eq:RMSprop}, où on retrouve la moyenne glissante $E[g^{2}]$, le taux d'apprentissage $\alpha$ et $\epsilon$ une constante faible pour éviter la division par zéro.
+
+Une fois la moyenne glissante calculée, on peut définir le nouveau taux d'apprentissage selon l'équation~\ref{eq:RMSprop}, où on retrouve la moyenne glissante $E[g^{2}]$, le taux d'apprentissage $\lambda$ et $\epsilon$ une constante faible pour éviter la division par zéro.
 \begin{equation}
-  \theta_{t+1} = \theta_{t} - \frac{\alpha}{\sqrt{E\left[g^{2}\right]_{t} + \epsilon}}g_{t}
+  \theta_{t+1} = \theta_{t} - \frac{\lambda}{\sqrt{E\left[g^{2}\right]_{t} + \epsilon}}g_{t}
   \label{eq:RMSprop}
 \end{equation}
 
-Cet algorithme permet de remédier au problème d'AdaGrad. Mais un autre algorithme plus récent est aujourd'hui beaucoup plus utilisé.
+Cet algorithme permet de remédier au problème d'AdaGrad en accumulant les carrées des gradients et qu'il n'y a pas de normalisation de ce dernier, le taux d'apprentissage subit des variations drastiques en fin d'apprentissage. Mais un autre algorithme plus récent est aujourd'hui beaucoup plus utilisé.
 
 \paragraph{Adam}
-L'algorithme Adam (Adaptative Moment Estimation), introduite par Kingma et al.~\cite{Kingma2015}, est l'une des méthodes les plus utilisées actuellement. Elle combine les avantages des précédentes méthodes : elle corrige l'inconvénient de l'accumulation des gradients au carré et elle est appropriée pour les gradients bruités ou variant fortement. Le calcul des poids est réalisé selon l'équation~\ref{eq:Adam}.
+L'algorithme Adam (Adaptative Moment Estimation), introduit par Kingma et al.~\cite{Kingma2015}, est l'une des méthodes les plus utilisées actuellement. Il combine les avantages des précédentes méthodes : elle corrige l'inconvénient de l'accumulation des gradients quadratiques (AdaGrad) et elle est appropriée pour les gradients bruités ou variant fortement (RMSprop). Le calcul des poids du réseau à l'instant $t$ est réalisé selon l'équation~\ref{eq:Adam}.
 \begin{equation}
-  w_{t} = w_{t-1} - \alpha\frac{\hat{m}_{t}}{\sqrt{\hat{v}_{t}} + \epsilon}
+  w_{t} = w_{t-1} - \lambda\frac{\hat{m}_{t}}{\sqrt{\hat{v}_{t}} + \epsilon}
   \label{eq:Adam}
 \end{equation}
 
-$w$ correspond aux poids, $\alpha$ au taux d'apprentissage, $m$ l'accumulation des gradients dont sa correction est défini par l'équation~\ref{eq:m} et $v$ l'accumulation des carrés des gradients dont sa correction est défini par l'équation~\ref{eq:v}.
+$w$ est une matrice qui correspond aux poids à l'itération t, $\lambda$ au taux d'apprentissage, $\hat{m}$ l'accumulation des gradients dont sa correction est défini par l'équation~\ref{eq:m} et $\hat{v}$ l'accumulation des carrés des gradients dont sa correction est défini par l'équation~\ref{eq:v}. On utilise la correction de $m$ et $v$, noté $\hat{m}$ et $\hat{v}$, pour palier au biais dénoté par les auteurs~\cite{Kingma2015}, lorsque les vecteurs sont proches de $0$.
 
 \begin{equation}
   \hat{m}_{t} = \frac{\beta_{1}m_{t-1} + (1-\beta_{1})g_{t}}{1-\beta^{t}_{1}}
@@ -232,96 +316,109 @@ $w$ correspond aux poids, $\alpha$ au taux d'apprentissage, $m$ l'accumulation d
   \label{eq:v}
 \end{equation}
 
-Les paramètres $\beta_{1}$ et $\beta_{2}$ correspondent à des taux de décroissance compris entre $0$ et $1$. Ils sont généralement fixés à respectivement $0.9$ et $0.999$. On utilise toujours un $\epsilon$ faible pour éviter une division par zéro. On utilise la correction de $m$ et $v$, noté $\hat{m}$ et $\hat{v}$, pour palier au biais dénoté par les auteurs, lorsque les vecteurs sont proches de $0$.
+Les paramètres $\beta_{1}$ et $\beta_{2}$ correspondent à des taux de décroissance compris entre $0$ et $1$. Ils sont généralement fixés à respectivement $0.9$ et $0.999$~\cite{Kingma2015}. On utilise toujours un $\epsilon$ faible pour éviter une division par zéro.
 
-Des variants de cet algorithme ont été publiés, dont AdaDelta~\cite{Zeiler2012} ou NAdam~\cite{Dozat2016} mais Adam reste l'algorithme majoritairement utilisé grâce à ces bonnes performances et la réduction significative apportée au temps d'apprentissage.
+Des variantes de cet algorithme ont été publiées, dont AdaDelta~\cite{Zeiler2012} ou NAdam~\cite{Dozat2016} mais Adam reste l'algorithme majoritairement utilisé grâce à ses bonnes performances et la réduction significative apportée au temps d'apprentissage.
 
-Les algorithmes d'optimisation du gradient ne sont pas les seuls leviers permettant une meilleure performance du système. En effet, tous ces algorithmes sont fortement impactés par l’initialisation des poids effectuée en début d'apprentissage.
+Les algorithmes d'optimisation du gradient ne sont pas les seuls leviers permettant une meilleure performance du système. En effet, tous ces algorithmes sont fortement influencés par l’initialisation des poids effectuée en début d'apprentissage.
 
 \subsection{L'initialisation et ses enjeux}
 Comme nous l'avons dit précédemment, l'initialisation des poids d'un modèle neuronal est très importante pour garantir de bonnes performances et une convergence rapide du système. Nous allons détailler dans cette section, quelques unes des techniques d'initialisation des poids utilisées de nos jour.
 
 
 \subsubsection{Initialisation aléatoire}
-La plus simple de ces initialisations est de d’utiliser des valeurs de poids tirées au hasard. Facile à mettre en place, elle ne favorise pas un apprentissage efficace. Cependant elle est toujours utilisée de nos jours pour sa rapidité d'exécution et sa performance toute relative. En fonction du tirage aléatoire mis en place, elle peut conduire à des performances satisfaisantes voir optimales des réseaux de neurones. Ce tirage aléatoire suit généralement des distributions définies par des lois statistiques tel que la loi normale ou la loi de poisson par exemple.
+La plus simple de ces initialisations est de d’utiliser des valeurs de poids tirées au hasard compris entre -1 et 1. Facile à mettre en place, elle ne favorise pas un apprentissage efficace. Cependant elle est toujours utilisée de nos jours pour sa rapidité d'exécution et sa performance toute relative. En fonction de la loi de probabilité utilisée, elle peut conduire à des performances satisfaisantes voir optimales des réseaux de neurones. Ce tirage aléatoire suit généralement des distributions définies par des lois statistiques telles que la loi normale ou la loi de poisson par exemple.
 
-La méthode de Xavier, introduite par Glorot et Bengio~\cite{Glorot2010}, garde le principe de l'initialisation aléatoire tout en la contraignant. En effet, elle considère des poids aléatoires mais dont la moyenne des activation est égale à $0$ et dont la variance doit être constante entre les couches neuronales.
+La méthode de Xavier, introduite par Glorot et Bengio~\cite{Glorot2010}, garde le principe de l'initialisation aléatoire tout en la contraignant. En effet, elle considère des poids aléatoires mais dont la moyenne est égale à $0$ et dont la variance doit être constante entre les couches neuronales.
 
-En pratique, il faut effectuer plusieurs apprentissages avec des initialisations différentes, pour trouver plusieurs minima et retenir le système le plus performant. Cette stratégie permet également de quantifier l'impact de l'initialisation sur le système considéré. Il est néanmoins très difficile voir impossible de s'assurer que le minimum trouvé correspond au minimum global. En effet, Bishop démontre dans son livre~\cite{Bishop2006} que pour un systèmes à $n$ neurones, le nombre de minima locaux est de $2^n*n!$.
+En pratique, il faut effectuer plusieurs apprentissages avec des initialisations différentes, pour trouver plusieurs minima et retenir le système le plus performant. Cette stratégie permet également de quantifier l'impact de l'initialisation sur le système considéré. Il est néanmoins très difficile voir impossible de s'assurer que le minimum trouvé correspond au minimum global. En effet, Bishop démontre dans son livre~\cite{Bishop2006} que pour un systèmes à $n$ neurones, le nombre de minima locaux est de $2^n n!$.
 
 Il existe d'autres méthodes qui ne s'appuie pas sur une initialisation aléatoire, mais sur un apprentissage préalable de poids pour le réseau considéré.
 
-\subsubsection{A partir de poids pré-appris}
-La méthode de transfert d'apprentissage (transfert learning en anglais) est une méthode de plus en plus utilisée~\cite{Pan2010,Weiss2016} qui propose que les poids des neurones soient appris en amont. Cet apprentissage se fait sur des données plus larges et ont pour but de mieux représenter les données utilisées, sur une tache proche de celle visée. Par exemple, pour effectuer de la reconnaissance d'entités nommées, on va dans un premier temps apprendre à reconnaître automatiquement la parole. Comme les entités nommées sont formées de mots, ces deux taches sont différentes mais proches. Ainsi, nous pouvons initialiser notre système avec des poids qui permettent de reconnaître des noms avant de reconnaître des entités nommées.
+\subsubsection{Pré-apprentissage}
+La méthode de transfert d'apprentissage (transfert learning en anglais) est une méthode de plus en plus utilisée~\cite{Pan2010,Weiss2016} qui propose que les poids des neurones soient appris en amont de l'apprentissage du système sur la tâche visée. Ce premier apprentissage se fait sur des données plus nombreuses et ont pour but de mieux représenter les données utilisées, sur une tâche proche de celle visée. Par exemple, pour effectuer de la reconnaissance d'entités nommées, on va dans un premier temps apprendre à reconnaître automatiquement la parole. Donc on va utiliser les poids appris pour faire de la reconnaissance automatique de la parole pour initialiser les poids d'un système de reconnaissance des entités nommées par exemple. Comme les entités nommées sont formées de mots, ces deux tâches sont différentes mais proches. Ainsi, nous pouvons initialiser notre système avec des poids qui permettent de reconnaître des mots avant de reconnaître des entités nommées.
 
-Comme nous avons effectué un apprentissage en amont, les poids des neurones ont pu se stabiliser une première fois, afin d'atteindre une première représentation intermédiaire. Les avantages de cette technique sont multiples. Dans un premier temps, elle permet d’accélérer la convergence d'un système. Comme nous avons déjà des poids stables et considérés comme assez proche de leur optimum, on se libère de toute une phase d'apprentissage pendant laquelle le système cherche une représentation correcte des données. Dans un second temps elle permet de palier au manque de données. Puisque les poids ont été initialisés sur d'autres données, proche de celle de la tache considérée, le pré-apprentissage peut être considéré comme une méthode d'augmentation de données.
+Comme nous avons effectué un apprentissage en amont, les poids des neurones ont pu se stabiliser une première fois, afin d'atteindre une première représentation intermédiaire. Les avantages de cette technique sont multiples. Dans un premier temps, elle permet d’accélérer la convergence d'un système. Comme nous avons déjà des poids stables et considérés comme assez proches de leur optimum, on se libère de toute une partie de la phase d'apprentissage pendant laquelle le système cherche une représentation correcte des données. Dans un second temps, l'utilisation de ces poids aide à palier au manque de données concernant la tâche visée. Puisque les poids ont été initialisés sur d'autres données, proche de celle de la tâche considérée, le pré-apprentissage peut être considéré comme une méthode d'augmentation de données.
 
-Elle n'a pas que des avantages. En effet, il faut posséder d'autres données proche de celle de notre tache. Il faut également que la tache visée par le pré-apprentissage soit cohérente avec la tache courante. En temps qu'observateur humain, on peut définir deux taches comme étant proches alors que le réseau de neurones ne les considéra pas en tant que tel.
+Elle n'a pas que des avantages. En effet, il faut posséder d'autres données proche de celle de notre tâche. Il faut également que la tâche visée par le pré-apprentissage soit cohérente avec la tâche courante. En temps qu'observateur humain, on peut définir deux tâches comme étant proches alors que le réseau de neurones ne les considéra pas en tant que tel, ce qu'on appelle du transfert d'apprentissage négatif. De même, l'utilisation de ces poids pré-appris peut aboutir à des situations de sur-apprentissage, dont nous parlerons dans une prochaine section.
 
 \subsubsection{Impact de l'initialisation}
-Afin de se rendre compte facilement de l'impact de l’initialisation sur des systèmes d'apprentissage, on peut utiliser un algorithme d'apprentissage simple : le k moyennes. Par définition, ce dernier est défini en fonction du nombre de classes k visées et de l'ordre de visualisation des données. Comme les k premières données sont considérées comme les premières données de chaque classe, il est assez intuitif de voir l'impact de cet ordre sur la classification finale des données. Un exemple est proposé sur la figure~\ref{fig:kmeans}. Deux classifications très différentes sont observées sur les mêmes données en fonction de l’initialisation du premier centroide.
+Afin de se rendre compte facilement de l'impact de l’initialisation sur des systèmes d'apprentissage, on peut utiliser un algorithme d'apprentissage simple : le k-moyennes. Par définition, ce dernier est défini en fonction du nombre de classes k visées et de l'ordre de visualisation des données. Comme les k premières données sont considérées comme les premières données de chaque classe, il est assez intuitif de voir l'impact de cet ordre sur la classification finale des données. Un exemple est proposé sur la figure~\ref{fig:kmeans}. Deux classifications très différentes sont observées sur les mêmes données en fonction de l’initialisation du premier centroide.
 \input{./Chapitre2/figures/kmeans}
 
 Les réseaux de neurones sont eux aussi impactés par l'initialisation. En plus de dégrader les performances de la classification, une mauvaise initialisation peut allonger le temps d'apprentissage voir même empêcher la convergence des systèmes. Il est donc important de considérer l’initialisation des systèmes comme un paramètre majeur de l'apprentissage automatique.
 
-L’initialisation n'est pas le seul facteur à considérer lors d'un apprentissage automatique.
+%L’initialisation n'est pas le seul facteur à considérer lors d'un apprentissage automatique.
 
 \subsection{La régularisation}
-L’initialisation a son importance dans la performance d'un réseau de neurones, comme nous l'avons vu précédemment. Mais une bonne initialisation n'est pas suffisante pour garantir un système performant. Un des problèmes courant de l'apprentissage automatique est le sur-apprentissage. Ce problème peut être réglé par des méthodes dites de régularisation. Le sur-apprentissage et la régularisation sont définis dans cette section.
+L’initialisation a son importance dans la performance d'un réseau de neurones, comme nous l'avons vu précédemment. Mais une bonne initialisation n'est pas suffisante pour garantir un système performant. Un des problèmes courants de l'apprentissage automatique est le sur-apprentissage. Ce problème peut être réglé par des méthodes dites de régularisation. Le sur-apprentissage et la régularisation sont définis dans cette section.
 
-\subsubsection{Le sur-apprentissage}
-Le sur-apprentissage, overfitting en anglais, est aussi appelé sur-ajustement. Il s'agit d'un phénomène naturel présent dans l'apprentissage lors duquel le système apprend à émettre les sorties exactes demandées pour les données d'apprentissage. Cela peut être rapproché de l'apprentissage par cœur chez les humains. En effet, ce phénomène intervient quand le nombre de paramètres d'un réseau est trop important, et quand le nombre de données d'apprentissage est trop faible. Alors la minimisation de l'erreur de prédiction, définie par la fonction de coût, conduira un système a parfaitement s'aligner aux données d’entraînement. On dit que ces systèmes sont très spécialisés et qu'ils ne sont pas capables de généraliser. En effet, lorsque nous lui présentons de nouvelles données, il ne pourra pas modéliser ces nouvelles informations et donnera des sorties proches de celles des données d’entraînement et non proches de celles des données réelles.
+\subsubsection{Le problème du sur-apprentissage}
+Le sur-apprentissage, overfitting en anglais, est aussi appelé sur-ajustement. Il s'agit d'un phénomène naturel présent dans l'apprentissage lors duquel le système apprend à émettre les sorties exactes demandées pour les données d'apprentissage. Cela peut être rapproché de l'apprentissage par cœur chez les humains. En effet, ce phénomène intervient quand le nombre de paramètres d'un réseau est trop important, et quand le nombre de données d'apprentissage est trop faible. Alors la minimisation de l'erreur de prédiction, définie par la fonction de coût, conduira un système à parfaitement s'aligner aux données d’entraînement. On dit que ces systèmes sont très spécialisés et qu'ils ne sont pas capables de généraliser. En effet, lorsque nous lui présentons de nouvelles données, il ne pourra pas les modéliser et donnera des sorties proches de celles des données d’entraînement et non proches de celles des données réelles.
 
-Ce phénomène est facilement identifiable : le score de la fonction de coût est très bon sur les données d’entraînement et très mauvais sur les données de développement et de test. Il suffit donc de vérifier l'écart entre les scores associés aux données d’entraînement et aux données de développement.  Si cet écart est trop prononcé et que le score sur les données d’entraînement est très bon, on peut en conclure que l'on se situe dans une configuration de sur-apprentissage.
+Pour rappel, on distingue les données d'apprentissage (train en anglais), des données de développement (dev en anglais) et de test. Seules les données d'apprentissage sont données au système pendant la phase d'apprentissage. On utilise ensuite les données de développement pour mesurer les performances du système et on ajuste les hyper-paramètres afin d'obtenir un système performant sur ces données qui ne sont pas utilisées lors de l'apprentissage. Les données de test permettent de donner un score final au système, permettant de le comparer à d'autres systèmes testés sur ces mêmes données de test.
+
+Le phénomène de sur-apprentissage est facilement identifiable : le score de la fonction de coût est très bon sur les données d’entraînement et très mauvais sur les données de développement et de test. Il suffit donc de vérifier l'écart entre les scores associés aux données d’entraînement et aux données de développement.  Si cet écart est trop prononcé et que le score sur les données d’entraînement est très bon, on peut en conclure que l'on se situe dans une configuration de sur-apprentissage.
 \input{./Chapitre2/figures/surapprentissage}
 
-On peut voir sur la figure~\ref{fig:surapprentissage} l'évolution des scores constatés sur un ensemble d'apprentissage et un ensemble de développement. Dans la partie gauche, on constate une évolution normale des scores d'apprentissage sur l’entraînement (en bleu) et sur le développement (en rouge). Dans la partie droite, on remarque le sur-apprentissage qui commence à la période où les deux courbes évoluent en sens contraires.
+On peut voir sur la figure~\ref{fig:surapprentissage} l'évolution des scores constatés sur un ensemble d'apprentissage et un ensemble de développement. Dans la partie gauche, on constate une évolution normale des scores d'apprentissage sur l’entraînement (en bleu) et sur le développement (en rouge). Dans la partie droite, on remarque le sur-apprentissage qui commence à la période où les deux courbes évoluent en sens contraires. Le modèle apprend par cœur les données d'apprentissage et n'arrive plus à généraliser aux données de développement.
 
 Plusieurs méthodes permettent de palier à ce phénomène. On a tout d'abord les méthodes passives, qui vont détecter les modèles en sur-apprentissage pour les supprimer. C'est ce que l'on met en place en utilisant un ensemble de développement ou de validation. On peut également diminuer le nombre de paramètres, en modifiant l'architecture neuronal ou augmenter le nombre de données d’entraînement.
 
-Il y a également les méthodes actives, qui sont également appelées méthodes de régularisation. Elles servent à contrôler la valeur des poids des neurones lors de l'apprentissage. La régularisation est la solution privilégiée pour prévenir ce problème. Bartlett~\cite{Bartlett1997} a démontré que la valeur des poids est plus importante que le nombre de poids et donc de neurones pour éviter le sur-apprentissage. Il existe de nombreuses méthodes de régularisation. Nous allons considérer les régularisations les plus communes dans les prochains paragraphes.
+Il y a également les méthodes actives, qui sont également appelées méthodes de régularisation servant à contrôler la valeur des poids des neurones lors de l'apprentissage. Bartlett~\cite{Bartlett1997} a démontré que la valeur des poids est plus importante que le nombre de poids et donc de neurones pour éviter le sur-apprentissage. Nous allons considérer les régularisations les plus communes dans les prochains paragraphes.
 
 \subsubsection{Régularisation L1 et L2}
 
-La régularisation L1, ou Lasso Regression (Least Absolute Shrinkage and Selection Operator en anglais) a été introduite par Tibshirani~\cite{Tibshirani1996}. La régularisation L2 (Ridge Regression en anglais) quant à elle a été introduite par Hoerl et Kennard~\cite{Hoerl1970}. Ces deux régularisations mettent en place une pénalité qui est ajoutée à la fonction de coût. Elles diffèrent cependant sur la définition de cette pénalité. Utilisées pour pénaliser les poids les plus élevés, elles vont permettre la désactivation de certains neurones. La pénalité $p$ des régularisations L1 et L2 sont définies respectivement par l'équation~\ref{eq:L1} et~\ref{eq:L2}. $w$ correspond aux poids des neurones et $\lambda$ à un coefficient fixé par l'humain.
+La régularisation L1, ou Lasso Regression (Least Absolute Shrinkage and Selection Operator en anglais) a été introduite par Tibshirani~\cite{Tibshirani1996}. La régularisation L2 (Ridge Regression en anglais) quant à elle a été introduite par Hoerl et Kennard~\cite{Hoerl1970}. Ces deux régularisations mettent en place une pénalité $p\geq 0$ qui est ajoutée à la fonction de coût. Elles diffèrent cependant sur la norme (L1 ou L2)%(L1 décrite par l'équation~\ref{eq:L1} ou L2 décrite par l'équation~\ref{eq:L2})
+utilisée pour calculer cette pénalité. Utilisées pour pénaliser les poids les plus élevés, elles vont permettre la désactivation de certains neurones. %$w_i$ correspond au poids du neurone $i$ et $\lambda$ à un coefficient fixé par l'humain.
 
-\begin{equation}
-  p = \lambda\sum_{i=1}|w_i|
-  \label{eq:L1}
-\end{equation}
+% \begin{equation}
+%   p = \lambda\sum_{i=1}|w_i|
+%   \label{eq:L1}
+% \end{equation}
+%
+% \begin{equation}
+%   p = \lambda\sum_{i=1}w^{2}_i
+%   \label{eq:L2}
+% \end{equation}
 
-\begin{equation}
-  p = \lambda\sum_{i=1}w^{2}
-  \label{eq:L2}
-\end{equation}
-
-Comme on peut le remarquer, ces deux pénalités sont assez similaires. Soit on utilise la somme de la valeur absolue des poids pour L1, soit la somme des carrées des poids pour L2. Ces deux pénalités sont donc toujours positives.
+Ces deux pénalités sont assez similaires. Soit on utilise la somme de la valeur absolue des poids pour L1, soit la somme des carrées des poids pour L2. %Ces deux pénalités sont donc toujours positives.
 
 \subsubsection{Normalisation des batchs}
-Introduit par Ioffe et al.~\cite{Ioffe2015}, cette régularisation, appelée Batch Normalization en anglais, cherche à réduire les variations des données d'entrées de chacune des couches. Toutes les informations connues dans un réseau neuronal sont inscrites dans un espace. L'objectif de l'apprentissage est de retrouver la meilleure représentation de ces informations de sorte que toutes les données d'une même classe soit dans le même espace. On appelle la différence entre les informations, le décalage des co-variables (covariate shift en anglais). Cet éloignement peut être observé entre toutes les représentations, qu'elles soient considérées de la même classe ou non. Cependant cet écart doit être réduit lors les données ont la même étiquette de sortie.
+Introduit par Ioffe et al.~\cite{Ioffe2015}, cette régularisation, appelée Batch Normalization en anglais, cherche à réduire les variations des données d'entrées de chacune des couches. Toutes les informations connues dans un réseau neuronal sont inscrites dans un espace. L'objectif de l'apprentissage est de retrouver la meilleure représentation de ces informations de sorte que toutes les données d'une même classe soit dans le même espace. On appelle l'éloignement entre les informations, le décalage des co-variables (covariate shift en anglais). Cet éloignement peut être observé entre toutes les représentations, qu'elles soient considérées de la même classe ou non. Cependant cet écart doit être réduit pour les données ayant la même étiquette de sortie.
 
-Une des façons de s'affranchir de ce problème est d'utiliser des lots, comme nous l'avons vu précédemment. Mais l'utilisation de batch ne va pas réduire la distance entre les représentations apprises par le système. Cette régularisation cible donc les représentations intermédiaires des données, à l'intérieur des couches cachées.
+Une des façons de s'affranchir de ce problème est d'utiliser des lots, comme nous l'avons vu précédemment. Mais l'utilisation de lots ne va pas réduire la distance entre les représentations apprises par le système. Cette régularisation cible donc les représentations intermédiaires des données, à l'intérieur des couches cachées.
 
-L'objectif de cette méthodes est de réduire le décalage des co-variables dans les couches cachées. Pour ce faire, on applique une normalisation à chaque entrée de neurones, quelque soit sa position dans les couches. Cette normalisation est définie par l'équation~\ref{eq:normbatch} où $\mu$ et $\sigma^2$ représente respectivement la moyenne et la variance du mini-lot $B$. $\epsilon$ est un coefficient faible ajouté pour éviter les division par zéro. Enfin la valeur d'échelle $\gamma$ et la valeur de décalage $\bheta$ sont des paramètres qui sont appris pendant l'apprentissage.
-
+%L'objectif de cette méthode est de réduire le décalage des co-variables dans les couches cachées.
+Pour ce faire, on applique une normalisation à chaque entrée de neurones, quelque soit sa position dans les couches de façon individuelle. La normalisation est calculée avec la moyenne $\mu$ et la variance $\sigma$ d’un lot ($B$), avec les équations~\ref{eq:mu} et~\ref{eq:rho} dans lesquelles $n$ représente le nombre d'éléments du lot et $z^i$ la valeur d'activation du neurone normalisé lors de l'itération $i$.
 \begin{equation}
-  \hat{x}_{i}^{(k)} =\gamma ( \frac {x_i^{(k)}-\mu_B^{(k)}} \sqrt{\sigma_B^{(k)^2}+\epsilon} ) + \bheta
-  \label{eq:normbatch}
+  \mu_B = \frac{1}{n} \sum^n_{i=1}{z^i}
+  \label{eq:mu}
+\end{equation}
+\begin{equation}
+  \sigma^2_B = \frac{1}{n} \sum^n_{i=1}{(z^i-\mu_B)^2}
+  \label{eq:rho}
+\end{equation}
+
+Avec la moyenne et la variance, on peut alors appliquer la normalisation selon l'équation~\ref{eq:normBatch}. $\epsilon$ est un coefficient faible ajouté pour éviter les divisions par zéro. Enfin la valeur d'échelle $\gamma$ et la valeur de décalage $\beta$ sont des paramètres qui sont appris pendant l'apprentissage.
+\begin{equation}
+  z'^i = \gamma \left ( \frac{z^i-\mu_B}{\sqrt{\sigma^2_B + \epsilon}} \right ) + \beta
+  \label{eq:normBatch}
 \end{equation}
 
 Cette normalisation permet d'éviter le sur-apprentissage. Elle permet également d'accélérer la mise en place de représentations internes cohérentes et donc de diminuer le temps d'apprentissage.
 
-\subsubsection{Arret prématuré de l'apprentissage}
-Une autre méthode largement utilisée consiste à arrêter l'apprentissage de façon précoce en fonction de la variation de l'erreur calculée à chaque époque (loss en anglais). En effet, si la variation de l'erreur est trop faible, il est très probable que l'on ait atteint un minimum local acceptable. Continuer l'apprentissage ne serait alors qu'une source possible de sur-ajustement. Cette méthode, appelée early stopping~\cite{Prechelt1998}, peut être appliquée sur l'erreur calculée sur les données d'apprentissage ou sur l'erreur calculée sur les données de validation.
+\subsubsection{Arrêt prématuré de l'apprentissage}
+Une autre méthode de régularisation largement utilisée consiste à arrêter l'apprentissage de façon précoce en fonction de la variation de l'erreur calculée à chaque époque. En effet, si la variation de l'erreur est trop faible, il est très probable que l'on ait atteint un minimum local acceptable. Continuer l'apprentissage ne serait alors qu'une source possible de sur-ajustement. Cette méthode, appelée early stopping~\cite{Prechelt1998}, peut être appliquée sur l'erreur calculée sur les données d'apprentissage ou sur l'erreur calculée sur les données de développement.
 
-Bien que simpliste au premier abord, cette méthode est souvent utilisée car elle reste une normalisation très efficace~\cite{Finnoff1993} qui assure que le système ne sur-ajuste pas. De plus, elle permet de réduire le temps d'apprentissage, puisqu'elle diminue le nombre d'époque effectué la plupart du temps.
+Bien que simpliste au premier abord, cette méthode est souvent utilisée car elle est une normalisation très efficace~\cite{Finnoff1993} qui assure que le système ne sur-ajuste pas. De plus, elle permet de réduire le temps d'apprentissage, puisqu'elle diminue la plupart du temps, le nombre d'époques effectuées.
 
 \subsubsection{L'utilisation du dropout}
-Le dropout, introduit par Srivastava et al.~\cite{Srivastava2014} est une normalisation très utilisée de nos jours. Elle consiste en la désactivation temporaire et aléatoire de neurones à chaque époque. Ainsi, le réseau a toujours des poids à apprendre et cela évite de tomber dans un phénomène de sur-apprentissage. Comme le réseau est privé de certains de ces neurones, il doit apprendre à compenser cette perte, ce qui rend les représentations internes plus robustes et améliore la généralisation du modèle.
+Le dropout, introduit par Srivastava et al.~\cite{Srivastava2014} est une normalisation très utilisée de nos jours. Elle consiste en la désactivation temporaire et aléatoire de neurones à une époque donnée. Ainsi, le réseau a toujours des poids à apprendre et cela évite de tomber dans un phénomène de sur-apprentissage. Comme le réseau est privé de certains de ces neurones, il doit apprendre à compenser cette perte, ce qui rend les représentations internes plus robustes et améliore la généralisation du modèle.
 
-Ainsi, en fonction d'une probabilité $P$ de désactivation des neurones, souvent fixée à $0.5$, le réseau aura plus ou moins de neurones désactivés et devra palier à ce manque de représentation.
+Ainsi, en fonction d'une probabilité de désactivation des neurones, souvent fixée à $0.5$, le réseau aura plus ou moins de neurones désactivés et devra palier à ce manque de représentation.
 
 Toutes ces méthodes permettent de garantir un fonctionnement correct voir optimal d'un système neuronal.
 
 \section{Conclusion}
-Dans ce chapitre, nous avons défini les grands principes de l'apprentissage automatique notamment appliqués pour le traitement de la parole. Nous avons vu l'éventail de possibilité permettant à une machine d'apprendre à catégoriser des données. Avec l'émergence des réseaux de neurones dans le traitement de la parole, nous nous sommes focalisés sur leur fonctionnement et la mise en place de leurs paramètres afin d'obtenir des systèmes performants. Dans le chapitre~\ref{chapitre3}, nous allons explorer plus en détail les différentes architectures et paramètres d'apprentissage qui sont mis en pour la reconnaissance automatique de l'émotion depuis la modalité vocale.
+Dans ce chapitre, nous avons défini les grands principes de l'apprentissage automatique notamment appliqués pour le traitement de la parole. Nous avons vu l'éventail de possibilité permettant à une machine d'apprendre à catégoriser des données. Avec l'émergence des réseaux de neurones dans le traitement de la parole, nous nous sommes focalisés sur leur fonctionnement et la mise en place de leurs paramètres afin d'obtenir des systèmes performants. Dans le chapitre 3, nous allons explorer plus en détail les différentes architectures et paramètres d'apprentissage qui sont mis en pour la reconnaissance automatique de l'émotion depuis la modalité vocale.
