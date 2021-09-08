@@ -139,8 +139,9 @@ Cette présentation permet notamment de visualiser si une classe est plus prédi
 Cette matrice de confusion permet également de calculer le rappel et la précision de chaque classe, illustré dans la figure~\ref{fig:precisionRappel}. La précision correspond au nombre de documents pertinents retrouvés parmi tous les documents. Le rappel correspond au nombre de documents pertinents retrouvés parmi tous les documents pertinents.
 
 Bien que pratique, la matrice de confusion ne permet pas de donner un score unique pour le système. C'est pour cela que la communauté s'est tournée vers l'accuracy pondérée.
-\\
-\\
+
+\vspace{1cm}
+% \\
 \textit{Précision pondérée et non-pondérée}
 
 Afin d'avoir un score global de la classification des émotions, on utilise principalement la précision pondérée (WA pour weighted accuracy) comme dans les travaux de Lee et Tashev~\cite{Lee2015} ou de Han et al.~\cite{Han2014}.
@@ -155,8 +156,7 @@ Cette mesure permet de calculer la performance d'un système de reconnaissance, 
 
 Il est donc utile de compléter cette mesure de performance par la précision non-pondérée (UA pour unweighted accuracy), qui va faire la somme des précisions de chaque classes. Ici nous ferons la somme des précisions des trois classes.
 
-\\
-\\
+\vspace{1cm}
 \textit{F-mesure}
 
 La F-mesure, ou F-score en anglais, combine à la fois la précision et le rappel selon l'équation~\ref{eq:Fmesure}. Elle est comprise entre 0 et 1. Plus elle est grande, plus le système évalué est performant.

@@ -1,212 +1,299 @@
 \chapter{Construction du corpus AlloSat}
 \label{chapitre4}
-"Vos clients les plus mécontents sont votre meilleure source d’apprentissage" (Bill Gates)
+«Vos clients les plus mécontents sont votre meilleure source d’apprentissage»  (Bill Gates, 1955-)
 
 \section{Motivation}
-\begin{minipage}{.65\textwidth}
-L'un des objectifs de cette thèse est de comprendre et de reconnaître l'état émotionnel de personnes étant en relation téléphonique avec des agents de centre d'appels. Les objectifs de ces conversations sont divers, mais en général elles concernent soit l'achat d'un produit (service d'abonnement, service d'achat), soit la recherche d'une solution à un problème donné (plainte, service après vente, service de réclamation), soit la demande d'informations diverses sur une entreprise ou leur produit. Selon l'exigence industrielle, deux émotions sont primordiales dans la relation clientèle. La satisfaction qui est un facteur de fidélité et de diffusion de la marque (un client sastifait peut à son tour promouvoir la marque à son entourage). La frustration qui favorise l'attrition du client, c'est-à-dire le rejet de la marque au profit de ses concurrents, et la "mauvaise publicité". Ces deux émotions, comme nous avons pu le voir dans le chapitre~\ref{chapitre1}, peuvent s'inscrire dans différentes théories discrètes ou continues.
+L'un des objectifs de cette thèse est de reconnaître l'état émotionnel de personnes en relation téléphonique avec des agents de centre d'appels. Les motivations de ces conversations sont diverses, mais en général elles concernent soit l'achat d'un produit (service d'abonnement, service d'achat), soit la recherche d'une solution à un problème donné (plainte, service après vente, service de réclamation), soit la demande d'informations diverses sur une entreprise ou leurs produits. Selon l'exigence industrielle, les émotions sont primordiales dans la relation clientèle~\cite{Tumbat2011} :
+\begin{itemize}
+  \item la satisfaction notamment est un facteur de fidélité et de diffusion de la marque (un client satisfait peut à son tour promouvoir la marque à son entourage),
+  \item la frustration favorise l'attrition du client, c'est-à-dire le rejet de la marque au profit de ses concurrents, et la \textit{mauvaise publicité}.
+\end{itemize}
+Ces deux émotions, comme nous avons pu le voir dans le chapitre~\ref{chapitre1}, peuvent s'inscrire dans différentes théories discrètes ou continues. Pour rappel, il s'agit de deux émotions qui peuvent s'inscrire dans le circumplex de Russell~\cite{Russell1980}, la satisfaction étant polarisée de façon positive avec une activation plutôt neutre et la frustration étant polarisée de façon plutôt négative, avec une activation assez forte.
 
-Nous avons choisi de les inscrire dans un espace continu, en créant la dimension de satisfaction comme explicité dans la figure~\ref{fig:satisfactionAxis}. En effet, outre l'émotion brute, la variation de son intensité et de sa durée sont des indicateurs cruciaux pour améliorer l'expérience du client. De plus, Allo-Media, notre partenaire industriel, cherche à définir une satisfaction et une frustration en synhrone. Il est donc plus logique de nous inscrire dans une théorie émotionnelle continue.
-\end{minipage}
+En accord avec les besoins de l'entreprise Allo-Média, partenaire de cette thèse, nous avons choisi de les inscrire dans un espace continu, en créant la dimension de satisfaction comme explicitée dans la figure~\ref{fig:satisfactionAxis}. En effet, en plus de la catégorie de l'émotion, la variation de son intensité et de sa durée, permettent de visualiser une dynamique des émotions. Celle-ci est un indicateur crucial pour améliorer l'expérience du client. De plus, Allo-Média, notre partenaire industriel, cherche à définir une satisfaction et une frustration en synchrone. C'est-à-dire que l'entreprise souhaite pouvoir afficher à la fois la catégorie et l'intensité de l'émotion au fur et à mesure de la conversation. Tandis que des émotions discrètes ne contiennent pas autant d'informations. Il est donc plus logique de nous inscrire dans une théorie émotionnelle continue.
+
 \input{./Chapitre4/figures/satisfactionAxis}
 
-\newpage
-Pour étudier ces émotions, nous avons besoin de données et donc d'un corpus.
-Lorsque nous avons recherché un corpus, adapté à notre problématique, nous nous sommes rendu compte qu'aucun ne correspondait parfaitement à notre demande. Les corpus à disposition dans le domaine de la reconnaissance d'émotion de la parole sont disponibles dans le chapitre~\ref{chapitre3}.
-En effet, il existe peu de corpus comportant des conversations réelles issues de centre d'appel qui soit distribué, et encore moins qui soit annoté en émotion. De plus, comme nous avons défini une nouvelle dimension émotionnelle, aucun des corpus disponibles ne proposent cette annotation. Nous avons donc fait le choix de créer un corpus, que nous avons rendu accessible, afin d'étudier la dimension de satisfaction dans des conversations de centre d'appels.
+Pour étudier ces émotions dans ce contexte, nous avons besoin de données et donc d'un corpus. Nos contraintes sont les suivantes :
+\begin{itemize}
+  \item les conversations doivent provenir de conversations téléphoniques. Elles doivent être assimilables à une relation clientèle où un utilisateur recherche des informations auprès d'un conseiller,
+  \item les conversations doivent être en français,
+  \item une séparation entre le canal de l'appelant et de l'appelé est souhaitable, pour ne pas avoir de problèmes de chevauchements et donc permettre l'annotation d'un seul locuteur sans être influencé par l'autre locuteur,
+  \item l'annotation doit être fait selon l'axe de satisfaction et de frustration. Elle doit également être continue.
+\end{itemize}
 
+Nous avons recherché un corpus dans la littérature, notamment parmi ceux décrits dans le chapitre~\ref{chapitre3}, qui répond à toutes ces contraintes. Malheureusement aucun ne correspond parfaitement à notre demande, d'autant plus que peu de corpus comportant des conversations réelles issues de centre d'appel sont disponibles pour la recherche. Nous avons donc décidé de construire un corpus adapté à nos besoins.
 
 \section{Recueil des données}
-Grâce à l'entreprise Allo-Média, nous avons pu recueillir des données provenant de différents centre d'appels français, sous la forme de conversations impliquant des appelants (les clients) et des agents. Comme nous ne voulons pas nous enfermer dans un domaine d'activité donné, nous avons récupéré une cinquantaine de conversations selon les domaines d'activité des entreprises. Parmi eux, nous avons selectionné des conversations issues des domaines de l'assurance, de la distribution d'énergie, des agences de voyages, des agences immobilières et de la téléphonie. Ces appels ont eu lieu entre juillet 2017 et novembre 2018.
+Avec l'entreprise Allo-Média, nous avons pu recueillir des données provenant de différents centre d'appels français, sous la forme de conversations impliquant des appelants (les clients) et des agents. Comme nous ne voulons pas nous restreindre dans un domaine d'activité donné, nous avons récupéré une cinquantaine de conversations selon les domaines d'activité des entreprises. Parmi eux, nous avons sélectionné des conversations issues des domaines de l'assurance, de la distribution d'énergie, des agences de voyages, des agences immobilières et de la téléphonie. Ces appels ont eu lieu entre juillet 2017 et novembre 2018.
 
-Ces conversations étant séparées dans l'enregistrement entre le canal du client et le canal de l'agent, nous n'avons pas de chevauchement (overlaps) de signal entre les locuteurs. De plus, pour des contraintes éthiques et commerciales, la partie concernant l'agent ne peut être diffusée et a donc été supprimée des données collectées. En effet Allo-Media ne s'inscrit pas dans une logique de contrôle et de notation des agents. La partie du client quant à elle, est principalement constituée d'un locuteur unique qui ne sera pas retrouvé dans d'autres conversations. Ici, nous avons fait le choix de ne pas considérer l'émotion chez chaque locuteur mais pour un ensemble disparatre de locuteurs. Toutefois, il existe également des documents ou il peut y avoir plusieurs locuteurs, comme par exemple quand une personne passe le téléphone à un autre membre de sa famille. Tous ces audios sont issus du canal téléphonique, ce qui explique qu'il soit échantillonné en 8kHz.
-Face à cette masse de données, et conscients que nous ne pouvons pas tout annoter, nous avons du mettre en place un processus pour sélectionner les données qui alimente le corpus.
+Ces conversations étant séparées dans l'enregistrement entre le canal du client et le canal de l'agent, nous n'avons donc pas de chevauchement, des \textit{overlaps}, de signal entre les locuteurs. De plus, pour des contraintes éthiques et commerciales, la partie concernant l'agent ne peut être diffusée et a donc été supprimée des données collectées. En effet, Allo-Média ne s'inscrit pas dans une logique de contrôle et de notation des agents. La partie du client quant à elle, est principalement constituée d'un locuteur unique qui ne sera pas retrouvé dans d'autres conversations. Ici, nous avons fait le choix d'étudier les émotions d'un ensemble de locuteurs, plutôt que des émotions d'un seul locuteur : on considère la reconnaissance d'émotion comme indépendante du locuteur. Toutefois, il existe également des conversations où il peut y avoir plusieurs locuteurs, comme par exemple quand une personne passe le téléphone à un autre membre de sa famille. Tous les enregistrements sont issus du canal téléphonique, échantillonné à 8kHz.
+
+Face à cette masse de données, et conscients que nous ne pouvons pas tout annoter, nous avons du mettre en place un processus pour sélectionner les données qui constitueront le corpus.
 
 \subsection{Sélection des données}
-Il est communément admis que toute parole n'est pas forcément marqué par des états émotionnels\textcolor{red}{je retrouve plus la citation}. C'est d'autant plus vrai pour des conversations issues de centre d'appels, surtout si on se cantonne à la satisfaction et la frustration. En effet, lors d'un appel pour une précision sur la livraison d'un produit ou sur le suivi d'un abonnement par exemple, il est rare de voir des émotions exprimées.
+Il est communément admis que toute parole n'est pas forcément marqué par des états émotionnels, d'où la présence d'un état neutre. C'est d'autant plus vrai pour des conversations issues de centre d'appels. En effet, lors d'un appel pour une précision sur la livraison d'un produit ou sur le suivi d'un abonnement par exemple, il est rare que des émotions soient exprimées.
 
-Comme nous l'avons vu précédemment dans le chapitre~\ref{chapitre1}, la frustration peut se reconnaître par une modification du timbre, une parole plus rapide et des disfluences plus importantes. On peut également ajouter l'augmentation de la présence du discours para-linguistique avec des soupirs, des bruits de langues ou des rires nerveux. Le discours se teinte également de mots à polarité négative et présente des répétitions. Dans certains cas, on peut observer une augmentation des tournures négatives.
+La frustration peut se reconnaître par une modification du timbre, une parole plus rapide et des hésitations plus importantes. On peut également noter l'augmentation de la présence du discours para-linguistique avec des soupirs, des bruits de bouches ou des rires nerveux pour la frustration. Le discours se teinte également de mots à polarité négative et présente des répétitions. Dans certains cas, on peut observer une augmentation des tournures négatives. Pour la satisfaction, on assiste à un phénomène inverse, avec une parole moins rapide et plus posée. Le discours se teinte de mots à polarité positive et présente moins de répétitions et moins de prise de parole longue.
 
 En se basant sur ces observations, afin de réduire le coût d'annotation, nous avons donc choisi de sélectionner automatiquement des conversations où la présence de la satisfaction ou de la frustration peut être détectée par l'humain. Pour ce faire, nous avons mis en place plusieurs critères :
 \begin{itemize}
-  \item La durée de la conversation : celle-ci doit être d'au moins 30 secondes, pour avoir le temps d'exprimer une émotion. Comme la frustration et la satisfaction semble être induite par une interaction avec l'agent, nous ne conservons que les conversations composées d'au moins trois tours de parole, soit trois prises de parole de la part du client et du conseiller.
-  \item Une forte variation de la fréquence fondamentale. En effet, comme nous l'avons vu précédemment, la variation de la fréquence fondamentale est une indication permettant de caractériser la prosodie de la parole. Plus elle est important, plus la personne va utiliser une grande amplitude de timbre, qui peut être un indicateur d'émotion. Le timbre d'une personne satisfaite ou sans émotion est différente du timbre d'une personne frustrée. Afin de calculer cette fréquence fondamentale, nous avons utilisé l'algorithme appelé Yet Another Algorithm for Pitch Tracking (YAPPT)~\cite{Zahorian2008} qui permet de palier au contexte téléphonique. En effet, le signal téléphonique étant souvent de mauvaise qualité, la fréquence fondamentale peut en être absente. Cet algorithme cherche donc à restaurer la fréquence fondamentale des signaux dégradés.~\textcolor{red}{besoin d'expliquer l'algo ?}
-  \item La conversation doit être polarisée : pour ce faire, nous avons calculé un score de polarité en partant des transcriptions de la partie du client. En utilisant le dictionnaire French Affective Norms (FAN)~\cite{Monnier2014} qui propose un score de valence (entre 0 et 10) pour plus de 1000 mots, annoté par plus de 400 français et françaises, nous avons calculé un score de valence correspondant à la moyenne des scores de chaque mot polarisé présent dans la transcription.~\textcolor{red}{plus de détail sur le FAN ?} Les autres mots sont pris en compte avec le score de 5, considéré comme le neutre. Ce score de valence de la conversation varie donc entre 0 et 10, 0 étant le plus négatif et 10 le plus positif.
+  \item La durée de la conversation : celle-ci doit être d'au moins 30 secondes, pour avoir le temps d'exprimer une émotion et pour éviter les appels ratés ou manqués. Comme la frustration et la satisfaction semble être induite par une interaction avec l'agent, nous ne conservons que les conversations composées d'au moins trois tours de parole, soit trois prises de parole de la part du client et du conseiller.
+  \item Une forte variation de la fréquence fondamentale. En effet, comme nous l'avons vu précédemment dans le troisième chapitre, la variation de la fréquence fondamentale est une indication permettant de caractériser la prosodie de la parole. Le timbre d'une personne satisfaite ou sans émotion est différent du timbre d'une personne frustrée. Afin d'extraire cette fréquence fondamentale, nous avons utilisé l'algorithme appelé Yet Another Algorithm for Pitch Tracking (YAPPT)~\cite{Zahorian2008} qui permet de palier au contexte téléphonique. En effet, le signal téléphonique possédant une bande passante limitée, la fréquence fondamentale peut en être absente. Cet algorithme cherche donc à restaurer la fréquence fondamentale des signaux dégradés.
+  \item La conversation doit être polarisée : pour ce faire, nous avons calculé un score de polarité en partant des transcriptions de la partie du client. En utilisant le dictionnaire French Affective Norms (FAN)~\cite{Monnier2014} que nous avons présenté dans le troisième chapitre, nous avons calculé un score de valence correspondant à la moyenne des scores de chaque mot polarisé présent dans la transcription. Les autres mots sont pris en compte avec le score de 5, considéré comme le neutre. Ce score de valence de la conversation varie donc entre 0 et 10, 0 étant le plus négatif et 10 le plus positif.
+
+  Prenons la phrase \textit{c' est une supercherie, votre cupidité est sans limite} : les termes supercherie et cupidité ont des scores respectivement de $3.32$ et $3.35$. Les autres mots n'ont pas de scores de polarité. Cette phrase a un score de $\frac{3.32+3.35+6\times5}{8}=4.58$.
 \end{itemize}
 
-\textcolor{red}{si précision nécessaire sur yaapt et fan, ce sera ici}
+\input{./Chapitre4/figures/diagchoix}
 
-L'application de ces critères a permis d'isoler 180 conversations présentant des caractéristiques intéressantes, c'est-à-dire une durée suffisante, une variation de la fréquence fondamentale supérieur à 40 et un score de polarité non compris entre 4,98 et 5,02. Ces scores sont très resserrés de par la part importante de mot sans score de polarité. Ces dernières ont été écoutées afin de garder les conversations où la manifestation de la dimension de satisfaction était la plus flagrante. Par ce procédé, nous avons conservé 253 conversations.
-Afin de mieux respecter la répartition des états émotionnels dans un contexte de centre d'appels, nous avons également sélectionné au hasard 50 conversations qui n'étaient pas retenues par le filtre mis en place.
+L'application de ces critères a permis d'isoler 304 conversations présentant des caractéristiques intéressantes sur un total de 768 conversations. On peut voir sur le diagramme~\ref{fig:diagchoix} les différents filtres qui ont été appliqués aux conversations. Elles sont d'une durée suffisante, ont un écart type de leurs fréquences fondamentales supérieur à 40 kHertz et un score de polarité non compris entre $4.98$ et $5.02$. Ces scores sont très resserrés de par la part importante de mots neutres. Ces 304 conversations ont été écoutées afin de garder les conversations où la manifestation de la dimension de satisfaction était la plus flagrante. Par ce procédé, nous avons conservé 253 conversations.
+Afin de mieux respecter la répartition des états émotionnels dans un contexte de centre d'appels, nous avons également sélectionné au hasard 50 conversations qui n'étaient pas retenues par le filtre mis en place et donc considérées comme neutre.
+
+Nous avons donc une sélection finale contenant 303 conversations.
 Une fois cette sélection effectuée, nous avons du traiter les données pour qu'elles puissent être annotées par la suite.
 
 \subsection{Pre-traitement des données}
-Afin de fluidifier et de garantir des bonnes conditions d'annotation, il est important de pré-traiter les données recueillies. Deux traitements ont été effectués : la réduction des silences et l'anonymisation des données personnelles.
+Les données en l'état ne peuvent pas être immédiatement annotées, des pré-traitements sont nécessaires : la réduction des silences et l'anonymisation des données personnelles.
 
 \subsubsection{Réduction des silences}
-Comme les deux canaux (client et agent) sont séparés en amont, nous avons conservé uniquement les documents provenant du canal client, afin de ne pas traiter la parole de l'agent pour les raisons que nous avons mentionné précédemment.
+Comme les deux canaux (client et agent) sont séparés en amont, nous avons conservé uniquement les documents provenant du canal client, afin de ne pas traiter la parole de l'agent.
 L'absence de la réponse du conseiller ajoute de longs moments de silence dans le signal audio. Afin de réduire l'effort d'annotation, nous avons décidé de réduire les silences de plus de deux secondes. Cette réduction suit le protocole suivant :
 \begin{itemize}
-  \item Nous détectons les silences automatiquement en utilisant l'outil \textit{silencedetect} de ffmepg. Cet outil détecte les zones de conversation dont le volume est inférieur à un seuil de tolérance donné, dans notre cas -40db, pendant une durée donnée, dans notre cas deux secondes. On liste ainsi les silences qui sont présents dans le document.
-  \item On découpe le signal audio dès lors que l'on trouve un silence d'une durée supérieure à deux secondes, donc en suivant la liste établie précédemment.
-  \item On réassemble les différents fragments du signal, en intercalant un signal audio de bruit blanc d'une durée exacte de deux secondes. Un bruit blanc correspond à une génération automatique d'un signal audio par le tirage aléatoire de fréquences suivant la même densité spectrale de puissante. Dans notre cas, nous avons crée un bruit blanc en suivant la loi normale. On a donc un bruit blanc gaussien. \textcolor{red}{est ce qu'on explique comment il a été fait ?}
+  \item Nous détectons les silences automatiquement en utilisant l'outil \textit{silencedetect} de ffmepg~\cite{Tomar2006}. Cet outil détecte les zones de conversation dont le volume est inférieur à un seuil de tolérance donné, dans notre cas -40db, pendant une durée donnée, dans notre cas deux secondes. Ce seuil a été déterminé empiriquement, pour supprimer les silences et quelques bruits parasites, sans détruire des séquences de parole. On liste ainsi les silences qui sont présents dans le document.
+  \item On remplace le signal audio dès lors que l'on trouve un silence d'une durée supérieure à deux secondes, en suivant la liste établie précédemment. Si le silence dure moins de deux secondes, on ne le remplace pas.
+  \item On réassemble les différents fragments du signal, en intercalant un signal audio de bruit blanc d'une durée exacte de deux secondes. Un bruit blanc correspond à une génération automatique d'un signal audio par le tirage aléatoire de fréquences suivant la même densité spectrale de puissance. Dans notre cas, nous avons crée un bruit blanc en suivant la loi normale. On a donc un bruit blanc gaussien.
 \end{itemize}
 
-Ce traitement nous permet de passer d'un corpus de 57 heures majoritairement composé de silence à un corpus de 37 heures où les silences sont plus contrôlés. Nous avons donc une répartition des durées de conversation plus homogènes, qui est décrites dans la figure~\ref{fig:repart}. Les conversations ont une durée variant de 32 secondes à 41 minutes, avec une moyenne d'environ 7 minutes.
 \input{Chapitre4/figures/repart}
+
+Ce traitement nous permet de passer d'un corpus de 57 heures majoritairement composé de silences à un corpus de 37 heures où les silences sont contrôlés. Nous avons donc une répartition des durées de conversation plus homogènes, comme le montre la figure~\ref{fig:repart}. Les conversations ont une durée variant de 32 secondes à 41 minutes, avec une moyenne d'environ 7 minutes.
+
 Une fois ce traitement effectué, nous avons mis en place l'anonymisation du corpus.
 
 \subsubsection{Anonymiser les données personnelles}
-Afin de respecter la vie privée des personnes, la France et les autres pays européens ont mis en place une réglementation du stockage des données personnelles de tout individu. Le règlement général sur la protection des données (RGPD) établit des règles relatives à la protection des utilisateurs vis à vis du traitement de leur données personnelles, pour s'assurer que les utilisateurs conservent leurs libertés et leurs droits fondamentaux. Cette réglementation, contrôlée par la Commission Nationale de l'Informatique et des Libertés (CNIL) a été mise en application en 2018, nous avons donc du traité les données du corpus afin de respecter cette réglementation.
-Un des points les plus importants de cette réglementation est l'obfuscation de toutes les données personnelles.Nous avons donc mis en place un processus d'obfuscation des données personnelles. Les catégories de données personnelles que nous avons anonymisées sont présentées dans l'arbre~\ref{tab:donneesPerso}. Il est à noter que l'anonymisation ne se fait pas exclusivement par les feuilles de l'arbre, tous les noeuds peuvent être utilisés. Ces utilisations sont exceptionnelles, elles regroupent les données indirectes qui permettent de reconnaitre un individu. Par exemple, dans le cadre de la localisation, un nom donné à une maison \textit{l'hirondelle} est anonymisé en catégorie \textit{localisation}. À ces dernières s'ajoutent les données permettant d'identifier des entreprises. Les marques et les produits sont ainsi obfusqués. Ainsi, les conversations finales permettent de reconnaître le domaine d'activité de l'entreprise mais pas son identité.
+
 \input{Chapitre4/tables/donneesPerso}
 
-Pour procéder à cette obfuscation, nous avons utilisé un obfuscateur automatique, détenu par la société Allo-Média, appliqué sur les fichiers audio. En reconnaissant les entités nommées sur les transcriptions de ces audios, ce parseur substitue le segment audio correspondant au code temporel de l’entité nommée détectée par un signal audio préenregistré . Ce dernier se compose d'un air de percussion de type jazzy.
-Une deuxième passe, humaine cette fois ci, permet de garantir l'obfuscation de toutes les données personnelles. En utilisant l'outil Transcriber, chaque conversation a été écouté et lue en parallèle, permettant d'identifier et de segmenter les données personnelles encore présentes. C'est lors de cette deuxième phase que les données permettant d'identifier les entreprises ont été isolées. Nous avons également choisi de supprimer tous les numéros permettant d'identifier un contrat ou une date significative. Les segments identifiés sont alors substitués par le même signal audio jazzy. Lors de cette passe, nous avons également effectué une correction partielle de la transcription. Une fois ce traitement effectué, nous avons pu passer à l'annotation.
+Afin de respecter la vie privée des personnes, la France et les autres pays européens ont mis en place une réglementation sur la collecte, le stockage et le traitement des données personnelles de tout individu. Le règlement général sur la protection des données (RGPD) établit des règles relatives à la protection des utilisateurs vis à vis du traitement de leur données personnelles, pour s'assurer que les utilisateurs conservent leurs libertés et leurs droits fondamentaux. Cette réglementation, contrôlée par la Commission Nationale de l'Informatique et des Libertés (CNIL) a été mise en application en 2018, nous avons donc dû traiter les données du corpus afin de respecter cette réglementation.
+
+Un des points les plus importants de cette réglementation est l'obfuscation de toutes les données personnelles. Les catégories de données personnelles que nous avons anonymisées sont présentées dans l'arbre 4.1.
+%~\ref{tab:donneesPerso}.
+Ce sont celles définies par l'entreprise Allo-Média, en accord avec les réglementations en vigueur. Il est à noter que l'anonymisation ne se fait pas exclusivement par les feuilles de l'arbre, tous les nœuds peuvent être utilisés. L'anonymisation des nœuds est exceptionnelle, elle obstrue les données indirectes qui permettent de reconnaître un individu. Par exemple, dans le cadre de la localisation, un nom donné à une maison \textit{l'hirondelle} est anonymisé en catégorie \textit{localisation}. À ces dernières s'ajoutent les données permettant d'identifier des entreprises. Les marques et les produits sont obfusqués. Ainsi, les conversations finales permettent de reconnaître le domaine d'activité de l'entreprise mais pas son identité.
+
+\input{./Chapitre4/figures/annony}
+
+Pour procéder à cette obfuscation, nous avons utilisé un obfuscateur automatique, détenu par la société Allo-Média, appliqué sur les transcriptions, puis répercuté sur les fichiers audio. Ce parseur, dans un premier temps, recherche les mots appartenant aux groupes présentés dans l'arbre 4.1
+%~\ref{tab:donneesPerso}
+, dans les transcriptions des conversations. Il substitue dans le texte les mots désignés par la catégorie. Enfin il substitue le segment audio correspondant au code temporel des données personnelles détectées par un signal audio pré-enregistré. Ce dernier se compose d'un air de percussion de type jazzy. Un exemple fictif de cette obfuscation est illustré dans la figure~\ref{fig:annony}
+
+Une deuxième passe, humaine cette fois ci, permet de garantir l'obfuscation de toutes les données personnelles. En utilisant l'outil Transcriber, chaque conversation a été écoutée et lue, permettant d'identifier et de segmenter les données personnelles restantes. C'est lors de cette deuxième phase que les données permettant d'identifier les entreprises ont été isolées. Nous avons également choisi de supprimer tous les numéros permettant d'identifier un contrat ou une date significative. Les segments identifiés sont alors substitués par le même signal audio jazzy.
+
+Lors de cette passe, les annotateurs ont également effectué une correction partielle de la transcription : ils ont eu pour consigne de corriger les segments de parole effectifs, et de ne pas modifier les erreurs de transcription lors que le locuteur ne parle pas au conseiller. Une fois ce traitement effectué, nous avons pu passer à l'annotation.
 
 \section{Mise en place de l'annotation}
 
-\subsection{Les deux annotations}
-Comme nous l'avons dit précédemment, nous souhaitons analyser l'axe de satisfaction de manière continue. Pour cela, nous avons mis en place un axe dont les extremum sont la frustration (0) et la satisfaction (10) qui passe par un état neutre (5) situé à mi-chemin entre ces deux émotions comme montré dans la figure~\ref{fig:satisfactionAxis}. La valeur de satisfaction est extraite toutes les 250ms, ce qui nous permet d'avoir 4 valeurs par seconde. Nous avons fait ce choix parce que, contrairement aux mots qui sont analysés dans des fenêtres de 30ms pour la reconnaissance automatique de la parole, les émotions s'expriment sur une période de temps plus longue, généralement de l'ordre de la minute~\cite{Schuller2010}. Cette annotation étant influencée par l'affect des annotateurs, nous avons cherché des moyens de valider cette annotation entre les différents annotateurs mais aussi par annotateur.
+\subsection{Volonté d'annotation}
+%\subsection{Les deux annotations}
+Comme nous l'avons dit précédemment, nous souhaitons analyser l'axe de satisfaction de manière continue. Pour cela, nous avons mis en place un axe dont les extremum sont la frustration (0) et la satisfaction (10) qui passe par un état neutre (5) situé à mi-chemin entre ces deux émotions comme montré dans la figure~\ref{fig:satisfactionAxis}. La valeur de satisfaction est extraite en continue toutes les 250~ms, ce qui nous permet d'avoir quatre valeurs par seconde. Cette extraction est cohérente avec notre tâche puisque les émotions s'expriment sur un temps long, généralement de l'ordre de la minute~\cite{Schuller2010}.
+%Nous avons fait ce choix parce que, contrairement aux mots qui sont analysés dans des fenêtres de 30ms pour la reconnaissance automatique de la parole, les émotions s'expriment sur une période de temps plus longue, généralement de l'ordre de la minute~\cite{Schuller2010}. %Cette annotation étant influencée par l'affect des annotateurs, nous avons cherché des moyens de valider cette annotation entre les différents annotateurs mais aussi par annotateur.
 
-Pour ce faire, nous avons décidé de mettre en place, en plus de l'annotation continue, une annotation discrète de la dimension de satisfaction. Cette annotation discrète est effectuée au niveau de la conversation. Elle annote la catégorie émotionnelle du début et de la fin d'une conversation, comprise entre très frustré, frustré, neutre, satisfait, très satisfait. En plus, une caractérisation de l'évolution de l'émotion est annotée selon les catégories suivante : montante, descendante, stagnante, varie, varie fortement. Pour mieux comprendre ces catégories, elles ont été explicitées par les schémas de la figure~\ref{fig:variation}, qui ont été montré aux annotateurs.
+Pour enrichir l'annotation, nous avons décidé de mettre en place, en plus de l'annotation continue, une annotation discrète de la dimension de satisfaction. Cette annotation discrète est effectuée au niveau de la conversation. La catégorie émotionnelle du début et de la fin d'une conversation, comprise entre très frustré, frustré, neutre, satisfait, très satisfait est annotée. La durée de ce début et de cette fin sont laissées à l'appréciation des annotateurs. En plus, une caractérisation de l'évolution de l'émotion est annotée selon les catégories suivante : montante, descendante, stagnante, varie, varie fortement. Pour mieux comprendre ces catégories, elles ont été explicitées par les schémas de la figure~\ref{fig:variation}, qui ont été montré aux annotateurs.
+
 \input{./Chapitre4/figures/variation}
-Ayant pour objectif de diffuser le corpus, et donc de pouvoir le comparer aux corpus existants, nous avons également mis en place une annotation de la valence sur le même principe que l'annotation discrète de la dimension de la satisfaction. Elle relève la valence de début et de fin de conversation, comprise entre très négative, négative, neutre, positive, très positive. On y ajoute la même caractérisation de l'évolution de la valence.
-La différence entre la dimension de satisfaction et la valence a fait l'objet de plusieurs séances d'explication, afin que ces deux notions ne sont pas confondues par les annotateurs.
 
-\subsection{Contexte donné aux annotateurs}
-Afin d'aider les annotateurs et de guider au mieux l'annotation, un guide d'annotation a été mis à leur disposition. Ce guide est disponible dans l'annexe~\ref{ap:guidelines}. Ce dernier explique le contexte de l'étude et les consignes à respecter. Comme l'émotion possède une part non négligeable de subjectivité, il fallait que les consignes soient les plus objectives possibles.
-Pour expliquer la notion de valence, nous avons utilisé le Self-Assessment Manikin (SAM)~\cite{SAM} qui donne une description visuelle de la valence, que l'on retrouve sur la figure~\ref{fig:SAM}.
-\input{./Chapitre4/figures/sam}
+Afin de comparer AlloSat aux corpus existants, nous avons également mis en place une annotation de la valence sur le même principe que l'annotation discrète de la dimension de la satisfaction. Elle relève la valence de début et de fin de conversation, comprise entre très négative, négative, neutre, positive, très positive. On y ajoute la même caractérisation de l'évolution de la valence. Le tableau~\ref{tab:annotationDiscrete} récapitule les annotations discrètes.
 
-Nous nous sommes concentrés sur deux notions :
+\input{./Chapitre4/tables/annotationDiscrete}
+
+La différence entre la dimension de satisfaction et la valence a fait l'objet de plusieurs séances d'explication auprès des annotateurs, afin que ces deux notions ne sont pas confondues par les annotateurs.
+
+Pour récapituler, nous nous sommes concentrés sur deux notions :
 \begin{itemize}
   \item L'évolution d'une émotion : tous les appels commencent au 'neutre' et évoluent en fonction du temps entre frustration et satisfaction. Cette annotation est continue.
   \item Une évaluation de l'émotion à posteriori : une fois l'appel terminé, nous voulons avoir un retour sur l'évolution de l'émotion. Pour cela nous voulons savoir comment était l'appelant au début de la conversation, comment il était à la fin et comment était cette évolution. Cette annotation est donc discrète.
 \end{itemize}
 
-Pour palier à l'aspect subjectif, ils ont été informés que tous les annotateurs annotent les mêmes conversations. Comme l'empathie peut avoir un grand impact sur l'annotation des émotions, nous avons demandé aux annotateurs d'être le plus objectif dans leur annotation et de ne pas prendre parti.
-
 \subsection{Logiciel utilisé}
 
-Pour réaliser l'annotation continue, CARMA (Continuous Affect Rating And Media Annotation)~\cite{CARMA} est le logiciel d'annotation que nous avons retenu pour cette tâche. Inspiré de FeelTrace~\cite{FeelTrace}, l'outil le plus utilisé pour faire des annotations continues d'émotions, CARMA permet d'annoter de façon continue l'émotion selon une dimension définie en amont. Nous avons choisi ce logiciel puisque contrairement à FeelTrace, un simple clavier et une souris permet de mettre en pratique l'annotation. FeelTrace quant à lui, nécessite l'utilisation d'un joystick, qu'il faut se procurer et configurer. De plus, l’outil est optimisé pour annoter deux dimensions à la fois, la valence et l'activation, afin de placer l'annotation dans un contexte bi-dimensionnel qui ne correspond pas avec notre définition de l'axe de satisfaction.
+Nous avons dans un premier temps considéré l'utilisation de FeelTrace~\cite{Cowie2000}, l'outil le plus utilisé pour réaliser de l'annotation continue. Cependant l’outil est optimisé pour annoter deux dimensions à la fois, la valence et l'activation, afin de placer l'annotation dans un contexte bi-dimensionnel qui ne correspond pas avec notre définition de l'axe de satisfaction. De plus, cet outil est assez difficile à prendre en main, et il requière l'utilisation d'un joystick.
 
-Pour l'annotation discrète, les annotateurs ont rempli un modèle préconstruit vide de tableau avec un logiciel de bureautique de type Excel. Comme nous l'avons dit précédemment, il a 6 catégories à remplir par conversation (état émotionnel de début, de fin et la forme de l'évolution entre les deux). Nous avons également demandé l'annotation en genre des appelants et un espace était mis à disposition pour tous commentaires.
+Nous avons donc fait le choix d’utiliser CARMA (Continuous Affect Rating And Media Annotation)~\cite{Girard2014}. CARMA permet d'annoter de façon continue l'émotion selon une dimension définie en amont en utilisant un clavier et une souris. La figure~\ref{fig:carma} montre l'interface visible par les annotateurs lors de l'annotation. Un guide d'installation et de configuration a été fourni à l'administrateur Système de l'entreprise. Il est disponible dans l'annexe~\ref{ap:guideInstall}
+
+\input{Chapitre4/figures/carma}
+
+Pour l'annotation discrète, les annotateurs ont rempli un modèle pré-construit vide de tableau avec un logiciel de bureautique de type Excel. Comme nous l'avons dit précédemment, il y a six catégories à remplir par conversation (état émotionnel de début, de fin et la forme de l'évolution entre les deux). Nous avons également demandé l'annotation en genre des appelants et un espace était mis à disposition pour d'éventuels commentaires.
 
 \subsection{Consignes}
 
-L'annotation de la dimension de satisfaction a été réalisée de façon continue selon les consignes suivantes :
+L'annotation a été réalisée par une équipe de trois annotateurs (deux femmes et un homme), employés d'une société de transcription manuelle de la parole basée en France. Ils avaient déjà collaborés avec l'entreprise Allo-Média pour des tâches de transcription manuelle de la parole et d'annotation de données sémantiques, notamment de l'annotation d'entités nommés et des résumés des conversations.
+
+Ces personnes ont donc reçus en amont des formations sur ces différentes tâches : la reconnaissance d'une entité nommée, l'utilisation de l’outil Transcriber, des formations sur l’orthographe et sur la conjugaison notamment.
+
+Afin d'aider les annotateurs et de guider au mieux l'annotation, un guide d'annotation a été mis à leur disposition. Ce guide est disponible dans l'annexe~\ref{ap:guidelines}. Ce dernier explique le contexte de l'étude et les consignes à respecter. Comme l'émotion possède une part non négligeable de subjectivité, il fallait que les consignes soient les plus objectives possibles, tout en assurant l'homogénéité des annotations.
+
+%\begin{itemize}
+  %\item Objectivité de l'annotation.
+\subsubsection{Objectivité des annotations}
+\begin{itemize}
+  \item Pour réduire la subjectivité de l'annotation, les annotateurs ne doivent pas prendre parti pour le locuteur durant la conversation.
+  \item Les annotateurs ne doivent pas échanger entre eux au sujet des conversations écoutées.
+  \item Pour ce qui est des dimensions discrètes, elles doivent être annotées tout de suite après l'écoute de la conversation, afin que les états émotionnels ne soient pas oubliés ou pollués par l'écoute d'autres conversations. De plus le genre des locuteurs et des observations diverses peuvent être rajoutés par les annotateurs.
+  \item Chaque conversation est annotée une seule fois par chaque annotateur.
+\end{itemize}
+
+\subsubsection{Homogénéité des annotations}
+\begin{itemize}
+  \item Pour expliquer la notion de valence, nous avons utilisé le Self-Assessment Manikin (SAM)~\cite{Bradley1994} qui donne une description visuelle de la valence, que l'on retrouve sur la figure~\ref{fig:SAM}.
+  \item Pour leur permettre d'avoir une meilleure compréhension de la satisfaction et de la frustration que nous voulons annoter, nous avons fourni deux conversations en tant que borne de satisfaction et borne de frustration, afin d'aider à étalonner les émotions. Ainsi les annotateurs peuvent appréhender l'amplitude potentielle de la dimension de satisfaction de façon homogène. Ces bornes ont été établies de façon empirique, lorsque nous avons sélectionné les données du corpus.
+\end{itemize}
+
+
+\input{./Chapitre4/figures/sam}
+
+%Pour palier à l'aspect subjectif, ils ont été informés que tous les annotateurs annotent les mêmes conversations. Comme l'empathie peut avoir un grand impact sur l'annotation des émotions, nous avons demandé aux annotateurs d'être le plus objectif dans leur annotation et de ne pas prendre parti.
+
+L'annotation de la dimension de satisfaction a donc été réalisée de façon continue selon les consignes suivantes :
 \begin{itemize}
   \item La barre d'annotation va de 0 (Frustration) à 10 (Satisfaction), et elle est graduée par palier de 1. Le 5 correspond à l'état neutre et à l'état de départ de l'annotation.
   \item Le curseur d'annotation peut être contrôlé par la souris ou par les flèches du clavier. Les pas du clavier sont de 0.1 tandis que la souris peut avoir une granularité plus fine.
-  \item Si aucun état émotionnel n'est constaté, ou qu'il ne varie pas, alors l'annotateur ne doit pas toucher à l'annotation. Cela est valable également lors des silences. Les annotateurs ont été notifiés de la présence de conversation où aucun état émotionnel n'a été constaté en amont.
-  \item Un document ne doit être annoté qu'une seule fois par la même personne, sans possibilité de revenir en arrière. Nous voulons la réaction immédiate des annotateurs et non une réaction plus réfléchie, qui tend à minimiser les émotions détectées, selon des travaux prélimiaires que nous avons réalisés. Il n'est pas non plus possible d'avancer la conversation, l'annotation doit être faite en temps réel de l'écoute de la conversation.
+  \item Si aucun état émotionnel n'est constaté, ou qu'il ne varie pas, alors l'annotateur ne doit pas toucher à l'annotation. Cela est valable également lors des silences. Les annotateurs ont été notifiés de la présence de conversations où aucun état émotionnel n'a été constaté en amont.
+  \item Un document ne doit être annoté qu'une seule fois par la même personne, sans possibilité de revenir en arrière. Nous voulons la réaction immédiate des annotateurs et non une réaction plus réfléchie, qui tend à minimiser les émotions détectées, selon des travaux préliminaires que nous avons réalisés. Il n'est pas non plus possible d'avancer la conversation, l'annotation doit être faite en temps réel de l'écoute de la conversation.
   \item Un document doit être annoté en une seule fois. On ne doit pas revenir à l'annotation d'un fichier après une longue pause (plusieurs heures ou un jour). Cela évite à l'annotateur de ne plus être dans le contexte émotionnel de la conversation.
 \end{itemize}
 
-Ces consignes ont pour but d'aider l'annotateur à effectuer une annotation la plus objective possible. En plus de ces consignes, la structuration des documents a été expliquée. Les bruits blanc indiquent qu'un silence de plus de 2 secondes s'est produit. Les silences ont été retirés du document afin fluidifier l'écoute et l'annotation du document. Ce son est à titre informatif pour aider dans l'annotation. Nous avons signalés également la présence de bruits jazzy qui sont utilisés pour l'anonymisation des conversations. Ils remplacent les parties de conversation qui permettent l'identification de personnes ou d'entreprise.
+Ces consignes ont pour but d'aider l'annotateur à effectuer une annotation la plus objective possible. En plus de ces consignes, la structuration des documents a été expliquée. Les bruits blancs indiquent qu'un silence de plus de 2 secondes s'est produit. Les silences ont été retirés du document afin fluidifier l'écoute et l'annotation du document. Ce son est donné à titre informatif pour aider dans l'annotation. Nous avons signalé également la présence de bruits jazzy qui sont utilisés pour l'anonymisation des conversations. Ils remplacent les parties de conversation qui permettent l'identification de personnes ou d'entreprise.
 
-Pour leur permettre d'avoir une meilleure compréhension de la satisfaction et de la frustration que nous voulons retrouver, nous avons fourni deux conversations en tant que borne de satisfaction et borne de frustration, afin de calibrer tous les annotateurs, qu'il puisse appréhender l'amplitude potentielle de la dimension de satisfaction. Ces bornes ont été établies de façon empirique, lorsque nous avons sélectionnés les données à annoter.
+\section{Analyse d'AlloSat}
 
-Pour ce qui est des dimensions discrètes, les consignes stipulent qu'elles doivent être annotées tout de suite après l'écoute de la conversation, afin que les états émotionnels ne soient pas oubliés ou pollués par l'écoute d'autres conversations.
-Six catégories sont donc à remplir à la fin de chaque annotation : la dimension de satisfaction de début et de fin de conversation avec la force de l'évolution temporaire; les mêmes informations ont été demandées pour la dimension de la valence. De plus le genre des locuteurs et des observations diverses peuvent être rajoutés par les annotateurs.
-
-\section{Analyse de la qualité d'AlloSat}
-AlloSat est composé de 303 conversations, d'une durée totale de 37 heures 23 minutes et 27 secondes, de 308 locuteurs distincts dont 191 femmes et 117 hommes.
-Ces conversations ont été annotées par trois annotateurs, deux femmes et un homme, formés à la transcription d'appels et à l'annotation en catégorie discrètes de concepts sémantiques.
-Une répartition en trois ensembles a été définies. L'ensemble d’entraînement (train) est composé de 201 conversations, l'ensemble de développement (dev) de 42 conversations et l'ensemble de test (test) de 60 conversations. De plus amples détails sont disponibles dans le tableau~\ref{tab:repartitionEnSets}. On peut noter que la durée du dev et du test sont très similaires. On a donc une répartition approximative de 70\% des données dans le train et 30\% des données dans le dev et le test (avec 15\% chacun).
 \input{./Chapitre4/tables/repartitionEnSets}
 
-Afin de statuer sur la qualité du corpus, nous avons étudiés l'annotation de ces trois annotateurs. Nous avons mis en place des mesures d'accord intra-annotateurs, permettant de mesurer la pertinence d'une annotation vis à vis des autres annotations du même annotateur. Et nous avons également mis en place des mesures d'accord inter-annotateurs, permettant de mesure la pertinence de l'annotation d'un document par rapport à une autre annotation du même document.
+AlloSat est composé de 303 conversations, d'une durée totale de 37 heures 23 minutes et 27 secondes, de 308 locuteurs distincts dont 191 femmes et 117 hommes.
+%Ces conversations ont été annotées par trois annotateurs, deux femmes et un homme, formés à la transcription d'appels et à l'annotation en catégorie discrètes de concepts sémantiques.
+Une répartition en trois sous-ensembles a été définies. L'ensemble d’entraînement (train) est composé de 201 conversations, l'ensemble de développement (dev) de 42 conversations et l'ensemble de test (test) de 60 conversations. De plus amples détails sont disponibles dans le tableau 4.3.
+%~\ref{tab:repartitionEnSets}.
+On peut noter que la durée du dev et du test sont très similaires. On a donc une répartition approximative de 25 heures et demi des données dans le train et douze heures des données dans le dev et le test (avec six heures chacun). Comme nous l'avons vu au chapitre 2, le découpage d'un corpus en sous-ensemble permet d'assurer la cohérence des scores notamment.
+
 \input{./Chapitre4/tables/statistiqueAnnotation}
-Le tableau~\ref{tab:statistiqueAnnotation} regroupe l'ensemble des annotations discrètes du corpus. Nous pouvons observer une sur-représentation de l'état neutre, surtout en début de conversation, ce qui ne nous a pas surpris, puisque l'on retrouve peu de passage marqué par un état émotionnel dans la parole. Comme nous le pensions, la plupart des conversations ont été perçues avec une frustration croissante, probablement parce que le conseiller n’est pas en mesure de donner une réponse suffisamment satisfaisante à l’interlocuteur.
+
+Le tableau 4.4
+%~\ref{tab:statistiqueAnnotation}
+regroupe l'ensemble des annotations discrètes du corpus. Nous pouvons observer une sur-représentation de l'état neutre, surtout en début de conversation, ce qui ne nous a pas surpris, puisque l'on retrouve peu de passage marqué par un état émotionnel dans la parole. Comme nous le pensions, la plupart des conversations ont été perçues avec une frustration croissante, probablement parce que la plupart des clients appelle quand ils ont un problème ou par exemple parce que le conseiller n’est pas en mesure de donner une réponse suffisamment satisfaisante à l’interlocuteur.
+
+%Afin d'évaluer la pertinence du corpus, nous avons étudiés l'annotation de ces trois annotateurs.
+Nous avons mis en place des mesures d'accord intra-annotateurs, permettant de mesurer la pertinence d'une annotation vis à vis des autres annotations du même annotateur. Et nous avons également mis en place des mesures d'accord inter-annotateurs, permettant de mesure la pertinence de l'annotation d'un document par rapport à une autre annotation du même document. %Ainsi, nous avons des informations sur la difficulté de la tâche et sur le niveau de subjectivité des annotateurs notamment.
 
 \subsection{Accord intra-annotateur}
-Pour mesurer l'accord intra-annotateur, nous avons choisi de comparer les annotations continues aux annotations discrètes. Comme nous pouvons le voir dans le tableau~\ref{tab:statistiqueAnnotation}, peu de conversations ont été annotées en très satisfait. Nous avons donc choisi de regrouper les catégories très satisfaites et satisfaites. Afin de rester symétrique dans nos annotations, nous avons également regroupé les catégories très frustrées et frustrées. Les annotations discrètes sont ensuite fusionnées par vote majoritaire. Si nous avons les trois catégories pour une observation en début et fin de conversation, nous choisissons le neutre que ce soit pour la valence ou la dimension de satisfaction. Pour l'évolution des deux axes, le vote majoritaire n'est pas suffisant pour fusionner les données. Nous avons considéré que si l'évolution était différentes selon les annotateurs, elle correspond à la catégorie \textit{fluctue}.
+Comme nous pouvons le voir dans le tableau 4.5
+%~\ref{tab:statistiqueAnnotation}
+, peu de conversations ont été annotées en très satisfait. Nous avons donc choisi de regrouper les catégories très satisfaites et satisfaites. Afin de rester symétrique dans nos annotations, nous avons également regroupé les catégories très frustrées et frustrées. Les annotations discrètes sont ensuite fusionnées par vote majoritaire. En cas d'égalité,
+%Si nous avons les trois catégories pour une observation en début et fin de conversation,
+nous choisissons le neutre que ce soit pour la valence ou la dimension de satisfaction. Pour l'évolution des deux axes, le vote majoritaire n'est pas suffisant pour fusionner les données : il y a trop de cas d'égalité. Nous avons considéré que si l'évolution était différentes selon les annotateurs, elle correspond à la catégorie \textit{fluctue}.
 
-Cet accord est mesuré entre les annotations continues et discrètes d'une même conversation par un même annotateur. Les annotations continues ont été normalisées en suivant la méthode de la normalisation standard \textcolor{red}{besoin d'expliquer la normalisation standard?}, remettant les annotations dans un espace allant de 0 à 1.
-Nous avons discrétisés les valeurs continues, appelée $S_n$ dans la suite, pour se synchroniser avec l'annotation discrète. Pour ce faire, nous avons défini deux seuils permettant de déterminer si une valeur continue correspond à un état de frustration ($S_n<0.45$), à un état neutre ($0.45 < S_n < 0.55$) ou à un état de satisfaction ($S_n > 0.55$). Ces seuils ont été définis empiriquement par observation de l'annotation des conversations neutres contenues dans le corpus. En effet, l'annotation de ces dernières restent globalement entre les bornes 4.5 et 5.5 de l'axe de satisfaction.
-Ensuite nous avons défini les notions de début et fin de conversation dans le contexte de l'annotation continue. Nous avons déterminé qu'il était chacun constitué de 10\% de la durée totale de la conversation, appelé $dc$. Le début correspond donc au segment commençant à 0 et finissant à $0.1*dc$ et la fin correspond au segment commençant à $ dc - 0.1*dc$ , jusqu'à la fin de la conversation, $dc$.
+Cet accord est mesuré entre les annotations continues et discrètes d'une même conversation par un même annotateur. Les annotations continues ont été normalisées en suivant la méthode de la normalisation standard selon l'équation~\ref{eq:normStand} avec une annotation $x$ issue de toutes les annotations $X$, remettant les annotations dans un espace allant de zéro à un.
 
-Nous avons alors fait la moyenne des annotations qui représentent le début de la conversation et nous appliquons le seuillage pour déterminer quelle étiquette caractérise cet intervalle de temps. Nous faisons exactement la même chose avec les annotations de fin de conversation. Ainsi pour chaque conversation, nous avons l'annotation discrète effectuée par l'annotateur et une autre annotation discrète correspondant à la discrétisation de son annotation continue.
+\begin{equation}
+  x' = \frac{x-Minimum(X)}{Maximum(X)-Minimum(X)}
+  \label{eq:normStand}
+\end{equation}
 
+Nous avons discrétisé les valeurs continues, appelée $S_n$ dans la suite, suivant les trois niveaux utilisés dans l'annotation discrète. Pour ce faire, nous avons défini empiriquement deux seuils en observant de l'annotation des conversations neutres contenues dans le corpus. En effet, l'annotation de ces dernières restent globalement entre les bornes 0.45 et 0.55 de l'axe de satisfaction. Notre seuil permet de déterminer si une valeur continue correspond à un état de frustration ($S_n<0.45$), à un état neutre ($0.45 < S_n < 0.55$) ou à un état de satisfaction ($S_n > 0.55$).
+
+Nous avons également défini la notion de début et fin de conversation comme étant $10\%$ de la durée de la conversation, $dc$.
+%Ensuite nous avons défini les notions de début et fin de conversation dans le contexte de l'annotation continue. Nous avons déterminé qu'il était chacun constitué de 10\% de la durée totale de la conversation, appelé $dc$.
+Le début correspond donc au segment commençant à 0 et finissant à $0.1\times dc$ et la fin correspond au segment commençant à $ dc - 0.1\times dc$ , jusqu'à la fin de la conversation, $dc$.
+
+Nous avons alors fait la moyenne des valeurs de satisfaction sur le début de la conversation et nous appliquons le seuillage pour déterminer quelle étiquette caractérise cet intervalle de temps. Nous faisons exactement la même chose avec les annotations de fin de conversation. Ainsi pour chaque conversation, nous avons l'annotation discrète effectuée par l'annotateur et une autre annotation discrète correspondant à la discrétisation de son annotation continue.
 La différence entre l'annotation discrétisée du début et de la fin de la conversation devrait être en adéquation avec l'évolution annotée.
-Ce processus nous permet de calculer un kappa par annotateur.
-Le kappa ($\kappa$) est une mesure permettant de quantifier l'accord entre deux observations. Elle mesure le degré de concordance entre deux observations selon l'équation suivante~\ref{eq:kappa}:
+
+Nous avons également décider de calculer un kappa par annotateur.
+Le kappa ($\kappa$) est une mesure permettant de quantifier l'accord entre deux observations. Elle mesure le degré de concordance entre deux observations selon l'équation~\ref{eq:kappa}:
 \begin{equation}
     \kappa = \dfrac{P_0 - P_e}{1 - P_e}
     \label{eq:kappa}
 \end{equation}
 
-$P_0$ correspond à l'accord relatif entre annotations et $P_e$ représente la probabilité d'un accord aléatoire. Comme nous avons un cas de sur-représentation d'une classe, ici le neutre, nous avons fixé $P_e$ à $1/3$~\cite{Callejas2008}.
-Le kappa est compris entre 0 et 1. Plus le kappa est proche de 1, plus l'accord entre les deux observations est forte. En revanche, plus le kappa se rapproche de 0 et moins on a d'accord entre les observations. On considère le kappa comment suffisant lorsqu'il est proche de 0.8.\textcolor{red}{besoin d'une ref ?}
+$P_0$ correspond à l'accord relatif des observations entre les annotations et $P_e$ représente la probabilité d'un accord aléatoire. Comme nous avons un cas de sur-représentation d'une classe, ici le neutre, nous avons fixé $P_e$ à $1/3$ suivant les recommandations de Callejas et al.~\cite{Callejas2008}.
+
+Le kappa est compris entre 0 et 1. Plus le kappa est proche de 1, plus l'accord entre les deux observations est forte. En revanche, plus le kappa se rapproche de 0 et moins on a d'accord entre les observations. De plus, le kappa permet d'indiquer la difficulté de la tâche à effectuer, dans le cas d'une tâche subjective comme la notre. Généralement, on considère le kappa comme suffisant lorsqu'il est proche de 0.8. D'après McHugh~\cite{McHugh2012}, si on rapproche le kappa à l'accuracy, un coefficient de 0.8 correspond à environ 64\% d'accuracy, étant qualifié d'accord fort.
 
 \input{./Chapitre4/tables/accordIntraAnnot}
-Les résultats de ces calculs sont disponibles dans le tableau~\ref{tab:accordIntraAnnot}. Nous pouvons observer une forte concordance entre les annotations discrètes et les annotations continues discrétisées dans les début de conversation avec un kappa moyen de 0.93. Si on se concentre sur le nombre de cas où l'annotation discrète est différente de l'annotation continue discrétisée, on voit que le premier annotateur (a1) a environ 1\% de différence et qu'au maximum, l'annotateur 2 (a2) a une différence de moins de 8\%.
-Pour les fins de conversation, on observe de moins bon score, avec un kappa moyen de 0.77 mais qui reste suffisant pour exprimer une cohérence des annotations. En regardant le nombre d'annotations différentes, on observe de nouveau que l'annotateur 1 (a1) a le moins de différences avec moins de 10\%, tandis que l'annotateur 2 (a2) culmine à presque 17\% de différence.
-Nous avons conclu que, même si l'accord intra-annotateur n'est pas parfait, il est suffisant pour certifier de la cohérence des annotations produites par un même annotateur : les annotations discrètes et continues sont cohérentes l'une envers l'autre.
+Les résultats de ces calculs sont disponibles dans le tableau~\ref{tab:accordIntraAnnot}. Nous pouvons observer une forte concordance entre les annotations discrètes et les annotations continues discrétisées dans les débuts de conversation avec un kappa moyen de 0.93. Si on se concentre sur le nombre de cas où l'annotation discrète est différente de l'annotation continue discrétisée, on voit que le premier annotateur (a1) a environ 1\% de désaccord et qu'au maximum, l'annotateur 2 (a2) est en désaccord de moins de 8\%.
+Pour les fins de conversation, on observe de moins bon score, avec un kappa moyen de 0.77 mais qui reste suffisant pour exprimer une cohérence des annotations. En regardant le nombre d'annotations différentes, on observe de nouveau que l'annotateur 1 (a1) a le moins de désaccord avec moins de 10\%, tandis que l'annotateur 2 (a2) culmine à presque 17\% de désaccord.
+Nous avons conclu que, même si l'accord intra-annotateur n'est pas parfait, il est suffisant pour certifier de la cohérence des annotations continues et discrètes produites par un même annotateur.
 
 \subsection{Accord inter-annotateur}
 Afin d’évaluer l’accord inter-annotateur sur les annotations continues, nous avons utilisé le coefficient de corrélation linéaire. Ce coefficient est calculé au niveau de la conversation sur la dimension de satisfaction normalisée par rapport à l’ensemble des conversations entre les paires d’annotateurs comme défini dans la section précédente.
 
 Le coefficient de corrélation linéaire donne une mesure de l'intensité et du sens de la relation linéaire entre deux variables, ici les deux annotations des deux annotateurs. Son calcul est défini par l'équation suivante~\ref{eq:coeffCorr}:
 \begin{equation}
-  R = \dfrac{Cov(x,y)}{\sigma_x*\sigma_y}
+  R_{12} = \dfrac{Cov(x_1,x_2)}{\sigma_{x_1}*\sigma_{x_2}}
   \label{eq:coeffCorr}
 \end{equation}
-où $Cov(x,y)$ désigne la covariance entre les variables x et y, ici l'ensemble des annotations de deux annotateurs et $\sigma_x$, $\sigma_y$ désignent leur écart type.
+où $Cov(x_1,x_2)$ désigne la covariance entre les variables $x_1$ et $x_2$, ici l'ensemble des annotations de deux annotateurs $a_1$ et $a_2$. $\sigma_{x_1}$, $\sigma_{x_2}$ désignent leur écart type.
 Ce coefficient est compris entre -1 et 1. Plus il est proche de 1, plus la relation linéaire positive entre les variables est forte. Plus il est proche de -1, plus la relation linéaire négative entre les variables est forte. Si le coefficient est proche de 0, on ne peut pas établir de relation linéaire.
-Nous avons également calculé le kappa entre pair d'annotateur sur les valeurs discrètes de début et de fin de conversation.
+Nous avons également calculé le kappa entre paires d'annotateur sur les valeurs discrètes de début et de fin de conversation.
 
 \input{./Chapitre4/tables/accordInterAnnot}
-Les valeurs finales rapportées dans le tableau~\ref{accordInterAnnot} montrent une bonne corrélation entre les annotateurs (un coefficient de corrélation moyen de 0,83), ce qui signifie que les annotations continues sont cohérentes entre les annotateurs.
-On observe toutefois que l'annotateur 1 (a1) et l'annotateur 3 (a3) sont moins enclin à donner les mêmes annotations que les pairs d'annotateurs a1-a2 et a2-a3. On remarque également que le kappa de début de conversation est très élevé. L’une des raisons de ce fort accord est que le début de la conversation est presque toujours neutre. Cela peut s’expliquer de deux façons. Tout d’abord, l’annotation continue est toujours initialisée à 5, ce qui se traduit par un état neutre. Nous avons donc un biais introduit par cet état initial, qui permet à toutes les annotations de commencer de la même manière.
-Mais l’hypothèse principale est que l’interlocuteur est rarement frustré en début de l’appel : cette émotion est provoquée par les réponses de l’agent. Il en va de même pour la satisfaction.
+
+Les valeurs finales rapportées dans le tableau~\ref{tab:accordInterAnnot} montrent une bonne corrélation entre les annotateurs (un coefficient de corrélation moyen de 0,83), ce qui signifie que les annotations continues sont cohérentes entre les annotateurs.
+On observe toutefois que l'annotateur 1 (a1) et l'annotateur 3 (a3) sont moins enclin à donner les mêmes annotations que les paires d'annotateurs a1-a2 et a2-a3.
+
+On remarque également que le kappa de début de conversation est très élevé. L’une des raisons de ce fort accord est que le début de la conversation est presque toujours neutre. Cela peut s’expliquer de deux façons. Tout d’abord, l’annotation continue est toujours initialisée à cinq, ce qui se traduit par un état neutre. Nous avons donc un biais introduit par cet état initial, qui permet à toutes les annotations de commencer de la même manière.
+Mais l’hypothèse principale est que l’interlocuteur est rarement frustré ou satisfait en début de l’appel : ces émotions sont provoquées par les réponses de l’agent.
 
 \input{./Chapitre4/figures/annotTroisGold}
-En partant de ces résultats d’accord prometteurs, nous calculons une annotation de référence pour chaque conversation correspondant à la moyenne des trois annotations de la satisfaction et nous pouvons utiliser cette annotation de référence à des fins d’analyse et d’apprentissage. Cette annotation de référence, aussi appelée annotation gold, est utilisée dans les expériences présentées par la suite. Un exemple d'annotation de conversation et de son annotation gold est présentée dans la figure~\ref{fig:annotTroisGold}.
-D'autres stratégies de fusion d'annotation existent, permettant de mettre un poids plus important à un annotateur ou à lisser les grands écarts d'annotation, mais devant nos résultats d'accord intra et inter-annotateurs, nous avons décidé d'utiliser la fusion d'annotation la plus simple, pour ne pas influencer les futures systèmes de reconnaissance automatique.\textcolor{red}{expliquer les autres méthodes de fusion ?}
+En partant de ces résultats d’accord prometteurs, nous avons défini une annotation de référence pour chaque conversation correspondant à la moyenne des trois annotations de la satisfaction et nous pouvons utiliser cette annotation de référence à des fins d’analyse et d’apprentissage. Cette annotation de référence, aussi appelée \textit{annotation de ref}, est utilisée dans les expériences présentées par la suite. Un exemple d'annotation de conversation et de son \textit{annotation de ref} est présenté dans la figure~\ref{fig:annotTroisGold}.
 
-\section{Calcul du CCC entre annotateurs}
-Afin d'asseoir notre analyse de la cohérence d'annotation, nous avons également décidés de calculer le score CCC entre les annotateurs et l'annotation de référence correspondant à la moyenne de leurs observations.
-Comme nous l'avons expliqué dans le chapitre 3~\ref{chapitre3}, le CCC permet d'évaluer la performance des systèmes de reconnaissances automatique des émotions. Nous avons donc fait l'hypothèse que l'évaluation de nos annotations avec cette métrique nous permettrait de mettre en place une comparaison entre la performance d'un système automatique et la performance d'un humain.
-Ce score CCC a été calculé de deux façons. Dans un premier temps, nous avons déterminé un score global de l'annotateur. Puis nous avons voulu aller plus loin et calculer un score pour chacune des conversations afin de repérer les documents où les annotateurs ne sont pas d'accord entre eux pour caractériser l'état émotionnelle du locuteur.
+D'autres stratégies de fusion d'annotation existent, permettant de mettre un poids plus important à un annotateur ou à lisser les grands écarts d'annotation, mais devant nos résultats d'accord intra et inter-annotateurs, nous avons décidé d'utiliser la fusion d'annotation la plus simple, pour ne pas influencer les futures systèmes de reconnaissance automatique.
+
+\subsection{Calcul du Coefficient de Corrélation de Concordance entre annotateurs}
+Afin de confirmer notre analyse de l'homogénéité de l'annotation, nous avons également décidés de calculer le score du  Coefficient de Corrélation de Concordance (CCC) entre les annotateurs et l'annotation de référence correspondant à la moyenne de leurs observations.
+Comme nous l'avons expliqué dans le chapitre~\ref{chapitre3}, le CCC est la métrique principale pour l'évaluation de la performance des systèmes de reconnaissance automatique des émotions continues. Nous avons donc fait l'hypothèse que l'évaluation de nos annotations avec cette métrique nous permettrait de mettre en place une comparaison entre la performance d'un système automatique et la performance d'un humain.
+
+Ce score CCC a été calculé de deux façons. Dans un premier temps, nous avons déterminé un score global de l'annotateur. Puis nous avons voulu aller plus loin et calculer un score pour chacune des conversations afin de repérer les documents où les annotateurs ne sont pas d'accord entre eux.
 
 \input{./Chapitre4/tables/cccEntreAnnotateurs}
+
 Les scores CCC entre annotateurs sont disponibles dans le tableau~\ref{tab:cccEntreAnnotateurs}. On peut remarquer que les scores sont très bons, allant de 0.815 à 0.944 selon les annotateurs. Ces bons scores sont tout à fait logiques puisque l'annotation de référence est issue de l'annotation de ces trois annotateurs. On peut alors prendre plusieurs positionnements:
 \begin{itemize}
-  \item On peut considérer qu'un score supérieur à 0.815 correspond à un bon score de reconnaissance puisqu'il est au niveau du \textit{plus mauvais} de nos humains,
-  \item on peut également considérer qu'un score de 0.892, moyenne de ces trois scores, correspond au score atteignable en moyenne par l'humain, et que donc si la reconnaissance automatique dépasse ce score, elle est au moins autant performante que l'humain,
-  \item mais également, on peut considérer que si le système de reconnaissance a un score supérieur à 0.944, il est plus performant que \textit{le meilleur} de nos humains et donc qu'il est meilleur que l'homme pour annoter la satisfaction et la frustration.
+  \item On peut considérer qu'un score supérieur à 0.815 correspond à un bon score de reconnaissance puisqu'il est au niveau du \textit{plus mauvais} de nos humains.
+  \item On peut également considérer qu'un score de 0.892, moyenne de ces trois scores, correspond au score atteignable en moyenne par l'humain, et que donc si la reconnaissance automatique dépasse ce score, elle est au moins autant performante que l'humain.
+  \item Mais également, on peut considérer que si le système de reconnaissance a un score supérieur à 0.944, il est plus performant que \textit{le meilleur} de nos humains et donc qu'il est meilleur que l'homme pour annoter la satisfaction et la frustration.
 \end{itemize}
 
-Nous avons décidé de suivre la deuxième conjoncture. Ainsi, si le système atteint un score supérieur à 0.892, on peut considérer qu'il est autant performant que l'humain dans la tache de reconnaissance continue de l'axe de satisfaction.
+Nous avons décidé de suivre la deuxième conjoncture. Ainsi, si le système atteint un score supérieur à 0.892, on peut considérer qu'il est aussi performant que l'humain dans la tâche de reconnaissance continue de l'axe de satisfaction.
 
-En regardant les scores de chaque conversation, dont un extrait est disponible dans le tableau~\ref{tab:tousScoresAnnotateurs}, nous avons pu constater que certaines conversations posent problèmes avec des scores moyens inférieur à 0.2. Il sera interessant par la suite de regarder les scores de reconnaissance automatique de l'axe de satisfaction sur ces conversations.
+En regardant les scores de chaque conversation, dont un extrait est disponible dans le tableau 4.8
+%~\ref{tab:tousScoresAnnotateurs}
+, nous avons pu constater que certaines conversations posent problème avec des scores moyens inférieurs à 0.2. Il sera intéressant par la suite de regarder les scores de reconnaissance automatique de l'axe de satisfaction sur ces conversations, dans le chapitre 7.%~\ref{chapitre7}.
 
 \input{./Chapitre4/tables/tousScoresAnnotateurs}
 
-\subsection{Étude empirique sur une fraction du corpus}
+\subsection{Étude empirique sur le corpus}
 
-\subsubsection{Redondance de signal et silences}
-Nous avons étudiés la répartition de nos ensembles. Nous avons observé qu'il y avait plus de fichiers courts en durée dans notre set de test. En effet, en moyenne un fichier du set de test dure 363 secondes alors qu'un fichier de train dure 464 secondes et un fichier de développement 492 secondes comme explicité dans le tableau~\ref{tab:durée}.
+%\subsubsection{Redondance de signal et silences}
+Nous avons étudié la répartition de nos sous-ensembles. Nous avons observé qu'il y avait plus de fichiers courts en durée dans notre set de test. En effet, en moyenne un fichier du set de test dure 363 secondes alors qu'un fichier de train dure 464 secondes et un fichier de développement 492 secondes comme explicité dans le tableau~\ref{tab:durée}.
 \input{./Chapitre4/tables/duree}
 
-Nous avons également pris en considération les silences que nous avons rajoutés artificiellement lors de la création du corpus. En effet, comme nous n'avons pas les interventions du conseiller, nous avions des silences très long, qu'ils n'étaient pas nécessaires de faire annoter. Nous les avons donc supprimé et remplacé par deux secondes de bruit blanc. Or nous nous posions la question de savoir si cet ajout était bien balancé au sein de nos ensembles. Nous avons constaté que cet ajout était plutot bien balancé dans nos ensembles : il y a en moyenne 41.82 sections de bruit blanc par conversation dans le train, 40.79 sections dans le développement et 36.32 sections dans le test.
+Nous avons également pris en considération les silences que nous avons rajoutés artificiellement lors de la création du corpus pour vérifier leurs répartitions dans les sous-ensembles.
+%En effet, on rappelle que comme nous n'avons pas les interventions du conseiller, nous avions des silences très longs, qu'il n'était pas nécessaire de faire annoter. Nous les avons donc supprimé et remplacé par deux secondes de bruit blanc. Or nous nous posions la question de savoir si cet ajout était bien balancé au sein de nos ensembles.
+Nous avons constaté que cet ajout était plutôt bien balancé dans nos sous-ensembles : il y a en moyenne 41.82 sections de bruit blanc par conversation dans le train, 40.79 sections dans le développement et 36.32 sections dans le test.
 Les trois ensembles ont donc un traitement des silences compris dans le même ordre de grandeur.
 
-\subsection{Écoute humaine}
-Afin de mieux comprendre les données, nous avons choisi d'écouter 57 conversations choisies au hasard dans le corpus. Ces 57 conversations proviennent indépendamment des ensembles d'apprentissage, de développement et de test.
-Plusieurs phénomènes ont été observés sur ces conversations, mais nous n'avons pas trouvé un indicateur phare commun. En effet, ces conversations contiennent ou non du bruit, de la musique, plusieurs locuteurs, des rires, des voix âgées, des silences plutôt marquées (en début, milieu ou fin de conversations) et de la frustration manifeste (augmentation du débit de parole, du volume, moins de temps de silence, des injures,...). Le nombre de ces paramètres retrouvés sont résumés dans le tableau~\ref{tab:ecouteHumaine}. De plus, nous y avons ajouté des données sur le sexe du locuteur, les domaines d'activité dont sont issus les conversations et la variabilité de l'annotation.
-Nous n'avons pas trouvé de schéma clair et universel de la dimension de satisfaction avec ces observations. Néanmoins elles pourront aider à expliquer les performances d'un système automatique de reconnaissance.
-
-\input{./Chapitre4/tables/ecouteHumaine}
-
 \section{Modalités de diffusion du corpus}
-Le corpus est diffusable à toute personne affiliée à un institut public de recherche sur simple demande. En effet, Allo-Média et le laboratoire informatique de l'université du Mans ont statué sur la méthode de diffusion du corpus.
-Ce dernier peut être demandé par mail aux personnes responsables de sa diffusion, à savoir Anthony Rousseau (a.rousseau@allo-media.fr), Marie Tahon (m.tahon@univ-lemans.fr) et moi-même (m.macary@allo-media.fr). Une charte de diffusion a été établie en partenariat avec DeepPrivacy, une entreprise spécialisée dans le traitement des données personnelles. Ainsi, un End User Licence Agreement (EULA) doit être rempli par toutes personnes qui souhaitent accéder au corpus. Une copie de cette licence est disponible en annexe~\ref{ap:eula}.
+Le corpus est distribué à toute personne affiliée à un institut public de recherche sur simple demande. %En effet, Allo-Média et le laboratoire informatique de l'université du Mans (LIUM) ont statué sur la méthode de diffusion du corpus.
+AlloSat peut être demandé par mail aux personnes responsables de sa diffusion, à savoir Anthony Rousseau (a.rousseau@allo-media.fr), Marie Tahon (marie.tahon@univ-lemans.fr) et moi-même (m.macary@allo-media.fr). Une charte de diffusion a été établie en en partenariat avec DeepPrivacy, une entreprise spécialisée dans le traitement des données personnelles, en collaboration avec Allo-Média. Ainsi, un End User Licence Agreement (EULA) doit être rempli par toutes personnes qui souhaitent accéder au corpus. Une copie de cette licence est disponible en annexe~\ref{ap:eula}.
+
 Le corpus est distribué en l'état, les responsables ayant mis en place tout ce qu'ils pouvaient pour garantir l'anonymat des participants tout en conservant des données automatiquement exploitables. Néanmoins, si une personne se reconnaît ou reconnaît un de ces proches, il peut demander à ce que sa participation soit retirée du corpus.
-Toutes personnes ayant en meur possession le corpus reçoivent alors une notification leur stipulant qu'un document doit être détruit. Ce cas de figure ne s'est, pour le moment, jamais présenté.
+Toutes personnes ayant en leur possession le corpus reçoivent alors une notification leur stipulant qu'un document doit être détruit. Ce cas de figure ne s'est, pour le moment, jamais présenté.
+Depuis sa mise à disposition et jusqu'au mois d’août 2021, douze demandes d'accès ont été reçu par les responsables de sa diffusion avec une diffusion effective à quatre établissements.
+
 Une discussion est toujours en cours pour l'ouverture de ce corpus aux chercheurs du secteur privé. Les informations sur sa diffusion sont mis à jour sur une page dédiée hébergée par l'université du Mans (https://lium.univ-lemans.fr/allosat/).
 
-Ce corpus sera utilisé pour toutes les expériences qui seront présentes dans la suite de ce thèse.
+Ce corpus sera utilisé pour toutes les expériences présentées dans la suite de cette thèse.
+
+\section{Conclusion}
+Dans ce chapitre, nous avons décrit la construction du corpus AlloSat. Nous avons d'abord justifié les différents choix que nous avons mis en place, avant de parler de la sélection des données et de leur annotation. Enfin, nous avons donné quelques pistes d'analyse pour rendre compte de la qualité du corpus et de la difficulté de la tâche de reconnaissance des émotions continues.
+
+Grâce à ce corpus, nous avons pu mettre en place des systèmes de reconnaissance qui seront détaillé dans les prochains chapitres.
