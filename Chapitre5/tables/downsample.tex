@@ -1,0 +1,17 @@
+\begin{table}[htp!]
+   \centering
+   \begin{tabular}{|l| l  l  l|}
+       \hline
+                   &activation    &valence   &liking \\
+       \hline
+       %44kHz           &.322 (.415)  &.337 (.440) &.106 (.209) \\
+       %8kHz            &.486 (.539) &.495 (.532) &.187 (.289) \\
+       %8kHz + noise    &.471 (.497) &.464 (.486) &.204 (.250) \\
+       44kHz           &\textbf{.528}  &\textbf{.515} &\textbf{.304} \\
+       8kHz            &.486 &.495 &.187 \\
+       8kHz + bruit    &.471 &.464 &.204 \\
+       \hline
+   \end{tabular}
+   \caption{Comparaison des scores de développement entre les versions originales du corpus SEWA et les versions dégradées. Les dégradations sont le sous-echantillonage des enregistrement audio et l'ajout de différents bruits. Nous utilisons les descripteurs eGeMAPS-47 ainsi qu'un modèle CNN. L'entrainement et les prédictions sont effectuées sur les conversations allemandes.}
+   \label{tab:downsample}
+\end{table}

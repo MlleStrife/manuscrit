@@ -1,0 +1,16 @@
+\begin{table}[th]
+  \centering
+  \begin{tabular}{| l | ll | ll |}
+      \hline
+      Ensemble de descripteurs & \multicolumn{2}{c |}{\textbf{biLSTM-2}} &\multicolumn{2}{c |}{\textbf{biLSTM-4}} \\
+      & dev & test & dev & test \\
+      \hline
+      eGeMAPS-88 &0.510 &0.363 &\textbf{0.666} &0.431 \\
+      eGeMAPS-89 &\textbf{0.549} &\textbf{0.365} &0.619 &\textbf{0.542} \\
+      f\_eGeMAPS-46 &0.469 &0.260 &0.607 &0.354 \\
+      f\_eGeMAPS-47 &0.508 &0.359 &0.574 &0.422 \\
+      \hline
+  \end{tabular}
+  \caption{Score CCC des meilleurs systèmes de reconnaissance des émotions en utilisant quatre ensembles de descripteurs différents et deux architectures neuronales sur les ensembles de développement et de test d'AlloSat.}
+  \label{tab:result7minutes}
+\end{table}

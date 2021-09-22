@@ -1,0 +1,14 @@
+
+\begin{table}[h]
+    \centering
+        \begin{tabular}{| l | l l | l l |}
+        \hline
+        \textbf{Descripteurs} &\multicolumn{2}{c|}{\textbf{Dev}}& \multicolumn{2}{c |}{\textbf{Test}}\\
+        &Non lissé &Lissé &Non lissé &Lissé \\
+        \hline
+        Mfcc-lib (\textit{l-rmse})    &.698 &\textbf{.719} &.513 &\textbf{.570}  \\
+        \hline
+    \end{tabular}
+    \caption{Scores CCC avec et sans lissage calculés sur les ensembles de développement et de test d'AlloSat. Score issu du meilleur modèle : système biLSTM-4, descripteurs Mfcc-lib et fonction de coût RMSE.}
+    \label{tab:lissage}
+\end{table}

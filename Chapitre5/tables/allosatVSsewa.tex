@@ -1,0 +1,49 @@
+\begin{table}[ht!]
+      \centering
+      \begin{tabular}{| l| l |l |c | c | c |}
+          \hline
+          \textbf{Modèles} &\textbf{Descripteurs} &\textbf{AlloSat} &\multicolumn{3}{c |}{\textbf{SEWA}} \\ \cline{3-6}
+          & &satisfaction &activation &valence &liking \\
+          \hline
+          \multicolumn{6}{| c |}{Nos systèmes} \\
+          \hline
+           \rowcolor{Red}
+           CNN       &eGeMAPS-47 &.178 (.458) &\textbf{.528} (.541) &\textbf{.515} (.527) &\textbf{.304} (.321)  \\
+            \rowcolor{Red}
+           biLSTM-4  &eGeMAPS-47 &.437 (.458) &.487 (.527) &.428 (.468) &.258 (.346)  \\
+          \rowcolor{Green}
+          biLSTM-2 &eGeMAPS-88  &.480 (.564) &.280 (.357) &.174 (.212) &.095 (.171) \\
+          \rowcolor{Green}
+          biLSTM-2 &Mfcc-Os     &.364 (.439) &.395 (.438) &.325 (.373) &.158 (.208) \\
+           \rowcolor{Blue}
+          biLSTM-2 &eGeMAPS-88*  &.480 (.564) &.244 (.273) &.118 (.155) &.082 (.132) \\
+          \rowcolor{Blue}
+          biLSTM-2 &Mfcc-Os*     &.364 (.439) &.325 (.326) &.186 (.192) &.125 (.126) \\
+          biLSTM-4 &eGeMAPS-88  &\textbf{.564} (.634) &.316 (.429)  &.237 (.309) &.119 (.188) \\
+          \hline
+          \multicolumn{6}{| c |}{AVEC 2018 : Train et Dev sur les conversations allemandes} \\
+          \hline
+          \rowcolor{Green}
+          biLSTM-2 &eGeMAPS-88 & &.124  &.112 &.001 \\
+          \rowcolor{Green}
+          biLSTM-2 &Mfcc-Os    & &.253  &.217 &.136 \\
+           \hline
+          \multicolumn{6}{| c |}{AVEC 2019 : Train et Dev sur les conversations allemandes et hongroises} \\
+          \hline
+          \rowcolor{Blue}
+          biLSTM-2 &eGeMAPS-88* & &.371 &.286 &.159 \\
+          \rowcolor{Blue}
+          biLSTM-2 &Mfcc-Os*    & &.326 &.187 &.144 \\
+           \hline
+           \multicolumn{6}{| c |}{Schmitt et al. : Train et Dev sur les conversations allemandes} \\
+           \hline
+           \rowcolor{Red}
+           CNN      &eGeMAPS-47   & &.571  &.517 & \\
+           \rowcolor{Red}
+           biLSTM-4 &eGeMAPS-47   & &.568  &.561 & \\
+           \hline
+      \end{tabular}
+      \caption{Comparaison des scores moyens de CCC sur les corpus AlloSat et SEWA selon quatre dimensions émotionnelles : la satisfaction, l'activation, la valence et le liking. Nous reportons également les résultats inclus dans les papiers~\cite{AVEC2018,AVEC2019,Schmitt2019}, qui constituent notre base de comparaison.
+      *L'entrainement et les prédictions sont réalisés sur les conversations allemandes et hongroises.}
+      \label{tab:allosatVSsewa}
+  \end{table}

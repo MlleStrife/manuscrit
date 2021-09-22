@@ -1,0 +1,16 @@
+\begin{table}[h]
+  \centering
+\begin{tabular}{|l|l|l|c|c|c|}
+\hline
+\multirow{2}{*}{Modèles} & \multirow{2}{*}{Descripteurs} & AlloSat                               & \multicolumn{3}{c|}{SEWA}                                                                                             \\ \cline{3-6}
+                         &                               & satisfaction                          & activation                            & valence                               & liking                                \\ \hline
+\multicolumn{6}{|c|}{\textbf{Reproduction des résultats avec nos systèmes}}                                                                                                                                              \\ \hline
+CNN                      & eGeMAPS-47                    & .178 (.458)                           & \textbf{.528} (.541) & \textbf{.515} (.527) & \textbf{.304} (.321) \\
+biLSTM-4                 & eGeMAPS-47                    & \textbf{.437} (.458) & .487 (.527)                           & .428 (.468)                           & .258 (.346)                           \\ \hline
+\multicolumn{6}{|c|}{\textbf{Schmitt et al.~\cite{Schmitt2019} : Train et Dev sur les conversations allemandes}}                                                                                                           \\ \hline
+CNN                      & eGeMAPS-47                    &                                       & .571                                  & .517                                  &                                       \\
+biLSTM-4                 & eGeMAPS-47                    &                                       & .568                                  & .561                                  &                                       \\ \hline
+\end{tabular}
+\caption{Comparaison des moyennes des scores CCC de cinq systèmes différents sur l'ensemble de développement d'AlloSat et de SEWA. Nous avons également reporté les résultats issus de Schmitt et al.~\cite{Schmitt2019}}
+\label{tab:cnnVSbilstm}
+\end{table}

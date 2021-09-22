@@ -1,0 +1,17 @@
+    \begin{table}[htp!]
+    \centering
+    \begin{tabular}{l| l  l  l  }
+        \hline
+                    &arousal    &valence   &liking \\
+        \hline
+        %44kHz           &.322 (.415)  &.337 (.440) &.106 (.209) \\
+        %8kHz            &.486 (.539) &.495 (.532) &.187 (.289) \\
+        %8kHz + noise    &.471 (.497) &.464 (.486) &.204 (.250) \\
+        44kHz           &\textbf{.528}  &\textbf{.515} &\textbf{.304} \\
+        8kHz            &.486 &.495 &.187 \\
+        8kHz + noise    &.471 &.464 &.204 \\
+        \hline
+    \end{tabular}
+    \caption{Scores comparison on original and down-sampled/noisy SEWA corpus with eGeMAPS-47 features set and a CNN model and CCC loss. Training and predictions on SEWA has been made on the German conversations.}
+    \label{downsample}
+\end{table}
