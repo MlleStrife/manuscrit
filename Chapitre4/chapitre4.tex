@@ -77,15 +77,11 @@ Une fois ce traitement effectué, nous avons mis en place l'anonymisation du cor
 
 Afin de respecter la vie privée des personnes, la France et les autres pays européens ont mis en place une réglementation sur la collecte, le stockage et le traitement des données personnelles de tout individu. Le règlement général sur la protection des données (RGPD) établit des règles relatives à la protection des utilisateurs vis à vis du traitement de leur données personnelles, pour s'assurer que les utilisateurs conservent leurs libertés et leurs droits fondamentaux. Cette réglementation, contrôlée par la Commission Nationale de l'Informatique et des Libertés (CNIL) a été mise en application en 2018, nous avons donc dû traiter les données du corpus afin de respecter cette réglementation.
 
-Un des points les plus importants de cette réglementation est l'obfuscation de toutes les données personnelles. Les catégories de données personnelles que nous avons anonymisées sont présentées dans l'arbre 4.1.
-%~\ref{tab:donneesPerso}.
-Ce sont celles définies par l'entreprise Allo-Média, en accord avec les réglementations en vigueur. Il est à noter que l'anonymisation ne se fait pas exclusivement par les feuilles de l'arbre, tous les nœuds peuvent être utilisés. L'anonymisation des nœuds est exceptionnelle, elle obstrue les données indirectes qui permettent de reconnaître un individu. Par exemple, dans le cadre de la localisation, un nom donné à une maison \textit{l'hirondelle} est anonymisé en catégorie \textit{localisation}. À ces dernières s'ajoutent les données permettant d'identifier des entreprises. Les marques et les produits sont obfusqués. Ainsi, les conversations finales permettent de reconnaître le domaine d'activité de l'entreprise mais pas son identité.
+Un des points les plus importants de cette réglementation est l'obfuscation de toutes les données personnelles. Les catégories de données personnelles que nous avons anonymisées sont présentées dans l'arbre~\ref{tab:donneesPerso}. Ce sont celles définies par l'entreprise Allo-Média, en accord avec les réglementations en vigueur. Il est à noter que l'anonymisation ne se fait pas exclusivement par les feuilles de l'arbre, tous les nœuds peuvent être utilisés. L'anonymisation des nœuds est exceptionnelle, elle obstrue les données indirectes qui permettent de reconnaître un individu. Par exemple, dans le cadre de la localisation, un nom donné à une maison \textit{l'hirondelle} est anonymisé en catégorie \textit{localisation}. À ces dernières s'ajoutent les données permettant d'identifier des entreprises. Les marques et les produits sont obfusqués. Ainsi, les conversations finales permettent de reconnaître le domaine d'activité de l'entreprise mais pas son identité.
 
 \input{./Chapitre4/figures/annony}
 
-Pour procéder à cette obfuscation, nous avons utilisé un obfuscateur automatique, détenu par la société Allo-Média, appliqué sur les transcriptions, puis répercuté sur les fichiers audio. Ce parseur, dans un premier temps, recherche les mots appartenant aux groupes présentés dans l'arbre 4.1
-%~\ref{tab:donneesPerso}
-, dans les transcriptions des conversations. Il substitue dans le texte les mots désignés par la catégorie. Enfin il substitue le segment audio correspondant au code temporel des données personnelles détectées par un signal audio pré-enregistré. Ce dernier se compose d'un air de percussion de type jazzy. Un exemple fictif de cette obfuscation est illustré dans la figure~\ref{fig:annony}
+Pour procéder à cette obfuscation, nous avons utilisé un obfuscateur automatique, détenu par la société Allo-Média, appliqué sur les transcriptions, puis répercuté sur les fichiers audio. Ce parseur, dans un premier temps, recherche les mots appartenant aux groupes présentés dans l'arbre~\ref{tab:donneesPerso}, dans les transcriptions des conversations. Il substitue dans le texte les mots désignés par la catégorie. Enfin il substitue le segment audio correspondant au code temporel des données personnelles détectées par un signal audio pré-enregistré. Ce dernier se compose d'un air de percussion de type jazzy. Un exemple fictif de cette obfuscation est illustré dans la figure~\ref{fig:annony}.
 
 Une deuxième passe, humaine cette fois ci, permet de garantir l'obfuscation de toutes les données personnelles. En utilisant l'outil Transcriber, chaque conversation a été écoutée et lue, permettant d'identifier et de segmenter les données personnelles restantes. C'est lors de cette deuxième phase que les données permettant d'identifier les entreprises ont été isolées. Nous avons également choisi de supprimer tous les numéros permettant d'identifier un contrat ou une date significative. Les segments identifiés sont alors substitués par le même signal audio jazzy.
 
@@ -170,23 +166,18 @@ Ces consignes ont pour but d'aider l'annotateur à effectuer une annotation la p
 
 AlloSat est composé de 303 conversations, d'une durée totale de 37 heures 23 minutes et 27 secondes, de 308 locuteurs distincts dont 191 femmes et 117 hommes.
 %Ces conversations ont été annotées par trois annotateurs, deux femmes et un homme, formés à la transcription d'appels et à l'annotation en catégorie discrètes de concepts sémantiques.
-Une répartition en trois sous-ensembles a été définies. L'ensemble d’entraînement (train) est composé de 201 conversations, l'ensemble de développement (dev) de 42 conversations et l'ensemble de test (test) de 60 conversations. De plus amples détails sont disponibles dans le tableau 4.3.
-%~\ref{tab:repartitionEnSets}.
+Une répartition en trois sous-ensembles a été définies. L'ensemble d’entraînement (train) est composé de 201 conversations, l'ensemble de développement (dev) de 42 conversations et l'ensemble de test (test) de 60 conversations. De plus amples détails sont disponibles dans le tableau~\ref{tab:repartitionEnSets}.
 On peut noter que la durée du dev et du test sont très similaires. On a donc une répartition approximative de 25 heures et demi des données dans le train et douze heures des données dans le dev et le test (avec six heures chacun). Comme nous l'avons vu au chapitre 2, le découpage d'un corpus en sous-ensemble permet d'assurer la cohérence des scores notamment.
 
 \input{./Chapitre4/tables/statistiqueAnnotation}
 
-Le tableau 4.4
-%~\ref{tab:statistiqueAnnotation}
-regroupe l'ensemble des annotations discrètes du corpus. Nous pouvons observer une sur-représentation de l'état neutre, surtout en début de conversation, ce qui ne nous a pas surpris, puisque l'on retrouve peu de passage marqué par un état émotionnel dans la parole. Comme nous le pensions, la plupart des conversations ont été perçues avec une frustration croissante, probablement parce que la plupart des clients appelle quand ils ont un problème ou par exemple parce que le conseiller n’est pas en mesure de donner une réponse suffisamment satisfaisante à l’interlocuteur.
+Le tableau~\ref{tab:statistiqueAnnotation} regroupe l'ensemble des annotations discrètes du corpus. Nous pouvons observer une sur-représentation de l'état neutre, surtout en début de conversation, ce qui ne nous a pas surpris, puisque l'on retrouve peu de passage marqué par un état émotionnel dans la parole. Comme nous le pensions, la plupart des conversations ont été perçues avec une frustration croissante, probablement parce que la plupart des clients appelle quand ils ont un problème ou par exemple parce que le conseiller n’est pas en mesure de donner une réponse suffisamment satisfaisante à l’interlocuteur.
 
 %Afin d'évaluer la pertinence du corpus, nous avons étudiés l'annotation de ces trois annotateurs.
 Nous avons mis en place des mesures d'accord intra-annotateurs, permettant de mesurer la pertinence d'une annotation vis à vis des autres annotations du même annotateur. Et nous avons également mis en place des mesures d'accord inter-annotateurs, permettant de mesure la pertinence de l'annotation d'un document par rapport à une autre annotation du même document. %Ainsi, nous avons des informations sur la difficulté de la tâche et sur le niveau de subjectivité des annotateurs notamment.
 
 \subsection{Accord intra-annotateur}
-Comme nous pouvons le voir dans le tableau 4.5
-%~\ref{tab:statistiqueAnnotation}
-, peu de conversations ont été annotées en très satisfait. Nous avons donc choisi de regrouper les catégories très satisfaites et satisfaites. Afin de rester symétrique dans nos annotations, nous avons également regroupé les catégories très frustrées et frustrées. Les annotations discrètes sont ensuite fusionnées par vote majoritaire. En cas d'égalité,
+Comme nous pouvons le voir dans le tableau~\ref{tab:statistiqueAnnotation}, peu de conversations ont été annotées en très satisfait. Nous avons donc choisi de regrouper les catégories très satisfaites et satisfaites. Afin de rester symétrique dans nos annotations, nous avons également regroupé les catégories très frustrées et frustrées. Les annotations discrètes sont ensuite fusionnées par vote majoritaire. En cas d'égalité,
 %Si nous avons les trois catégories pour une observation en début et fin de conversation,
 nous choisissons le neutre que ce soit pour la valence ou la dimension de satisfaction. Pour l'évolution des deux axes, le vote majoritaire n'est pas suffisant pour fusionner les données : il y a trop de cas d'égalité. Nous avons considéré que si l'évolution était différentes selon les annotateurs, elle correspond à la catégorie \textit{fluctue}.
 
@@ -264,9 +255,7 @@ Les scores CCC entre annotateurs sont disponibles dans le tableau~\ref{tab:cccEn
 
 Nous avons décidé de suivre la deuxième conjoncture. Ainsi, si le système atteint un score supérieur à 0.892, on peut considérer qu'il est aussi performant que l'humain dans la tâche de reconnaissance continue de l'axe de satisfaction.
 
-En regardant les scores de chaque conversation, dont un extrait est disponible dans le tableau 4.8
-%~\ref{tab:tousScoresAnnotateurs}
-, nous avons pu constater que certaines conversations posent problème avec des scores moyens inférieurs à 0.2. Il sera intéressant par la suite de regarder les scores de reconnaissance automatique de l'axe de satisfaction sur ces conversations, dans le chapitre 7.%~\ref{chapitre7}.
+En regardant les scores de chaque conversation, dont un extrait est disponible dans le tableau ~\ref{tab:tousScoresAnnotateurs}, nous avons pu constater que certaines conversations posent problème avec des scores moyens inférieurs à 0.2. Il sera intéressant par la suite de regarder les scores de reconnaissance automatique de l'axe de satisfaction sur ces conversations, dans le chapitre 7.%~\ref{chapitre7}.
 
 \input{./Chapitre4/tables/tousScoresAnnotateurs}
 

@@ -1,39 +1,61 @@
-\begin{table}[h]
+\begin{table}[]
    \centering
-   \begin{tabular}{| l |}
+   \begin{tabular}{| l | l | l |}
    \hline
-       Paramètres fréquentiels \\
+       \textbf{Paramètres} &\textbf{fonctions appliquées} &\textbf{nb paramètres} \\
    \hline
-       Hauteur de la voix (Pitch)  \\
-       Tremblement de la voix (Jitter) \\
-       Frequence des Formants 1,2,3 \\
-       Bande passante (Bandwidth) des Formants 1,2,3 \\
+       \multicolumn{3}{|l|}{\textbf{Paramètres fréquentiels : 20 ou 24 paramètres}} \\
    \hline
-       Paramètres d'énergie et d'amplitude \\
+       Hauteur de la voix (Pitch) F0 &M, CV, P, RP, SLOPE &10 \\
+       Micro-variations de F0 de la voix (Jitter) &M, CV &2 \\
+       Frequence des Formants 1,2,3 &M, CV &6 \\
+       \begin{tabular}[c]{@{}l@{}}Bande passante (Bandwidth) du \\
+       premier Formant \end{tabular} &M, CV &2 \\
+       Bande passante des Formants 2,3 \textbf{*} &M, CV &4 \\
    \hline
-       Scintillement (Shimmer) \\
-       Volume (Loudness) \\
-       Ratio Harmonique-Bruit (Harmonics-to-Noise Ratio) \\
+       \multicolumn{3}{|l|}{\textbf{Paramètres d'énergie et d'amplitude : 14 paramètres}} \\
    \hline
-       Paramètres spectraux \\
+       Micro-variation d'énergie (Shimmer) &M, CV &2 \\
+       Énergie perçue (Loudness) &M, CV, P, RP, SLOPE &10 \\
+       \begin{tabular}[c]{@{}l@{}}Rapport Harmonique-Bruit \\
+       (Harmonics-to-Noise Ratio) \end{tabular} &M, CV &2 \\
    \hline
-       Ratio Alpha \\
-       Index de Hammarberg \\
-       2 pentes spectrales : 0-500Hz et 500-1500Hz \\
-       Energie relative des Formants 1,2,3 \\
-       Différence harmonique H1-H2 et H1-A3 \\
-       MFCC 1 à 4 \\
-       Flux spectral \\
+       \multicolumn{3}{|l|}{\textbf{Paramètres spectraux : 22 ou 43 paramètres}} \\
    \hline
-       Paramètres temporels  \\
+       Ratio Alpha &M, CV, MUN &3 \\
+       Index de Hammarberg &M, CV, MUN &3 \\
+       Pente spectrale : 0-500Hz &M, CV, MUN &3 \\
+       Pente spectrale : 500-1500Hz &M, CV, MUN &3 \\
+       \begin{tabular}[c]{@{}l@{}}Energie relative des \\
+         Formants 1,2,3 \end{tabular} &M, CV &6 \\
+       Différence harmonique H1-H2 &M, CV &2 \\
+       Différence harmonique H1-A3 &M, CV &2 \\
+       MFCC 1 à 4 \textbf{*} &M, CV, MCVV &16 \\
+       Flux spectral \textbf{*} &M, CV, MUN, MCVV &5 \\
    \hline
-       Taux des pics de volume (Rate of loudness peaks) \\
-       Moyenne et variance des zones parlées \\
-       Moyenne et variance des zones non parlées \\
-       Nombre de zones continues parlées par secondes \\
+       \multicolumn{3}{|l|}{\textbf{Paramètres temporels : 6 paramètres}} \\
    \hline
-
+       \begin{tabular}[c]{@{}l@{}}Taux des pics d'énergie \\
+       (Rate of loudness peaks) \end{tabular} & &1 \\
+       Durée des segments parlés ($F0>0$) &M, V &2 \\
+       Durée des segments non-parlés ($F0<0$) &M, V &2 \\
+       \begin{tabular}[c]{@{}l@{}}Nombre de zones continues \\
+       parlées par secondes \end{tabular} & &1  \\
+   \hline
+       Équivalent du niveau du son \textbf{*}& &1 \\
+   \hline
    \end{tabular}
-   \caption{Résumé des descripteurs de bas niveau (LLDs) utilisés dans l'ensemble eGeMAPS.}
+   \caption{Résumé des descripteurs de bas niveau (LLDs) utilisés dans les ensembles GeMAPS et eGeMAPS. \textbf{*} signale les descripteurs uniquement disponibles dans eGeMAPS. Légende des fonctions appliquées : \textbf{M} moyenne arithmétique, \textbf{CV} coefficient de variation, qui correspond à la variance normalisée par la moyenne, \textbf{V} variance, \textbf{P} percentiles : 20,50 et 80\%, \textbf{RP} l'intervalle des percentiles 20 à 80\%, \textbf{SLOPE} moyenne et variance des pente de montée/descente de signal, \textbf{MUN} moyenne arithmétique avec les parties sans parole, \textbf{MCVV} moyenne arithmétique et coefficient de variation des parties avec paroles.
+   % \begin{itemize}
+   %   \item \textbf{M} moyenne arithmétique,
+   %   \item \textbf{CV} coefficient de variation, qui correspond à la variance normalisée par la moyenne,
+   %   \item \textbf{V} variance,
+   %   \item \textbf{P} percentiles : 20,50 et 80\%,
+   %   \item \textbf{RP} l'intervalle des percentiles 20 à 80\%,
+   %   \item \textbf{SLOPE} moyenne et variance des pente de montée/descente de signal,
+   %   \item \textbf{MUN} moyenne arithmétique avec les parties sans parole.
+   %   \item \textbf{MCVV} moyenne arithmétique et coefficient de variation des parties avec paroles.
+   % \end{itemize}
+   }
    \label{tab:egemaps}
 \end{table}

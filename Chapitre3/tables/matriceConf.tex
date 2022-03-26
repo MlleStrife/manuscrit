@@ -1,11 +1,13 @@
 \begin{table}[h]
   \centering
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l||l|l|}
 \hline
-       & joie        & neutre      & colère      \\ \hline
-joie   & \textbf{90} & 11          & 2           \\ \hline
-neutre & 4           & \textbf{80} & 10          \\ \hline
-colère & 6           & 9           & \textbf{20} \\ \hline
+       &              &\multicolumn{5}{|c|}{Prédiction} \\ \hline
+       &             & joie        & neutre      & colère      &précision &rappel\\ \hline
+\multirow{4}{*}{Référence} &joie   & \textbf{90} & 11          & 2           &0.874     &0.900\\ \hline
+                     & neutre & 4           & \textbf{80} & 10          &0.851     &0.889\\ \hline
+                     & colère & 6           & 9           & \textbf{20} &0.571     &0.625\\ \hline \hline
+                     & total  & 100         & 90          & 32           & & \\ \hline
 \end{tabular}
 \caption{Matrice de Confusion entre trois classes émotionnelles : la joie, le neutre et la colère. Les colonnes correspondent aux prédictions du système et les lignes correspondent aux références. On voit que sur 100 prédictions de la classe joie, seul 90 sont pertinentes et le système a mal prédit 10 segments qui devraient être dans la classe joie.}
 \label{tab:matriceConf}

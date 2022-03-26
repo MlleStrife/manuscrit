@@ -1,4 +1,5 @@
 \chapter{Apprentissage automatique pour le traitement de la parole}
+\label{chapitre2}
 «La tristesse de l'intelligence artificielle est qu'elle est sans artifice, donc sans intelligence.»  (Jean Baudrillard, 1987)
 
 \section{Apprentissage automatique : définition}
@@ -418,7 +419,141 @@ Le dropout, introduit par Srivastava et al.~\cite{Srivastava2014} est une normal
 
 Ainsi, en fonction d'une probabilité de désactivation des neurones, souvent fixée à $0.5$, le réseau aura plus ou moins de neurones désactivés et devra palier à ce manque de représentation.
 
-Toutes ces méthodes permettent de garantir un fonctionnement correct voir optimal d'un système neuronal.
+Toutes ces méthodes permettent de garantir un fonctionnement correct voir optimal d'un système neuronal, et cela quelque soit l'architecture des réseaux de neurones employée.
+
+\section{Les architectures des réseaux dans le traitement du signal}
+
+Dans le cadre de cette thèse, nous travaillons sur les informations contenues dans le signal. Ces informations étant par nature plutot massive, il est interessant d'utiliser des réseaux de neurones pour les traiter. Cependant l'utilisation du perceptron multi-couche (MLP) n'est plus la plus performante des approches pour représenter les données de type parole. Il existe d'autres architectures de couches neuronales bien plus compatibles avec ces données. En effet, le principe inconvénient du MLP, c'est que les segments de parole sont considérés un à un, il est donc difficile de gérer les relations temporelles par exemple : on ne prend pas en compte le contexte. Le passé et le futur n'influence pas directement les systèmes d'apprentissage. Une entrée est donc considérée seule et sans contexte.
+
+Or nous savons que la parole est caractérisée par l'entièreté de sa séquence. Si nous faisons un parallèle avec un texte, une lettre seule ne veut rien dire. Accompagnée d'autres lettres, elles forment un mot. Ces mots sont eux-mêmes agencés avec d'autres mots pour donnr un sens à une phrase.
+
+Comme le contenu d'un segment de parole à un instant t dépend des instants précédents, il est nécessaire d'utiliser des réseaux permettant de prendre en compte les segments précédents voir les segments suivants. Dans cette section, nous allons décrire les architectures neuronales permettant de conserver l'historique des états précédents, qui sont par conséquent utilisées dans le traitement de la parole.
+
+\subsection{Réseaux neuronaux convolutifs}
+Les réseaux neuronaux convolutifs (Convolutional Neural Network en anglais), abrégé CNN~\cite{LeCun1989} sont prépondérants dans l'analyse d'image. En effet les CNNs traitent des données représentées en n dimensions comme des images (disposition des pixel en 2D), permettant des résultats probants sur des tâches de reconnaissance d'écriture manuscrite de chiffres et de nombres~\cite{LeCun1998}, de reconnaissance d'objets au sein d'une image~\cite{Traore2018}, ou de reconnaissance de visages~\cite{Liu2016}. Ils sont également utilisés en parole, lorsque l'on considère le signal comme un spectrogramme par exemple~\cite{Abdel2014}. Récemment, cette architecture a été utilisée pour répondre à des tâches concernant la reconnaissance d'émotion, aussi bien à partir d'images de visage~\cite{Pitaloka2017,Mehendale2020} qu'à partir de signaux de parole~\cite{Zhang2016}.
+
+\input{./Chapitre3/figures/cnn}
+
+Comme nous l'avons vu précédemment, ils sont pertinents dans le traitement des images, puisque ces dernières se représentent sous la forme d'une addition de tableaux de 2D (trois pour des images RGB, quatre si on considère la transparence de l'image, un seul pour une image en noir et blanc).
+Le CNN va découper les tableaux en fragments, que l'on appelle caractéristiques. Il va ensuite chercher ces caractéristiques dans les nouvelles données qui lui sont présentés, il va donc opérer un filtrage. Ce filtrage est effectué pour chaque caractéristique de la donnée.
+% Comme son nom l'indique, ce réseau effectue des produits de convolutions en fonction de la configuration de son champ récepteur. Il se décompose en trois opérations : la convolution, le pooling puis l'activation de type ReLu.
+% Si nous revenons dans le détail, ils ont été conçus pour des données présentées sous forme de tableaux de N dimensions.
+
+On peut décrire le fonctionnement d'un réseau convolutif par une succession d'étapes, présentée dans la figure~\ref{fig:cnn} :
+
+\begin{itemize}
+  \item l'étape de convolution consiste à faire glisser le filtre carré sur l'ensemble du tableau et à calculer le produit de la convolution entre chaque fenêtre et le filtre. Cette étape est répétée pour couvrir tout le tableau et donne un filtre de même taille pour chaque fenêtre.
+  \item l'étape de sous-échantillonnage (pooling en anglais) va permettre de réduire la taille totale du tableau tout en conservant les informations pertinentes pour le système. Différentes méthodes de sous-échantillonnage existent mais les plus usités sont les fonctions mathématiques de type minimum, maximum ou moyenne du tableau. Cette étape est importante, puisqu'elle permet de garantir une réduction du nombre de paramètres, qui peut augmenter très rapidement avec les couches de convolution.
+  \item optionnellement, on peut ajouter des étapes de correction. Ces couches ont pour rôle de faciliter la prise de décision au sein du réseau, en activant ou désactivant certaines connexions entre les différents neurones. Elles se présentent sous la forme de fonctions mathématiques qui vont être appliquées en sortie d'une couche. Principalement on retrouve la fonction ReLU, la tangente hyperbolique et la fonction sigmoïde.
+\end{itemize}
+
+Il y a donc deux hyper-paramètres spécifiques à considérer lors de la construction d'un réseau convolutif : le nombre de caractéristiques, qui va déterminer la taille du filtre et le pas qui va contrôler les chevauchements.
+
+Le CNN a pour avantage de couvrir l'intégralité des données pour retrouver une caractéristique. Ainsi, même si cette dernière n'est pas présente au même endroit dans les nouvelles données, elle sera retrouvée. De plus, grâce à l'étape de pooling, le nombre de paramètres se voit fortement réduit, ce qui permet d'obtenir de bonnes performances pour un temps et un usage mémoire réduit.
+
+Cependant le CNN a besoin de beaucoup de données pour ne pas être sur-appris et suivant ses hyper-paramètres, il peut ne jamais converger. De plus, ils ont besoin de séquences d'entrée de taille fixe, ce qui n'est pas très adapté quand on pense à de la parole.
+
+\subsection{Réseaux Neuronaux Récurrents}
+\input{./Chapitre3/figures/rnn}
+
+Les réseaux neuronaux récurrents (RNN)~\cite{Jordan1986} décrivent une architecture neuronale qui est très utilisée de nos jours pour résoudre de nombreuses tâches. En effet, ils permettent de modéliser des séquences (que ce soit des segments de parole, ou des vecteurs de descripteurs par exemple) dont la taille est variable, en présentant toutes les données de manière séquentielle au système. Il est donc possible de faire correspondre plusieurs entrées à plusieurs sorties (appelé \textit{many-to-many}) ainsi que plusieurs entrées à une seule sortie (appelé \textit{many-to-one}). %contrairement aux perceptrons multi-couches, permettant uniquement de faire correspondre une entrée à une sortie (appelé \textit{one-to-one}).
+
+Ils permettent également de prendre en compte l'aspect chronologique, ou antéchronologique si nécessaire, de la séquence et met en avant les dépendances temporelles dans les séquences.
+Pour modéliser cet aspect mémoriel, une deuxième entrée est ajoutée au neurone, correspondant à la sortie précédente, comme explicité dans le schéma~\ref{fig:rnn}. Cette boucle va donc permettre de conserver des informations entre les différentes itérations du système.
+
+Même si en théorie leur mémoire devrait pouvoir contenir tous les éléments de la séquence visualisée, ce n'est pas le cas dans les faits. Bengio et al.~\cite{Bengio1994} ont montré que ces systèmes ont beaucoup de mal à modéliser des dépendances éloignées. On pourra difficilement modéliser une dépendance entre un début de conversation et sa fin si la séquence est trop longue par exemple.
+
+C'est pour palier à ce problème qu'un autre type de réseau récurrent a été développé.
+
+\subsection{Réseaux long-short term memory}
+\input{./Chapitre3/figures/lstm}
+
+Les réseaux \textit{long-short term memory} (LSTM)~\cite{Hochreiter1997} ont été crées pour répondre à la perte de la mémoire longue des RNN. Présentés dans la figure~\ref{fig:lstm}, ils sont spécialisés dans la modélisation de dépendances éloignées dans une séquence, en fonctionnant avec une mémoire interne à chaque neurone (\textit{cell state}) qui permet de modéliser des dépendances à des instants éloignés dans la séquence.
+
+Lorsque la sortie de l'unité neuronale précédente $h_{t-1}$ arrive dans l'unité courante $t$, elle va passer par trois portes, utilisant des sigmoïdes et des tangentes hyperboliques. La première porte, \textit{la porte de l'oubli}, est en charge de la suppression d'informations non pertinentes stockées dans la cell-state. La deuxième porte, la porte d'entrée, va décider des nouvelles informations à ajouter dans la cell-state. La cell-state est alors mise à jour avec les informations ajoutées et retirées. La dernière porte, la porte de sortie, est en charge de la sortie effective. Elle est calculée en fonction de la cell-state mais aussi de l'état courant en utilisant une tangente hyperbolique pour forcer les valeurs entre -1 et 1 puis une dernière sigmoïde afin de ne transmettre que les informations activées.
+
+Cette architecture existe également de façon bidirectionnelle : la séquence est lue dans l'ordre chronologique  et antéchronologique. Pour avoir ces deux directions, on multiplie le nombre de couches du système par deux : une prenant les informations dans l'ordre et une autre prenant les informations dans l'ordre inverse. Enfin les sorties des deux couches sont concaténées pour donner la sortie finale de chaque élément. Cela permet de mettre en évidence les dépendances passées et futures.
+
+Cette architecture est pertinente pour toutes les données qui ont besoin de contexte. C'est pour cela qu'elle est très utilisée dans le domaine du traitement de la parole notamment. Cependant, le temps d'apprentissage est long puisqu'il y a beaucoup de paramètres à apprendre. De plus, dans le cas du LSTM bidirectionnelle, nous avons besoin de la séquence en entier pour avoir une prédiction, ce qui n'est pas forcément compatible avec du temps réel.
+
+\subsection{Encodeur Décodeur}
+\input{./Chapitre3/figures/encoder}
+
+Conçu dans les années 2010, l'encodeur décodeur (Encoder-Decoder en anglais)~\cite{Cho2014} se compose, comme son nom l'indique, de deux parties distinctes. Ces deux parties sont utilisées conjointement pour prédire une ou plusieurs sorties $y_i$ comme illustré par la figure~\ref{fig:encoder}.
+
+Un encodeur correspond à un réseau de neurones récurrent qui transforme une séquence d'entrée $X$ en une représentation vectorielle de taille fixe $X'$. Une fois cette première transformation effectuée, le décodeur, correspondant lui aussi à un RNN, transforme cette représentation intermédiaire $X'$ en une séquence de sortie $Y$. Cette transformation finale est calculée en fonction de la distribution de probabilité de toutes les sorties possibles $P(Y|X')$.
+
+Il existe un cas particulier de cette architecture, que l'on nomme les auto-encodeurs. Ce sont des réseaux qui possèdent exactement le même nombre de neurones sur leur couche d'entrée et leur couche de sortie. L'objectif de ces réseaux est d'avoir une sortie la plus proche possible de l'entrée. Ils permettent notamment de débruiter des données d'entrée ou de créer des nouvelles données dans le cadre de l'augmentation de données.
+
+L'encodeur décodeur a notamment prouvé sa pertinence dans des tâches de reconnaissance de la parole~\cite{Chiu2018}, dans des tâches de NLP~\cite{Hu2019} ou dans des tâches de traduction~\cite{Cho2014} par exemple.
+
+Néanmoins cette architecture peut avoir des difficultés à modéliser les dépendances qui sont trop loin de la séquence courante. Un moyen de contourner ce problème est d'utiliser des mécanismes d'attention~\cite{Bahdanau2016}. En effet, le modèle peut concentrer son attention sur les parties qu'il juge pertinentes, où qu'elles soient dans la séquence d'entrée.
+
+\subsubsection{Mécanismes d’attention}
+
+Les mécanismes d'attention ont d'abord été utilisés dans le cadre de la traduction automatique~\cite{Luong2015}, avant d'être rapidement étendu à toutes tâches utilisant des séquences.
+
+Les mécanismes d'attention apporte plusieurs concepts aux encodeurs décodeurs. Tout d'abord, ils étendent les informations contenues dans les états cachés : au lieu de ne fournir que le dernier état caché de l'encodeur, l'ensemble des états cachées pour chacune des entrées précédentes est fournis.
+
+De plus, le vecteur de contexte est pondéré en fonction de la pertinence des informations qui contient pour chacun des états émis par l'encodeur. Cette pondération est faite par un score d'attention, compris entre 0 et 1. De ce fait, le vecteur de contexte est composé de la somme des états cachés pondérés par les scores d'attention.
+
+Enfin le vecteur de contexte devient dynamique : il est recalculé à chaque temps afin de mieux cibler les informations pertinentes dans la séquence d'entrée.
+
+\subsection{Transformers}
+
+Les Transformers sont issus des travaux de Vaswani et al.~\cite{Vaswani2017}. Il s’agit d’un modèle qui utilise une architecture encodeur décodeur mais qui met en place des mécanismes d’attention différents. Elle correspond à un empilement de plusieurs encodeurs et décodeurs. Le nombre d’encodeurs et de décodeurs est identique.
+
+Dans le cas des transformers, un encodeur est composé d’une couche d’auto-attention (\textit{self-attention}), suivie d’une couche linéaire. Le décodeur est lui aussi complété par une couche d’attention. De plus, les transformers ont introduit les mécanismes d’attention à plusieurs têtes (\textit{multi-head attention}).
+
+Ils sont très performants mais également très coûteux à l'apprentissage. En effet, ils sont composés de beaucoup de paramètres du fait de l'architecture, ce qui se traduit par un long temps de convergence, et un besoin de très grandes quantités de données. Ils ont notamment contribué à la création de modèles pré-appris.
+
+
+\section{Modèle pré-appris}
+
+La méthode de transfert d'apprentissage (\textit{transfert learning})~\cite{Goodfellow2016} dans le paradigme de l'apprentissage profond est une méthode d'apprentissage automatique dans laquelle un réseau de neurones entraîné pour une tâche est réutilisé partiellement ou entièrement comme point de départ pour entraîner ou affiner un réseau de neurones sur une deuxième tâche, comme nous l'avons vu précédemment. Cette méthode permet notamment de limiter l'impact du manque de données sur des réseaux de neurones.
+Elle est largement utilisé dans l'analyse d'émotions, où de grandes bases de données sont utilisées pour pré-apprendre les poids des réseaux, conduisant à de meilleures capacités de généralisation compte tenu des données d’entraînement limitées~\cite{Dong2018}.
+
+Parmi les techniques de transfert d'apprentissage, l'apprentissage auto-supervisé des représentations de la parole ou du langage (\textit{self-supervised learning of speech or language representations}) ont émergés ces dernières années avec l'introduction du système BERT~\cite{Devlin2019}.
+
+\subsection{Représentation linguistique}
+Parmi les représentations linguistiques, les plongements de mots (\textit{word embedding}) sont l'une des représentations continues les plus populaires de données textuelles. Ces plongements sont des représentations vectorielles d'un mot particulier. Parmi eux, word2vec~\cite{word2vec} est l'un des plus utilisés dans les tâches d'analyse des sentiments telles que la polarité ou la classification des états émotionnels~\cite{Rodrigo2020,Dong2018}. Les plongements de mots Word2vec sont statiques : un mot a toujours la même représentation vectorielle, quel que soit le vrai sens du mot et le contexte de son apparition. Ce qui est problématique pour les mots polysémiques par exemple, qui sont fréquents en français~\cite{Pustejovsky1996}.
+
+\subsubsection{BERT}
+D'autres modèles sont sortis ces deux dernières années, comme BERT~\cite{Devlin2019} (entraînés sur des données anglaises puis sur des données multilingues) ou Ernie~\cite{Zhang2019Ernie} (entraînés sur des données chinoises ou des données anglaises) qui est dépendant du langage et du contexte. Ces modèles ont besoin de beaucoup de données pour être entraînés : ils utilisent notamment le corpus de Wikipédia totalisant plus de 2 500 millions de mots et le Book Corpus~\cite{Zhu2015} totalisant plus de 800 millions de mots.
+
+BERT est l’acronyme de \textit{Bidirectional Encoder Representations from Transformers}. Il existe deux modèles BERT construit, le \textit{BASE} et le \textit{LARGE}. Comme leur nom l'indique, ils sont composés d'un nombre plus ou moins important de couches, qui correspondent à des Transformers :
+\begin{itemize}
+  \item \textit{BASE} : 12 Transformers, 768 couches cachées, 12 têtes d'attention pour un total de 110 millions de paramètres.
+  \item \textit{LARGE} : 24 Transformers, 1024 couches cachées, 16 têtes d'attention pour un total de 340 millions de paramètres.
+\end{itemize}
+
+Ce modèle est pré-appris sur deux tâches distinctes : la tâche \textit{Masked LM} où certains mots sont masqués dans les données et le système apprend à les prédire ainsi que la tâche \textit{Next Sentence Prediction} où le système apprend à prédire la phrase suivante. Une fois ce pré-apprentissage effectué, le modèle a été affiné grâce à un \textit{fine-tuning} réalisé sur 11 tâches de NLP différentes. Ces deux étapes sont illustrées par la figure~\ref{fig:BERT}.
+
+\input{./Chapitre2/figures/bert}
+
+De telles représentations, calculées par des modèles neuronaux entraînés sur d'énormes quantités de données non étiquetées, ont montré leur efficacité sur certaines tâches, par exemple pour la vision par ordinateur~\cite{Nanni2017} et les tâches de traitement du langage naturel (NLP) telles que la
+classification de phrases, la similarité de texte, ou le classement par pertinence~\cite{Liu2019,Young2018,Yang2019}. De même cette approche montre de très bon résultat dans les domaines de l'ASR~\cite{Kahn2020,Liu2020} ou de traduction depuis la parole~\cite{Nguyen2020}.
+
+\subsubsection{CamemBERT}
+Si nous nous replaçons dans notre contexte, nous travaillons avec des données françaises. Nous nous sommes donc intéressés aux dérivées de BERT adapté pour le langage français. CamemBERT~\cite{Martin2020} et FlauBERT~\cite{Le2020} sont deux modèles appris sur des données françaises. Ces deux modèles sont accessibles facilement~\footnote{https://camembert-model.fr/} ~\footnote{https://github.com/getalp/Flaubert}, permettant de mettre en place des représentations linguistiques adaptées à la langue française.
+
+CamemBERT est appris en utilisant le système RoBERTa~\cite{Liu2019Roberta}, un système BERT amélioré avec moins d'étapes d'apprentissage mais de plus gros lot d'apprentissage et de plus gros volume de données. Cet apprentissage est réalisé sur les données OSCAR~\cite{Ortizsuarez2019}. Ce modèle donne des résultats plutôt performants sur plusieurs tâches : le balisage des parties du discours (\textit{part of speech} ou POS), l'analyse des dépendances sémantiques, la reconnaissance des entités nommées (NER) et l'inférence du langage naturel (NLI).
+%GermanBERT~\footnote{https://deepset.ai/german-bert} models were released for German.
+
+FlauBERT est très similaire à CamemBERT. Leur principal différence provient des corpus d’entraînement et des pré-traitements qui sont différents. De plus, ils sont complémentaires puisqu'ils répondent à des tâches NLP différentes.
+
+Ces modèles linguistiques ont inspirés d'autres chercheurs qui ont étendus le concept à la représentation acoustique.
+
+\subsection{Représentation acoustique}
+Récemment, wav2vec~\cite{Schneider2019} et Audio AlBERT~\cite{Chi2020} ont été introduits dans le domaine de l'ASR et de l'identification du locuteur comme les premières approches pré-entraînées pour extraire des représentations acoustiques contextuelles de signaux sonores bruts.
+
+\input{./Chapitre2/figures/wav2vec}
+
+Wav2vec est entraîné sur la tâche de prédiction des futurs échantillons à partir d'une analyse de la fenêtre courante. Il est composé de deux réseaux de neurones convolutifs distincts : le réseau dit~\textit{encodeur} et celui dit~\textit{contexte} utilisés ensemble. Comme nous pouvons le voir sur la figure~\ref{fig:wav2vec}, les entrées $X$ sont d'abord replacés dans un espace latent et transformés en $Z$. Puis le réseau de \textit{contexte} va transformer ces représentations $Z$ en $C$ en combinant plusieurs pas de temps de l'encodeur précédent pour ajouter du contexte à la représentation finale.
+
+Il existe d'autres modèles tels que Mockingjay~\cite{Liu2020} ou Audio AlBERT~\cite{Chi2020}.
 
 \section{Conclusion}
-Dans ce chapitre, nous avons défini les grands principes de l'apprentissage automatique notamment appliqués pour le traitement de la parole. Nous avons vu l'éventail de possibilité permettant à une machine d'apprendre à catégoriser des données. Avec l'émergence des réseaux de neurones dans le traitement de la parole, nous nous sommes focalisés sur leur fonctionnement et la mise en place de leurs paramètres afin d'obtenir des systèmes performants. Dans le chapitre 3, nous allons explorer plus en détail les différentes architectures et paramètres d'apprentissage qui sont mis en pour la reconnaissance automatique de l'émotion depuis la modalité vocale.
+Dans ce chapitre, nous avons défini les grands principes de l'apprentissage automatique notamment appliqués pour le traitement de la parole. Nous avons vu l'éventail de possibilité permettant à une machine d'apprendre à catégoriser des données. Avec l'émergence des réseaux de neurones dans le traitement de la parole, nous nous sommes focalisés sur leur fonctionnement et la mise en place de leurs paramètres afin d'obtenir des systèmes performants.
+
+Dans le chapitre 3, nous allons explorer plus en détail les différentes architectures et paramètres d'apprentissage qui sont mis en pour la reconnaissance automatique de l'émotion depuis la modalité vocale.

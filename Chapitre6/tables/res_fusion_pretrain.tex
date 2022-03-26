@@ -1,0 +1,17 @@
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|l|l|}
+  \hline
+  Descripteurs &nombre features   &Dev   &Test  \\
+  \hline
+  %\multicolumn{4}{|l|}{fusion décision} \\
+  %\hline
+  .66 word2vec-40 + .34 MFCC-lib     &47 + 40 &0.897  &0.840  \\
+  .63 wav2vec-EN + .37 word2vec      &512 + 40 &0.878 &0.750 \\
+  .28 wav2vec-EN + .72 CamemBERT        &512 + 768 &\textbf{0.932} &\textbf{0.920} \\
+  %.31 wav2vec-EN + .69 camemBERT     &512 + 768 &\textbf{0.907}   &\textbf{0.825} \\
+  \hline
+\end{tabular}
+\caption{Comparaison des score CCC des systèmes de reconnaissance des émotions du biLSTM-4 en utilisant la fusion de décision avec des descripteurs pré-entrainés. Nous rappelons les scores obtenus précédemment avec la fusion des descripteurs baseline.}
+\label{tab:res_fusion_pretrain}
+\end{table}
