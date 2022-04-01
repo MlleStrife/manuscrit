@@ -1,0 +1,163 @@
+\chapter{Discussions}
+
+\section{Motivations}
+Lors de cette thèse, nous avons établi des systèmes de reconnaissance continue de l'émotion qui permettent de détecter la satisfaction et la frustration avec un degré d'erreur moindre. Nous avons voulu considérer l'émotion selon les annotateurs de façon indépendante, afin de valider nos scores et de proposer une alternative à la conception la plus établie en matière d'annotation en émotion. De plus il nous semblait important d'essayer de comprendre la prévalence de la modalité linguistique.
+
+Dans la littérature, on a pour habitude d'utiliser de nombreux annotateurs et de fusionner les annotations pour atténuer le caractère subjectif d'une annotation. En effet, il est difficile de nier que la reconnaissance d'une émotion et de son intensité peut varier en fonction de la personne qui la reçoit. Il est donc possible d'avoir autant de versions différentes des annotations que d'annotateurs. Dans ce cas, ne peut-on pas considérer que chaque annotateur est dans le juste ? Nous investiguons ce positionnement dans la prochaine section.
+
+Comme nous l'avons établi dans le précédent chapitre, nous pouvons observer que la modalité linguistique permet d'atteindre les meilleurs scores de reconnaissance continue des émotions de satisfaction et de frustration contenues dans AlloSat. Nous aurions pensé dans un premier temps que la modalité acoustique donnerait de meilleurs résultats. En effet, la modalité acoustique, telle que nous la traitons, contient déjà les informations linguistiques. Elles ne sont pas extraites et pré-traitées mais nous pensions que le système de reconnaissance serait capable d'en retirer les informations pertinentes.
+
+Nous avons cherché les marqueurs de l'émotion dans les transcriptions des conversations téléphoniques. Nous avons d'abord conduit des analyses statistiques sur le corpus, puis nous avons travaillé avec un linguiste, M. Daniel Luzzati, afin de retrouver les clés permettant à l'humain de reconnaître les états émotionnels de satisfaction et de frustration.
+
+\section{Analyse de l'impact de chaque annotateur}
+
+\subsection{Annotation moyenne ou 3 annotations ?}
+Comme nous l'avons vu dans le chapitre~\ref{chapitre4}, nous avons choisi de faire annoter le corpus par trois annotateurs. Ce choix a été motivé par l'aspect subjectif non négligeable de toutes les tâches mettant en œuvre des émotions. Nos données contiennent donc des conversations qui ont été annotées trois fois, comme par exemple la conversation illustrée par la Figure~\ref{fig:annotTroisGold}. On peut observer une tendance globale commune entre les annotations avec des différences en intensité et en délais avant de noter un changement d'émotions. Deux positionnements peuvent être pris à partir de ces annotations.
+
+\input{./Chapitre7/figures/annotTroisGold}
+
+\begin{itemize}
+  \item Nous pouvons considérer les annotations de chaque annotateur indépendamment. En effet, nous pouvons partir du principe que la perception de l'émotion par chaque individu est légitime et peut être considérée comme une référence pour le système de détection.
+  Ce positionnement va donc considérer que l'individu a plus de valeur que le groupe entier. Nous pouvons donc spécifier nos systèmes de reconnaissance pour reproduire le comportement d'un humain particulier.
+  \item Nous pouvons également considérer la moyenne des annotations. En effet, faire la moyenne des annotations revient à généraliser ces dernières pour qu'elles soient plus en adéquation avec un ensemble d'individus et atténuer les perceptions qui s'écartent d'une normalité statistique. Ainsi, nous allons considérer que l'annotation de référence pour nos systèmes automatiques est la moyenne de l'avis de différentes personnes. Bien que ce procédé soit plus pertinent lorsque nous avons un nombre élevé d'annotateurs, il reste cohérent pour trois annotateurs et permet de généraliser nos systèmes de reconnaissance pour reproduire non pas le comportement d'un humain particulier mais d'un groupe d'humain.
+\end{itemize}
+
+Nous avons décidé, en adéquation avec les besoins industriels, de nous concentrer sur le deuxième positionnement, comme nous l'avons énoncé dans le chapitre~\ref{chapitre4}. Ce positionnement est également celui de nombreux travaux dans le domaine, notamment les travaux effectués sur les corpus RECOLA~\cite{Ringeval2013} et SEWA~\cite{SEWA}.
+
+Cependant nous avons voulu explorer la possibilité d'utiliser les annotations de chacun afin de construire des systèmes de reconnaissance.
+
+\subsection{Un modèle de reconnaissance par annotateur}
+Si nous considérons que chaque annotateur donne sa propre version correcte de l'émotion, nous pouvons choisir de construire trois modèles de reconnaissance en prenant les annotations des trois annotateurs. Pour ce faire, nous modifions la référence : au lieu d'entraîner un seul modèle sur la valeur moyenne des trois annotateurs, nous entraînons trois modèles différents par annotateur, dans lesquels les références correspondent aux valeurs uniques de cet annotateur.
+Les prédictions de ces modèles sont évaluées en fonction des annotations individuelles (tableau~\ref{tab:ind_by_annotator}) ou de nos anciennes références définies comme la moyenne des trois annotations individuelles (tableau~\ref{tab:moy_by_annotator} ).
+
+Les colonnes AVG donnent les performances moyennes sur les trois modèles individuels. Les colonnes CV donnent le coefficient de variation (écart-type sur la moyenne) sur les trois modèles individuels. Diff1 est la différence relative entre linguistique et acoustique pris indépendamment et donne une idée du gain par annotateur.
+
+\subsubsection{Annotations individuelles : }
+
+\input{./Chapitre7/tables/ind_by_annotator}
+
+Dans le tableau ~\ref{tab:ind_by_annotator}, nous pouvons remarquer que le coefficient de variation (CV), sans utiliser de fusions, est plus élevé avec les descripteurs acoustiques qu'avec les descripteurs linguistiques en particulier sur le Test. Plus précisément, concernant l'annotateur $a_3$, les performances de la modalité acoustique chutent sur le Test pour atteindre un score CCC de 0.597.
+Ces résultats suggèrent que la prédiction de la satisfaction à partir des descripteurs acoustiques est plus sensible à la subjectivité de la tâche d'annotation qu'à partir des descripteurs linguistiques.
+
+Notre hypothèse est que la variabilité dans l'espace acoustique est très diversifiée, et qu'une même réalisation acoustique peut être perçue avec des niveaux de satisfaction différents par le même annotateur, ce qui produit de moins bonnes performances sur la modalité acoustique.
+
+En ce qui concerne la fusion des modalité, elle améliore les performances dans la plupart des configurations et les meilleures performances en moyenne sont atteintes avec la fusion modèle précoce avec un score de CCC de 0.854 sur l'ensemble de test. L'amélioration sur le test est la plus élevée avec l'annotateur $a_2$ ($+3.7$\% avec la fusion modèle précoce).
+Cela peut s'expliquer par la très faible différence entre les performances obtenues sur des modalités acoustiques et linguistiques pour cet annotateur ($+6.2$\%), indiquant peut-être que les deux modalités portent des informations différentes pour cet annotateur spécifique.
+
+A partir de ces résultats, nous émettons l'hypothèse qu'au niveau des annotateurs, les modalités acoustiques et linguistiques véhiculent des informations émotionnelles complémentaires. Cependant, si la partie linguistique est bien partagée entre les annotateurs, la perception de la partie acoustique semble assez individuelle.
+Bien sûr, des expériences supplémentaires avec des annotations croisées sont nécessaires pour confirmer cette hypothèse.
+
+\subsubsection{Annotations moyennes : }
+
+\input{./Chapitre7/tables/moy_by_annotator}
+
+En ce qui concerne les modèles individuels évalués avec des annotations moyennes (tableau ~\ref{tab:moy_by_annotator}), nous remarquons que l'annotateur $a_2$ a les performances les plus faibles lorsqu'il utilise uniquement des descripteurs linguistiques.
+Le modèle construit sur cet annotateur atteint les performances les plus basses en utilisant n'importe quel type de fusion sur les ensembles de développement et de test.
+Cette observation confirme ainsi l'importance des performances linguistiques qui a un poids important dans l'évaluation générale de la satisfaction et la frustration quand on fusionne les modalités.
+Ce résultat peut s'expliquer par le fait que parmi les trois annotateurs, nous avons montré que $a_2$ avait l'accord intra-annotateur le plus faible dans le chapitre~\ref{chapitre4}.
+
+Nous pouvons également confirmer le fait que la fusion permet d'améliorer les performances par annotateur dans tous les cas.
+Étonnamment, sur le test, ces modèles fusionnés (CCC=0.884) surpassent même les modèles appris directement sur la référence traditionnelle (meilleur CCC=0.881). Néanmoins comme nous l'avons vu dans le chapitre~\ref{chapitre6}, une différence de 0.003 entre deux scores de CCC n'est pas vraiment significative.
+La fusion modèle précoce a l'avantage d'avoir des performances moyennes plus élevées que CamemBERT et d'être le modèle le moins affecté par les annotations individuelles (CV = 0,020 sur l'ensemble de test).
+
+De ces expériences, nous concluons que les approches de fusion semblent être plus robustes à la subjectivité de la tâche d'annotation. Nous avons constaté que la fusion modèle précoce était le meilleur compromis entre performance et robustesse.
+Ces expérimentations remettent en question le processus d'évaluation largement utilisé qui compare les prédictions à la moyenne des annotations, en effet les valeurs moyennes n'ont pas de réalité perceptive, tandis que les valeurs individuelles en ont une. Il serait intéressant de mettre en place une étude du protocole d'évaluation sur d'autres corpus mais également de mener une étude perceptive sur les résultats de systèmes de reconnaissance ainsi construit.
+
+
+\section{Expliquer la frustration dans les conversations}
+
+\subsection{Première écoute humaine : que retire-t-on de l'acoustique ?}
+Afin de mieux comprendre les données, nous avons arbitrairement choisi d'écouter 57 conversations choisies au hasard dans le corpus. Ces 57 conversations proviennent indépendamment des ensembles d'apprentissage, de développement et de test. Nous les avons classés dans deux catégories : bon ou mauvais, en fonction de leur score de reconnaissance issu de la classification sur la fusion des modalités. On considère comme bon, des scores supérieurs à $0.7$. Nous voulions mettre en lumière des facteurs explicatifs de la différence de score entre plusieurs conversations.
+
+\input{./Chapitre7/tables/ecouteHumaine}
+
+Plusieurs phénomènes ont été observés sur ces conversations, qui sont indiqués dans le tableau~\ref{tab:ecouteHumaine}, mais nous n'avons pas trouvé un indicateur commun qui en émerge. En effet, ces conversations contiennent ou non du bruit, de la musique, plusieurs locuteurs, des rires, des voix âgées, des silences plutôt marqués (en début, milieu ou fin de conversations) et de la frustration manifeste (augmentation du débit de parole, du volume, moins de temps de silence, des injures,...). De plus, nous n'avons rien détecté qui permettrait de relier le sexe du locuteur ou les domaines d'activité dont sont issus les conversations et la variabilité des scores de prédiction.
+
+En se concentrant sur des caractéristiques non linguistiques, nous n'avons pas trouvé de schéma clair et universel de la dimension de satisfaction avec ces observations.
+
+\subsection{Études statistiques du contenu linguistique des conversations frustrées}
+Nous avons choisi d'extraire les contenus linguistiques correspondant aux pics de frustration détectés par le modèle de reconnaissance. Pour cela, nous avons défini les pics de frustration comme illustré dans la Figure~\ref{fig:pic} par le rectangle jaune. Concrètement, nous nous intéressons au coefficient de variation de la courbe tracée par la prédiction. Si on observe une variation décroissante de la prédiction supérieure à 0.1 point en 2 secondes, on considère que le segment de deux secondes correspond à un pic de frustration. Si on observe plusieurs pics qui se chevauchent, on regroupe les segments sous la même annotation de pic.
+
+\input{./Chapitre7/figures/pic}
+
+Une fois cet élément d'analyse mis en place, nous avons extrait les transcriptions correspondant à ces pics, en prenant du contexte gauche et droit à hauteur de deux secondes. Des exemples de segments ainsi récupérés sont indiqués dans le tableau~\ref{tab:phrasesPic}. On peut voir des mots issus de vocabulaire négatif comme \textit{perds mon temps} et \textit{avez fait l'erreur}, ainsi que des constructions spécifiques : des répétitions et une grande insistance sur le sujet avec des \textit{moi je} notamment.
+
+\subsubsection{Utilisation de TF-IDF}
+
+\input{./Chapitre7/tables/phrasesPic}
+
+A partir de ces segments, nous avons conduit une analyse statistique. En utilisant TF-IDF, nous avons analysé les mots, les bi-mots et les tri-mots les plus pertinents. Nous avons ensuite utilisé le résultat de cette fonction pour construire des nuages de mot, illustré dans la Figure~\ref{fig:nuageMot}. Comme nous pouvons le voir, il y a une forte représentation du \textit{je} dans les bi et tri-mots. On observe également beaucoup de tournures négatives (\textit{c'est pas, même pas, je sais pas, je suis pas, c'est pas possible}...) ainsi que des répétitions du mais. De plus on retrouve des mots et des tournures a polarité négatives (\textit{un problème, gros soucis, déposer plainte, j'ai fait opposition, je suis débile, bêtise...}) et des références à des notions temporelles (\textit{dix jours, tous les mois, ce week-end...}). Néanmoins, si nous réalisons les mêmes opérations sur les autres segments, ne correspondant pas aux pics de frustration, on peut retrouver une grande partie de ces observations.
+
+\input{./Chapitre7/figures/nuageMot}
+
+Nous avons également cherché au niveau de la syntaxe s'il y avait des schémas reconnaissables dans l'expression de la satisfaction. Pour cela, nous avons utilisé l’outil Macaon afin de faire un POS-tagging des segments. À partir du résultat de cette opération, nous pouvons extraire le rôle de chaque mot dans les segments mais nous n'arrivons pas à tirer des conclusions de ces observations. %(sujet, verbe, complément...). Nous avons alors utilisé un TF-IDF pour analyser les mots, bi-mots et tri-mots. Le tableau~\ref{tab:posPic} recense les différentes structures de segments que nous avons relevé. Nous n'arrivons pas à tirer des conclusions de ce classement.
+
+%\input{./Chapitre7/tables/posPic}
+
+Comme nous n'arrivons pas à dégager clairement des caractéristiques communes à ces segments, nous avons pensé à utiliser le machine learning pour regrouper les segments en classes, et donc nous permettre de discerner les différences entre les classes. Ainsi nous pourrons peut-être décrire des marqueurs de frustration.
+
+\subsubsection{Classification des segments de pic}
+
+Comme nous n'avons pas de classes définies, nous avons fait le choix d'une classification non supervisée. Pour être cohérent avec le nombre limité de segments émotionnels (166), nous avons utilisé un classifieur de type kmeans avec k=3. Nous avons classifié les mots, bi-mots et tri-mots. Pour cela, nous avons fait un pca pour rendre nos données classifiations. Nous en avons profité pour visualiser la classification des segments comme l'illustre la Figure~\ref{fig:kmeans}.
+
+\input{./Chapitre7/figures/kmeans}
+
+Nous avons ensuite utiliser des tf-idf sur les segments de chaque classe pour dégager des tendances. Les résultats sur les bi-mots et les tri-mots sont relatés dans le tableau~\ref{tab:kmeans}. Nous n'avons pas trouver de caractéristiques bien saillantes dans ces classes qui permettraient de les dissocier à coup sur. S'il fallait extrapoler, le premier cluster semble contenir des conversations en rapport avec les mutuelles; le deuxième cluster semble être plutôt concerner des relances ou des clients qui ont déjà appelés; et le dernier cluster semble être peuplé de litige de contrat (notamment de l'énergie).
+
+\input{./Chapitre7/tables/kmeans}
+
+Nous avons donc fait le choix de nous tourner vers un linguiste, afin de collaborer sur l'analyse des transcriptions et retrouver des marqueurs humainement identifiable de la frustration.
+
+
+\subsection{Analyses conduites par un linguiste}
+Dans cette section, nous avons l'intention de fournir des éléments qui pourraient expliquer l'importance de la linguistique pour retrouver la satisfaction.
+Cette analyse a été faite sur 13 conversations sélectionnées afin de couvrir différentes dynamiques de la dimension satisfaction : Globalement plates, occurrences de frustration élevée (annotation de l'axe $<$ 0.4) et occurrences de satisfaction fortement décroissante (pic de la frustration).
+L'analyse a été effectuée à l'aide de la transcription automatique, de l'annotation de l'axe de satisfaction de référence et des balises correspondant à \textit{haute frustration} et \textit{pic de frustration}.
+
+Notre hypothèse est que la parole frustrée comporte principalement  des accentuations des phénomènes oraux.
+Par conséquent, nous avons spécifiquement :
+\begin{itemize}
+    \item Quantité de disfluences,
+    \item Hésitations, répétitions, bégaiements,
+    \item Importance des auto-coupures définies comme \textit{les points où le flux d'énoncé est rompu}~\cite{Pallaud2019},
+    \item Usage des interrogations et des négations,
+    \item Preuves sémantiques de frustration ou au moins d'émotions négatives,
+    \item Quantité de segments significatifs \textit{vs.} segments sémantiquement vides.
+\end{itemize}
+
+Sur la base de ces indices, l'analyse aboutit à différentes observations.
+Il existe des marqueurs sémantiques de frustration dans les conversations telles que l'usage de la négation (\textit{ça ne m'amuse pas}, \textit{c'est inadmissible}) : des marqueurs forts (\textit{c'est gonflé}, \textit{putain de ...}) et des marqueurs faibles (\textit{quand même}, \textit{franchement}).
+Il semble également que la quantité de segments significatifs, d'auto-ruptures et de disfluences, soit généralement corrélée à de fortes augmentation de frustration. La structure syntaxique des énoncés interrogatifs semble également corrélée à la frustration.
+
+Dans un second temps, nous comptons aller plus loin dans cette analyse avec l'extraction automatique d'indices de la frustration.
+Bien entendu, passer d'une extraction manuelle à une extraction automatisée implique de faire des choix dans la définition des indices.
+En essayant de modéliser la quantité de segments significatifs, nous extrayons les balises POS à l'aide de MACAON~\cite{Nasr2011} directement à partir de transcriptions automatiques et calculons le nombre de verbes et de noms que l'on met en relation avec le temps.
+Pour capturer les autres indices, nous avons décidé d'extraire automatiquement les sept caractéristiques mentionnées dans le tableau ~\ref{tab:ex_features}.
+
+\input{./Chapitre7/tables/ex_features}
+
+L'idée n'est pas de fournir une analyse exhaustive sur l'ensemble des données mais de fournir quelques indices explicables. Nous nous concentrons ici sur l'analyse approfondie d'une seule conversation que nous appelons \textit{lettre certifiée}. Toutes les occurrences des caractéristiques résumées dans Table~\ref{tab:ex_features} sont synchronisées dans le temps avec la référence de satisfaction annotée.
+
+\input{./Chapitre7/figures/ex_dynamic}
+
+Le nombre de verbes et de noms ne donne pas d'information pertinente et n'est pas représenté ici. L'analyse linguistique dynamique est présentée sur la Fig.~\ref{fig:ex_dynamic}. La conversation \textit{lettre certifiée} a été annotée avec une forte baisse de satisfaction avant 200~sec. La transcription automatique obtenue juste avant cette chute est donnée dans le Tableau~\ref{tab:ex_transcription}. Juste avant la chute, les occurrences de répétition de mots simples et de \textit{c'est} sont importantes, alors qu'après la chute, le nombre de pauses remplies par des interjections (\textit{euh, bah, hein, eh}, etc...) et de marqueur de négation (\textit{pas}) augmente. On remarque également qu'un marqueur fort (\textit{réclamation}) se produit juste avant la chute, signifiant probablement que ce mot spécifique induit la perception d'une frustration notable.
+
+\input{./Chapitre7/tables/ex_transcription}
+
+Dans le corpus AlloSat, l'information émotionnelle semble résider davantage dans les mots que dans le contenu prosodique et acoustique. Dans ces données, l'expression de la frustration est principalement liée à l'accentuation des phénomènes oraux : le contenu sémantique et surtout les auto-coupures, les disfluences, les hésitations et les répétitions.
+
+\section{Considération du genre}
+Nous avons voulu conduire une analyse genrée des échanges entre les clients et les conseillers. En effet, nous voulons voir si le genre a un impact sur la frustration et son expression dans notre corpus. Pour ce faire, nous avons extrait les pairs clients-conseillers dont nous avions les informations, soit 81 conversations sur les 303. En effet, le corpus ne comportant pas de données sur le conseiller, il s'agit de données confidentielles soumises à la RGDP, expliquant que la plupart des métadonnées des conversations ne sont pas conservées par l'entreprise.
+
+\input{./Chapitre7/tables/genre}
+
+Nous avons voulu mettre l'accent sur les conversations portant des pics de frustration tel que définis dans ce chapitre. Comme nous pouvons le voir dans le tableau~\ref{tab:genre}, il n'y a pas assez de données pour donner une quelconque conclusion significative. Dans la Figure~\ref{fig:genre}, nous avons l'impression que les hommes sont plus énervés quand ils ont une femme en tant qu'interlocutrice et que la frustration est plus présente sur les pairs hétérogènes.
+
+\input{./Chapitre7/figures/genre}
+
+ Il serait intéressant de conduire une étude plus large sur l'impact du genre des interlocuteurs sur l'expression de la frustration.
+
+\section{Conclusion}
+Dans ce dernier chapitre de contribution, nous avons souhaité prendre du recul sur nos travaux et essayé d'expliquer nos résultats. Nous avons tout d'abord discuté de l'utilisation d'une annotation moyennée comme référence à nos systèmes de reconnaissance et plus largement à la pertinence de ce protocole qui est très largement adopté au sein de la communauté scientifique pour les tâches ayant une part non négligeables de subjectivité. Nous nous sommes ensuite concentrer sur la modalité linguistique de notre corpus, à savoir les transcriptions automatiques des conversations, et nous avons essayé de mettre en lumière les facteurs expliquant la très bonne performance des systèmes de reconnaissance appris à partir du texte. Enfin nous avons considéré rapidement l'impact du genre sur la frustration.
+
+Nous pouvons conclure qu'il est difficile de statuer sur des marqueurs linguistiques de la frustration. En effet, en tant qu'humain, nous ressentons bien cette frustration dans le texte, sans pour autant pouvoir définir des marqueurs clairs et universelles de cette émotion. Nous pouvons néanmoins souligner la présence des disfluences, des auto-coupures et des bégaiements comme des marqueurs pouvant alerter sur une potentielle frustration.

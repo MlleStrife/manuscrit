@@ -1,0 +1,22 @@
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l |cc| cc | cc | cc | cc|}\hline
+     \textbf{Annotateurs} & \multicolumn{2}{c|}{$a_1$} & \multicolumn{2}{c|}{$a_2$}  &\multicolumn{2}{c|}{$a_3$} &\multicolumn{2}{c|}{AVG} & \multicolumn{2}{c|}{CV}\\
+      & \textbf{Dev} &\textbf{Test} &\textbf{Dev}  &\textbf{Test} & \textbf{Dev} &\textbf{Test} & \textbf{Dev} &\textbf{Test}  & \textbf{Dev} &\textbf{Test}\\ \hline
+
+     Wav2Vec    & .862 & .736 & .774 & .731 & .779 & .710 & .805 & .726 & .061 & .019\\
+     CamemBERT  & .916 & .878 & .755 & .793 & .851 & .833 & .841 & .835 & .096 & .051\\
+     Diff1 (\%)           & 6.3 & 19.3 & -2.5 & 8.5 & 9.2 & 17.3 & - & - & - & -\\
+     \hline
+     Features           & .896 & .845 & .741 & .688 & .868 & .861 & .835 & .798 & .099 & .120 \\
+     \hline
+     Modèle précoce     & .911 & .833 & \textbf{.809} & \textbf{.824} & \textbf{.879} & .856 & .866 & .838 & .060 & .020\\
+     Modèle tardive      & .914 & \textbf{.899} & .763 & .784 & .844 & .841 & .840 & .841 & .090 & .068\\
+     \hline
+     Décision           & \textbf{.938} & .882 & .795 & .778 & .868 & \textbf{.874} & \textbf{.867} & \textbf{.845} & .082 & .069 \\
+     \hline
+
+    \end{tabular}
+    \caption{Résultats des systèmes de fusions pour chaque annotateur. Les modèles sont entraînés sur des annotations individuelles et évalués sur les annotations moyennés de référence. AVG : moyenne sur les trois annotateurs. CV : coefficient de variation sur les trois annotateurs. Diff1 correspond à la différence absolue entre CamemBERT et Wav2Vec. La meilleure fusion est choisie sur le Dev.}
+    \label{tab:by_annotator}
+\end{table*}
