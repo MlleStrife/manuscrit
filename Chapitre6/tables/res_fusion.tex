@@ -6,25 +6,25 @@
   \hline
   \multicolumn{3}{|l|}{fusion features} \\
   \hline
-  MFCC $\oplus$ word2vec-40        &.895  & .833 \\
-  MFCC $\oplus$ word2vec-100        &.836  & .788 \\
+  MFCC $\oplus$ word2vec-40        &0.895  & 0.833 \\
+  MFCC $\oplus$ word2vec-100        &0.836  & 0.788 \\
   \hline
   \multicolumn{3}{|l|}{fusion modèle précoce} \\
   \hline
-  MFCC-lib $\oplus$ word2vec-40       & .904 & .807 \\
-  MFCC-lib $\oplus$ word2vec-100       & .829 & .797 \\
+  MFCC-lib $\oplus$ word2vec-40       & 0.904 & 0.807 \\
+  MFCC-lib $\oplus$ word2vec-100       & 0.829 & 0.797 \\
   \hline
   \multicolumn{3}{|l|}{fusion modèle tardive}   \\
   \hline
-  MFCC-lib $\oplus$ word2vec-40    & .917  & .815  \\
-  MFCC-lib $\oplus$ word2vec-100    & .881  & .717  \\
+  MFCC-lib $\oplus$ word2vec-40    & \textbf{0.917}  & 0.815  \\
+  MFCC-lib $\oplus$ word2vec-100    & 0.881  & 0.717  \\
   \hline
   \multicolumn{3}{|l|}{fusion décision} \\
   \hline
-  .66 Word2vec-40 + .34 MFCC-lib     &.897  &.840  \\
-  .72 Word2vec-100 + .28 MFCC-lib    &.844 & .789 \\
+  .66 Word2vec-40 + .34 MFCC-lib     &0.897  &\textbf{0.840}  \\
+  .72 Word2vec-100 + .28 MFCC-lib    &0.844 & 0.789 \\
   \hline
 \end{tabular}
-\caption{Comparaison des score CCC des systèmes de reconnaissance des émotions du biLSTM-4 en utilisant différent protocole de fusion et différents descripteurs pour la modalité linguistique.}
+\caption{Comparaison des scores CCC des systèmes de reconnaissance des émotions du biLSTM-4 en utilisant différent protocole de fusion et différents descripteurs pour la modalité linguistique.}
 \label{tab:res_fusion}
 \end{table}

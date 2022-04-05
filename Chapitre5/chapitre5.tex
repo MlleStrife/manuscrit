@@ -44,6 +44,7 @@ Les  performances des différents modèles sont indiquées dans le tableau~\ref{
 Bien que simple, cette première classification nous a permis de confirmer l'importance de la modalité linguistique, dont nous parlerons dans le chapitre~\ref{chapitre6}. Fort de ces expérimentations, nous avons mis en place une reconnaissance des émotions continues.
 
 \section{Reconnaissance continue de la dimension de satisfaction/frustration}
+\label{sec:5.3}
 Pour mettre en place cette reconnaissance de l'émotion continue, nous avons choisi dans un premier temps de nous comparer et donc de reproduire les expérimentations des articles de référence~\cite{Schmitt2019,SEWA} et des campagnes AVEC~\cite{AVEC2017,AVEC2018,AVEC2019}.
 
 La majorité de ces travaux se portent sur des séquences d'audio de taille fixe. La sous partie de SEWA à laquelle nous avons accès ne comporte que des conversations de durée inférieure à trois minutes. De plus, un padding circulaire est utilisé pour ramener toutes ces conversations à une durée de trois minutes dans la plupart des travaux. Ce positionnement, souvent adopté, permet notamment d'utiliser toutes les architectures neuronales (notamment les CNN). Il est adapté lors que nous avons des données assez homogènes, dans notre cas en terme de durée, comme c'est le cas avec le corpus SEWA.
@@ -253,6 +254,7 @@ Comme nous pouvons l'observer, les scores sont globalement meilleurs si on utili
 Nous avons donc décidé de mettre en place un post-traitement afin de lisser les courbes de prédiction, pour avoir une meilleure représentation des émotions.
 
 \subsection{Post-traitement : lissage des prédictions}
+\label{sec:5.5.3}
 Nous avons décidé de mettre en place un lissage des prédictions. Pour cela, nous avons utilisé l'algorithme de lissage Savistky-Golay~\cite{Savitzky1964} avec un degré polynomial de zéro. Bien qu'ancien, cet algorithme est toujours autant utilisé dans le traitement des signaux. C'est une extension de la moyenne glissante, qui est utilisée pour atténuer les pics des signaux en approximant un polynôme pour chaque fenêtre de la moyenne glissante, ici un polynôme de degré zéro. Nous avons fait le choix de ce degré puisque c'est celui qui va lisser au maximum la courbe.
 %It has been applied to the series of data with a window of 101, again, to try flatten the curve as much as possible.
 
