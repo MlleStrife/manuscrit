@@ -19,9 +19,10 @@ Ces différentes expérimentations et leurs résultats sont détaillées dans le
 Comme nous l'avons expliqué précédemment, le score CCC est devenu un score de référence pour l'évaluation des systèmes de reconnaissance des émotions continues. %Cependant, nous n'avons pas trouvé d'intervalle de confiance ou de score de confiance associé à cette mesure.\textcolor{red}{ce n'est pas vrai=>
 Cependant, nous n'avons pas trouvé d'expérience en reconnaissance des émotions continues  mentionnant l'utilisation d'un intervalle de confiance ou de score de confiance associé à cette mesure.
 
-Or nous savons qu'il existe des variations entre différentes expérimentations dues à l'initialisation par exemple \textcolor{red}{attention l'intervalle de confiance ci-dessous ne permet pas de mesurer les variations liées à l'initialisation => uniqumenet sur la taille de set de test => à mettre en fin de section}. C'est pour cette raison que nous avons cherché à mettre en place un intervalle de confiance. Notre travail se plaçant dans un contexte industriel, il est important de vérifier la pertinence des scores de nos modèles. En effet, comme notre corpus est assez petit, nous avons un nombre limité d'échantillons de test utilisés pour le calcul du score final.
+Nous avons donc cherché à mettre en place un intervalle de confiance. Notre travail se plaçant dans un contexte industriel, il est important de vérifier la pertinence des scores de nos modèles. En effet, comme notre corpus est assez petit, nous avons un nombre limité d'échantillons de test utilisés pour le calcul du score final.
 
-\textcolor{red}{attention pour cette section, c'est vraiment tu expliques comment fonctionne l'intervalle de confiance. Il manque des éléments comme par exemple ce qu'est la transformation de Fisher et pourquoi on l'utilise.} En reprennant les travaux de Liao et al.~\cite{Liao2000} et McBride~\cite{McBride2005}, nous avons mis en place un intervalle de confiance du CCC. Nous repartons de la définition du CCC, présente dans l'équation~\ref{eq:CCC_rappel}.
+%\textcolor{red}{attention pour cette section, c'est vraiment tu expliques comment fonctionne l'intervalle de confiance. Il manque des éléments comme par exemple ce qu'est la transformation de Fisher et pourquoi on l'utilise.}
+En reprennant les travaux de Liao et al.~\cite{Liao2000} et McBride~\cite{McBride2005}, nous avons mis en place un intervalle de confiance du CCC. Nous repartons de la définition du CCC, présente dans l'équation~\ref{eq:CCC_rappel}.
 
 \begin{equation}
    CCC = \frac{2\rho\sigma_x\sigma_y}{\sigma_x^2 + \sigma_y^2 + (\mu_x - \mu_y)^2}
@@ -47,7 +48,8 @@ Il s'agit d'un coefficient calculé entre deux vecteurs $x$ et $y$ à partir duq
   \end{equation}
 \end{itemize}
 
-Afin d'avoir une meilleure approximation, on utilise la transformation de Fisher. Comme dans les travaux de McBride, on appelle $\hat{Z}$ l'estimateur du CCC~\cite{McBride2005} défini dans l'équation~\ref{eq:hat_Z}
+Afin d'avoir une meilleure approximation, on utilise la transformation de Fisher.
+\textcolor{blue}{Cette transformation consiste à prendre la tangente hyperbolique inverse du coefficient de corrélation. Elle est utilisée pour palier aux cas où nous avons un coefficient de corrélation proche de ± 1, puisque dans ce cas sa distribution est fortement asymétrique, ce qui rend difficile l'estimation des intervalles de confiance pertinents. La transformation de Fisher résout ce problème en produisant une variable dont la distribution est approximativement distribuée normalement, avec une variance stable.} Comme dans les travaux de McBride, on appelle $\hat{Z}$ l'estimateur du CCC~\cite{McBride2005} défini dans l'équation~\ref{eq:hat_Z}
 
 \begin{equation}
   \hat{Z} = \tanh^{-1}(\hat{\rho_c}) =  \dfrac{1}{2} \ln \left( \dfrac{1+ \hat{\rho_c} }{1 -\hat{\rho_c}}  \right)
@@ -61,7 +63,7 @@ Nous pouvons calculer l'écart type de cet estimateur, en suivant l'équation~\r
 \label{eq:et_hat_Z}
 \end{equation}
 
-Avec un décalage effectué par rapport au paramètre d'échelle $u = \dfrac{\mu_x - \mu_y}{\sigma_x \sigma_y}$.
+Avec un décalage effectué par rapport au paramètre d'échelle $u = \dfrac{\mu_x - \mu_y}{\sigma_x \sigma_y}$. \textcolor{blue}{j'avoue je ne sais pas pourquoi on fait cette opération.}
 
 Ce qui nous permet de déduire un intervalle de confiance à $95\%$ pour le score de CCC selon l'équation~\ref{eq:inter_conf}.
 
@@ -78,7 +80,7 @@ Nous pouvons observer que l'intervalle de confiance est relativement faible. En 
 
 Dans toutes les expériences suivantes, une différence de performance sera jugée significative uniquement si leur intervalle de confiance ne se chevauchent pas.
 
-\textcolor{red}{Un deuxième intervalle de confiance lié à l'initialisation peut également être calculé. Cet intervalle ne sera pertinent que dans le cas où l'on entraîne un nouveau modèle.}
+Un deuxième intervalle de confiance lié à l'initialisation peut également être calculé. Cet intervalle ne sera pertinent que dans le cas où l'on entraîne un nouveau modèle.
 
 \section{Représentation linguistique}
 Comme nous l'avons dit précédemment, la représentation linguistique peut apporter des informations qui diffèrent de celles retenues par les systèmes de la modalité acoustique. Pour mettre en place un système appris sur cette modalité, nous avons utilisé les transcriptions automatiques des conversations téléphoniques.
@@ -124,7 +126,7 @@ Afin de comparer les performances réalisées selon les différentes tailles de 
   \item \textbf{Word2vec-40} : La taille de la représentation a été fixée à 40 en raison des travaux préliminaires sur la modalité acoustique où nos représentations étaient de cet ordre de grandeur. Nous avons fait ce choix pour minimiser l'impact de la taille des descripteurs sur les performances du système,
   \item \textbf{Word2vec-100} : La taille des plongements est fixé à 100. Il s'agit d'une taille standard, beaucoup utilisée dans des tâches de NLP notamment.
   \item \textbf{Word2vec-150} : La taille des plongements est fixé à 150.
-  \item \textbf{Word2vec-200} : La taille des plongements est fixé à 200. Plus la taille des descripteurs est grande et plus on évite le sur-apprentissage généralement.
+  \item \textbf{Word2vec-200} : La taille des plongements est fixé à 200. %Plus la taille des descripteurs est grande et plus on évite le sur-apprentissage généralement.
 \end{itemize}
 
 Nous avons utilisé l'architecture biLSTM-4 définie dans le chapitre~\ref{chapitre5} section~\ref{sec:5.3} pour tester la modalité linguistique représentée par des Word2vec. Les résultats sont disponibles dans le tableau~\ref{tab:res_word2vec}. Comme nous pouvons le remarquer, les scores sont supérieurs à 0.5 pour les quatre ensembles. Nous remarquons que les meilleurs scores sont atteints avec une taille de descripteurs de 100. Les performances se dégradent lorsque l'on a des tailles de descripteurs plus grandes.
@@ -132,7 +134,7 @@ Nous avons utilisé l'architecture biLSTM-4 définie dans le chapitre~\ref{chapi
 Si nous comparons avec le maximum atteint par la modalité acoustique (cf section~\ref{sec:5.5.3}), soit 0.698 sur le dev et 0.513 sur le test sans post-traitement, nous voyons une amélioration de ce score maximum avec trois de nos ensembles. Avec un score CCC de 0.860 sur l'ensemble de développement et de 0.759 sur l'ensemble de test, la modalité linguistique représentée par des descripteurs Word2vec de taille 100 donne un résultat bien plus performant que tous les expérimentations effectuées sur la modalité acoustique seule.
 
 \input{./Chapitre6/tables/res_word2vec}
-\textcolor{red}{est-ce que le mauvais sscore obtenu avec word2vec-200 infirme la justification "limite le sur-apprentissage" ?}
+%\textcolor{red}{est-ce que le mauvais sscore obtenu avec word2vec-200 infirme la justification "limite le sur-apprentissage" ?}
 Plusieurs justifications peuvent expliquer ce résultat. Tout d'abord, les mots sont porteurs d'informations émotionnelles qui sont moins souvent ambiguës que celles convoyées par la voix. On peut notamment mentionner les injures ou les mots contenus dans des champs lexicaux de polarité négative (par exemple ``inadmissible'', ``honteux'' ou encore ``arnaque'').
 
 De plus, nous simplifions le travail du système de reconnaissance des émotions, puisque nous extrayons la modalité linguistique du signal audio et celle-ci est plus haut niveau. Lorsque l'on traite la modalité acoustique, les informations linguistiques sont toujours implicitement présentes et le système peut avoir des difficultés à les modéliser, notamment à cause du peu de données dont nous disposons.
@@ -174,7 +176,7 @@ Une autre méthode permettant d'exploiter des modèles qui ont déjà vu une tr�
 De telles représentations, calculées par des modèles neuronaux entraînés sur d'énormes quantités de données non étiquetées, ont montré leur efficacité, par exemple pour la vision par ordinateur~\cite{Nanni2017} et des tâches de traitement du langage naturel (NLP) telles que de la
 classification, de la similarité de texte, ou du classement par pertinence~\cite{Liu2019,Young2018,Yang2019}. Ils ont également prouvés leur efficacité dans les domaines de l'ASR~\cite{Kahn2020,Liu2020} et de la traduction~\cite{Nguyen2020}.
 
-Néanmoins, ces représentations n'avaient jamais été utilisé pour de la reconnaissance d'émotions continues à notre connaissance. Nous avons donc proposé de tester cette approche pour réaliser notre tâche de reconnaissance des émotions. Il n'est, en effet, pas évident qu'elle soit pertinente pour la SER. Par exemple, au niveau acoustique, l'ASR a tendance à se concentrer \textcolor{bleu}{sur des durées d'environ 30 ms}, tandis que les émotions sont généralement prises en charge sur environ 1 seconde de parole.
+Néanmoins, ces représentations n'avaient jamais été utilisé pour de la reconnaissance d'émotions continues à notre connaissance. Nous avons donc proposé de tester cette approche pour réaliser notre tâche de reconnaissance des émotions. Il n'est, en effet, pas évident qu'elle soit pertinente pour la SER. Par exemple, au niveau acoustique, l'ASR a tendance à se concentrer sur des durées d'environ 30 ms, tandis que les émotions sont généralement prises en charge sur environ 1 seconde de parole.
 
 Nous pensons que l'utilisation de ces représentations peut limiter l'impact du manque de données lorsque seules de petites bases de données sont disponibles pour former un réseau de neurones pour une tâche spécifique.
 
@@ -196,14 +198,14 @@ Les résultats sont présentés dans le tableau~\ref{tab:res_camembert}. Comme n
 \subsection{Représentation acoustique}
 Dans le domaine du SER, trouver le meilleur ensemble de caractéristiques acoustiques est toujours un sous-domaine de recherche actif~\cite{Jing2018}.
 
-Comme nous l'avons déjà dit (\textcolor{red}{cf section X}, la plupart des ensembles de caractéristiques \textit{experts}~\cite{Eyben2016,Schuller2013} visent à décrire la prosodie dans le signal, avec des descripteurs de bas niveau (LLD) capturant l'intensité, l'intonation, le rythme ou la qualité de la voix.
+Comme nous l'avons déjà dit (cf section~\ref{sec:3.3.1}), la plupart des ensembles de caractéristiques \textit{experts}~\cite{Eyben2016,Schuller2013} visent à décrire la prosodie dans le signal, avec des descripteurs de bas niveau (LLD) capturant l'intensité, l'intonation, le rythme ou la qualité de la voix.
 Une autre approche consiste à extraire des caractéristiques spectrales : les coefficients cepstraux à fréquence mel (MFCC) sont clairement les plus utilisés car ils sont robustes aux signaux bruités même s'ils n'ont pas été conçus pour la prosodie ou l'émotion.
 
 Récemment, wav2vec~\cite{Schneider2019} et Audio AlBERT~\cite{Chi2020} ont été introduits dans les domaines de la reconnaissance automatique de la parole et dans l'identification du locuteur comme l'une des premières approches pré-entraînées pour extraire des caractéristiques contextuelles des signaux bruts.
 Comme nous l'avons expliqué au chapitre~\ref{chapitre2}, wav2vec~\cite{Schneider2019} est un modèle pré-entraîné par auto-supervision : il apprend à prédire les futurs échantillons à partir de l'une analyse de le fenêtre courante.
 
 Dans nos expérimentations, nous utilisons deux modèles pré-entraînés. Le premier, appelé \textit{wav2vec-EN}, fourni par Schneider et al.,  a été entraîné sur le corpus Librispeech~\cite{librispeech} qui est composé de 960 heures de livre audio en anglais.
-Nous formons également notre propre modèle, appelé \textit{wav2vec-FR}, appris sur les conversations non étiquetées de centres d'appels français correspondant à plus de 500 heures de données privées.
+Nous formons également notre propre modèle, appelé \textit{wav2vec-FR}, dérivé du premier modèle et fine-tuné sur les conversations non étiquetées de centres d'appels français correspondant à plus de 500 heures de données privées.
 
 Comme ce modèle est appris avec des audios échantillonnés à 16kHz, nous avons sur-échantillonné nos données pour qu'elles correspondent aux modèles. Nous avons utilisé la fonction de rééchantillonnage FFMpeg~\cite{Tomar2006} avec la fonction d'interpolation \textit{sinc}.
 
@@ -211,7 +213,7 @@ Au final, chaque segment émotionnel est représenté par un vecteur de taille 5
 
 \input{./Chapitre6/tables/res_wav2vec}
 
-Les résultats sont présentés dans le tableau~\ref{tab:res_wav2vec}. Comme nous pouvons l'observer, les modèles sont également très performants pour la reconnaissance des émotions continues. Les descripteurs issus de wav2vec-EN donne de meilleurs résultats que ceux issus de wav2vec-FR même s'il reste dans la même ordre de grandeur. Cela peut être expliqué par le fine-tuning \textcolor{red}{c'est pas clair dans le paragraphe précéndet sur wav2vec-FR que c'est du fine-tuning} effectué sur à peine 500 heures de données, ce qui a pu suffisamment dérégler le modèle sans pour autant lui faire intégrer des renseignements pertinents. Si on se compare aux meilleurs résultats des MFCCs, à savoir respectivement $0.698$ et $0.513$ sur le dev et le test, on peut affirmer que la représentation wav2vec-EN permet au système de mieux reconnaître les états émotionnels, puisqu'on améliore les scores respectivement de $0.153$ et $0.217$ sur le dev et le test.
+Les résultats sont présentés dans le tableau~\ref{tab:res_wav2vec}. Comme nous pouvons l'observer, les modèles sont également très performants pour la reconnaissance des émotions continues. Les descripteurs issus de wav2vec-EN donne de meilleurs résultats que ceux issus de wav2vec-FR même s'il reste dans la même ordre de grandeur. Cela peut être expliqué par le fine-tuning effectué sur à peine 500 heures de données, ce qui a pu suffisamment dérégler le modèle sans pour autant lui faire intégrer des renseignements pertinents. Si on se compare aux meilleurs résultats des MFCCs, à savoir respectivement $0.698$ et $0.513$ sur le dev et le test, on peut affirmer que la représentation wav2vec-EN permet au système de mieux reconnaître les états émotionnels, puisqu'on améliore les scores respectivement de $0.153$ et $0.217$ sur le dev et le test.
 
 \subsection{Reproduction sur SEWA}
 Afin d'étendre l'utilisation des descripteurs pré-entraînés, nous avons voulu tester les performances d'un système biLSTM-4 apprenant avec ce type de descripteurs pour le corpus SEWA. Le corpus étant en allemand et en hongrois, nous avons uniquement considéré le modèle wav2vec-EN.
