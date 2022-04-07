@@ -23,17 +23,26 @@ Cette traduction ainsi effectuée, les entreprises peuvent alors détecter les �
 Qu'est ce qui est novateur dans nos travaux ? Tout d'abord nous travaillons sur deux états émotionnels peu dotés, surtout si on considère les données en langue française. Nous démontrons que nous sommes capables de les détecter automatiquement à l'aide de systèmes construits avec des réseaux de neurones. Nous étudions les meilleures représentations de la parole afin d'extraire la frustration et la satisfaction. Enfin, nous tentons d'apporter une justification au succès de ces systèmes.
 
 \subsubsection{Problématiques}
-Concrétement, nous avons abordé ces différentes problématiques tout au long de cette thèse :
-\begin{itemize}
-  \item Quelles sont les émotions que l'on peut retrouver dans les conversations des centres d'appels, qui seront utiles pour les industriels ?
-  \item Comment construire des systèmes efficaces de reconnaissance des émotions de la parole ?
-  \item Dans quelles modalités de la parole ces émotions peuvent-elles s'exprimer ?
-  \item Peut-on utiliser des descripteurs pré-entraînées extraites avec une méthode auto-supervisée pour palier au manque de données ?
-  \item Quels sont les marqueurs de satisfaction et de frustration que l'on peut retrouver dans la modalité linguistique ?
-  \item Doit on considérer que l'émotion est décrite par la fusion de plusieurs annotations ou peut on prendre en compte les annotations individuelles de chaque personne ?
-\end{itemize}
+La première problématique consiste à s’interroger sur le contenu émotionnel que l’on peut observer dans les conversations de centres d’appels et qui seront utiles aux industriels. En effet, peut-on appliquer les modèles d’émotions classiquement utilisées en affective computing ? [Chapitre~\ref{chapitre4}] Une fois les émotions recherchées définies, quelles stratégies peut-on mettre en œuvre pour les annoter, évaluer la pertinence de ces annotations réalisées par plusieurs individus de perception émotionnel différente ? [Chapitre~\ref{chapitre4}] Nous nous sommes également demandés dans quelle mesure il est possible de considérer chaque annotation individuelle comme une référence pour apprendre nos modèles. [Chapitre~\ref{chapitre7}]
 
-Tous ces questionnements sont traités dans les différents chapitres de contributions de cette thèse.
+La seconde problématique consiste à proposer un système efficace pour la reconnaissance des émotions à partir d’un signal de parole. Nous avons questionné différentes architectures neuronales, ainsi que différentes représentations du signal acoustique. Pour cela, nous nous sommes interrogé sur la proposition d’un protocole expérimental complet depuis l’apprentissage des modèles à leur évaluation. [Chapitre~\ref{chapitre5}]
+
+Les corpus émotionnels contiennent généralement une faible quantité de données. Ce qui implique des modèles relativement légers et peu complexes en comparaison de ceux développés pour la reconnaissance automatique de parole. Nous nous sommes donc interrogé sur les stratégies permettant de compenser le manque de données d’apprentissage, notamment sur l’utilisation de représentations pré-entrainées avec des méthodes auto-supervisées. [Chapitre~\ref{chapitre6}]
+
+La question du choix des modalités pertinentes pour représenter les émotions dans la parole forme notre dernière problématique. En effet, la parole peut être représentée par son contenu acoustique, mais également son contenu linguistique. Nous avons donc questionné les possibilités de fusion de ces deux modalités. [Chapitre~\ref{chapitre6}]
+
+Et donc si le contenu linguistique est pertinent pour les conversations téléphoniques, nous pouvons nous interroger sur les marqueurs de satisfaction et de frustration présents dans le texte. [Chapitre~\ref{chapitre7}]
+% Concrétement, nous avons abordé ces différentes problématiques tout au long de cette thèse :
+% \begin{itemize}
+%   \item Quelles sont les émotions que l'on peut retrouver dans les conversations des centres d'appels, qui seront utiles pour les industriels ?
+%   \item Comment construire des systèmes efficaces de reconnaissance des émotions de la parole ?
+%   \item Dans quelles modalités de la parole ces émotions peuvent-elles s'exprimer ?
+%   \item Peut-on utiliser des descripteurs pré-entraînées extraites avec une méthode auto-supervisée pour palier au manque de données ?
+%   \item Quels sont les marqueurs de satisfaction et de frustration que l'on peut retrouver dans la modalité linguistique ?
+%   \item Doit on considérer que l'émotion est décrite par la fusion de plusieurs annotations ou peut on prendre en compte les annotations individuelles de chaque personne ?
+% \end{itemize}
+%
+% Tous ces questionnements sont traités dans les différents chapitres de contributions de cette thèse.
 
 \subsubsection{Organisation du document}
 
