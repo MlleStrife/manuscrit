@@ -1,0 +1,37 @@
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l| l l l | l l l|}
+    \hline
+    modèle    &\multicolumn{3}{c|}{Regression Logistique} &\multicolumn{3}{c|}{SVM} \\
+    \hline
+    modalités    &acoustique  &linguistique  &fusion  &acoustique  &linguistique  &fusion\\
+    nb descripteurs         & 100&100&200 & 100&100 &200\\
+    \hline
+    &\multicolumn{6}{c|}{\textbf{Scores avec les 3 classes : satisfait, neutre et frustré}}\\
+    \hline
+    UAP           &0.31  &\textbf{0.52}  & 0.42 &0.36 &0.44  &0.40 \\
+    UAR              &0.35  &\textbf{0.52}  &0.46 &0.39  &0.48  & 0.45\\
+    %fscore              &0.324  &0.505  &0.432  &0.365 &0.459  &0.422 \\
+    \hline
+    %                   &&audio    &&text     &&both \\
+    %per classes on LR  &sat &neu &fru &sat &neu &fru &sat &neu &fru \\
+    %precision           &infini(0/0) &0.54 &0.38 &inf &0.7 &0.86 &inf &0.64 &0.61 \\
+    %recall              &0 &0.64 &0.4            &0 &0.97 &0.6   &0 &0.82 &0.55 \\
+    %per classes on SVM  &sat &neu &fru &sat &neu &fru &sat &neu &fru \\
+    %precision           &infini(0/0) &0.59 &0.5 &inf &0.67 &0.67 &inf &0.63 &0.58 \\
+    %recall              &0 &0.82 &0.35            &0 &0.85 &0.6   &0 &0.79 &0.55 \\
+    %per classes (LR)  &neu &fru  &neu &fru  &neu &fru \\
+    %precision            &0.54 &0.38  &0.7 &0.86  &0.64 &0.61 \\
+    %recall              &0.64 &0.4   &0.97 &0.6  &0.82 &0.55 \\
+    %per classes (SVM)   &neu &fru  &neu &fru &neu &fru \\
+    %precision           &0.59 &0.5  &0.67 &0.67  &0.63 &0.58 \\
+    %recall               &0.82 &0.35 &0.85 &0.6  &0.79 &0.55 \\
+    &\multicolumn{6}{c|}{\textbf{Scores avec les 2 classes : neutre et frustré}}\\
+    \hline
+    UAP           &0.46 &\textbf{0.78} &0.63 &0.54 &0.67 &0.61 \\
+    UAR              &0.52 &\textbf{0.78} &0.68 &0.58 &0.72 &0.67 \\
+    \hline
+  \end{tabular}
+\caption{Scores des systèmes de classification sur l'émotion finale de la conversation. UAP correspond à \textit{unweighted average precision} et UAR à \textit{unweighted average recall}.} %\textcolor{red}{Pour être homogène avec les autres tableaux de résultats, je mettrais les descripteurs en ligne et pas en colonne => ce qui inverserait ton tableau. + ajouter scores moyens sur le dev/test ? obtenus avec 5-folds}}
+\label{tab:resultClassifDiscreteOld}
+\end{table}

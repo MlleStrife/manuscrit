@@ -103,11 +103,11 @@ Nous avons également cherché au niveau de la syntaxe s'il y avait des schémas
 Comme nous n'arrivons pas à dégager clairement des caractéristiques communes à ces segments, nous avons pensé à utiliser le machine learning pour regrouper les segments en classes, et donc nous permettre de discerner les différences entre les classes. Ainsi nous pourrons peut-être décrire des marqueurs de frustration.
 
 \subsubsection{Classification des segments de pente de frustration}
-Comme nous n'avons pas de classes définies, nous avons fait le choix d'une classification non supervisée. Pour être cohérent avec le nombre limité de segments émotionnels (166), nous avons utilisé un classifieur de type kmeans avec k=3. Nous avons classifié les mots, bi-mots et tri-mots suivant ces 3 classes. \textcolor{blue}{Nous avons effectué une opération de type pca (analyse en composantes principales) afin de permettre la visualisation en deux dimensions de nos classes,} comme l'illustre la Figure~\ref{fig:kmeans}.
+Comme nous n'avons pas de classes définies, nous avons fait le choix d'une classification non supervisée. Pour être cohérent avec le nombre limité de segments émotionnels (166), nous avons utilisé un classifieur de type kmeans avec k=3. Nous avons classifié les mots, bi-mots et tri-mots suivant ces 3 classes. Nous avons effectué une analyse en composantes principales afin de permettre la visualisation sur les deux premières composantes de nos classes, comme l'illustre la Figure~\ref{fig:kmeans}.
 
 \input{./Chapitre7/figures/kmeans}
 
-Nous avons ensuite utilisé des \textcolor{blue}{tf-idf, dont nous avons expliqué le fonctionnement au chapitre~\ref{chapitre3},} sur les segments de chaque classe pour dégager des tendances. Les résultats sur les bi-mots et les tri-mots sont relatés dans le tableau~\ref{tab:kmeans}. Nous n'avons pas trouvé de caractéristiques bien saillantes dans ces classes qui permettraient de les dissocier à coup sûr. S'il fallait extrapoler, le premier cluster semble contenir des conversations en rapport avec les mutuelles; le deuxième cluster semble plutôt concerner des relances ou des clients qui ont déjà appelés; et le dernier cluster semble être peuplé de litiges de contrat (notamment de l'énergie).
+Nous avons ensuite utilisé des TF-IDF, dont nous avons expliqué le fonctionnement au chapitre~\ref{chapitre3}, sur les segments de chaque classe pour dégager des tendances. Les résultats sur les bi-mots et les tri-mots sont relatés dans le tableau~\ref{tab:kmeans}. Nous n'avons pas trouvé de caractéristiques bien saillantes dans ces classes qui permettraient de les dissocier à coup sûr. S'il fallait extrapoler, le premier cluster semble contenir des conversations en rapport avec les mutuelles; le deuxième cluster semble plutôt concerner des relances ou des clients qui ont déjà appelés; et le dernier cluster semble être peuplé de litiges de contrat (notamment de l'énergie).
 
 \input{./Chapitre7/tables/kmeans}
 
@@ -116,7 +116,7 @@ Nous avons donc fait le choix de nous tourner vers un linguiste, afin de collabo
 
 \subsection{Analyses conduites par un linguiste}
 Dans cette section, nous avons l'intention de fournir des éléments qui pourraient expliquer l'importance de la linguistique pour retrouver la satisfaction ou la frustration.
-Cette analyse a été faite sur 13 conversations sélectionnées afin de couvrir différentes dynamiques de la dimension satisfaction : Globalement plates, occurrences de frustration élevée (annotation de l'axe $<$ 0.4) et occurrences de satisfaction fortement décroissante (pente de frustration).
+Cette analyse a été faite sur 13 conversations sélectionnées afin de couvrir différentes dynamiques de la dimension satisfaction : globalement plates, occurrences de frustration élevée (annotation de l'axe $<$ 0.4) et occurrences de satisfaction fortement décroissante (pente de frustration).
 L'analyse a été effectuée à l'aide de la transcription automatique, de l'annotation de l'axe de satisfaction de référence et des balises correspondant à \textit{haute frustration} et \textit{pente de frustration}.
 
 Notre hypothèse est que la parole frustrée comporte principalement  des accentuations des phénomènes oraux.
