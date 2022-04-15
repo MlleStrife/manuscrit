@@ -4,7 +4,7 @@
 
 Nous concluons ici sur les travaux réalisés pendant ces années de thèse et nous proposons quelques perspectives qui pourront peut être orienter de futurs travaux.
 
-\subsubsection{Contexte}
+\subsubsection{Conclusion}
 Tout au long de cette thèse nous avons travaillé autour des émotions. Ce travail, inscrit dans un contexte industriel fort, permettra demain à l'entreprise Allo-Média de commercialiser une solution de reconnaissance automatique des émotions de satisfaction et de frustration dans des conversations issues de centre d'appels.
 
 Nous avons tout d'abord défini, en accord avec le besoin industriel, les émotions pertinentes dans la relation clientèle. La satisfaction et la frustration sont des marqueurs forts, vecteurs de gain et de perte de clients par exemple : un client satisfait a plus de chance de continuer avec une entreprise alors qu'un client frustré peut aller voir la concurrence. Ces deux émotions, que nous traitons comme deux faces d'un même ensemble ne sont pas très présent dans la littérature si on considère nos obligations, à savoir la langue française et le canal téléphonique.
@@ -28,3 +28,52 @@ Un autre aspect de notre travail a été de vouloir expliquer la performance de 
 Pour conclure, il me semblait important de vous parler de mon ressenti sur cette thèse. Bien que j'ai eu la chance de travailler sur un sujet passionnant, encadré par des personnes intéressées et très motivées par toutes ces problématiques, l'expérience de cette thèse me laisse un peu frustrée. J'aurai voulu approfondir certains aspects et surtout être en mesure de parler de mes travaux à d'autres personnes du domaine. Cependant la pandémie nous a tous fortement affectée. Couplée à quelques situations personnelles, je suis aujourd'hui à la fois triste de finir cette thèse sans avoir pu expérimenter plus et soulagée d'avoir réussi à la terminer. Je sais que la finalité d'une thèse est d'être sans fin, puisqu'elle soulève plus de questions qu'elle n'en solutionne, et à ce titre, j'espère pouvoir continuer à me poser des questions sur le sujet.
 
 \subsubsection{Perspectives}
+Il reste de nombreuses pistes que nous aurions voulu emprunter pour approfondir notre travail lors de cette thèse.
+
+\vspace{1cm}
+
+\textit{Enrichir le corpus AlloSat}
+
+%Construire un ensemble de test pour le présenter en campagne
+Actuellement, le corpus AlloSat est distribué dans son intégralité aux chercheurs qui en font la demande. Nous avons fait ce choix car nous voulons permettre à la communauté de s'en saisir et d'aider à l'avancé dans le domaine, sans aucunes restrictions. Cependant, il peut être intéressant d'utiliser ce corpus afin de réaliser des campagnes d'évaluation. Ces campagnes permettent de stimuler la communauté en faisant appel à l'esprit de compétition des différents laboratoires. Elles permettent donc de rassembler plusieurs équipes sur une même problématique et donc d'avancer souvent plus rapidement sur cette dernière. Ajouter au corpus AlloSat une partition de test non diffusée permettrait de mettre en place une campagne portant sur la détection de la satisfaction et de la frustration dans les conversations de centre d'appels. Faire annoter de nouvelles données mettrait encore plus en valeur le corpus, et ces données pourraient être utilisés pour entraîner de nouveaux systèmes de reconnaissance.
+
+%Mettre en place un protocole unifié pour permettre une étude multi-corpus
+L'une des problématiques majeures du domaine de la reconnaissance d'émotion reste le manque de données. En effet, même s'il existe une multitude de corpus, ils sont souvent d'une dimension assez restreinte et non compatible les uns avec les autres. Les émotions étant subjectives et les protocoles d'annotation différents d'un corpus à l'autre, des études multi-corpus sont assez difficiles a réaliser. Il serait intéressant de mettre en place des outils unifiés, permettant de facilité ces études multi-corpus. Nous pensons notamment à des outils permettant de régulariser les annotations, voir des systèmes de traduction permettant de décrire toutes les émotions étiquetées par une même représentation. Un premier pas dans ce sens serait de considérer toutes les émotions comme composantes d'un seul et même vecteur de type one-hot par exemple.
+
+%S'attarder sur la sémantique
+De plus, nous pensons que l'aspect multi-domaine du corpus AlloSat pourrait se révéler intéressant sous le prisme de l'étude de la sémantique. En effet, le corpus se compose de conversations traitant de questions énergétiques, d'assurances, du voyage, de la téléphonie et de l'immobilier. Le corpus pourrait servir à construire un module de reconnaissance de concepts sémantiques multi-domaine.
+
+\vspace{1cm}
+
+\textit{Plus d'explicabilité de la satisfaction et de la frustration}
+
+%Analyse perceptive et participative des conversations
+Une grande faiblesse des systèmes de reconnaissance basés sur l'apprentissage automatique est le manque d'explicabilité des résultats. En effet, il est très difficile de justifier les résultats de nos reconnaissances avec des faits. C'est pour cela que nous avons commencé un travail sur la recherche d'indices et de patterns permettant à l'humain de comprendre et d'anticiper la survenue de la frustration. Nous aimerions pousser ces travaux plus loin, en mettant en place une analyse perceptive et participative des conversations par le plus grand nombre possible.
+
+\vspace{1cm}
+
+\textit{Pourquoi combattre la subjectivité par le nombre ?}
+
+Dans la littérature, nous avons l'habitude de palier à la subjectivité d'une tache en multipliant les annotateurs notamment. Nous partons du principe que plus il y aura d'annotateurs et plus nous serons capable d'approcher le \textit{réel}. Nous avons commencé à questionner ce postulat dans nos travaux et par faute de temps, nous n'avons pas pu aller au bout de ce travail. Il serait interessant de le poursuivre et, en fonction des résultats, l'étendre à d'autres domaines.
+
+\vspace{1cm}
+
+\textit{Améliorer les performances de reconnaissance}
+
+%Utilisation des nouveaux modèles de pré-train
+Depuis la diffusion du système BERT, de nombreux systèmes pre-trained ont vu le jour. Dans cette thèse nous nous sommes attardés sur deux d'entre eux en particulier : wav2vec et camemBERT. Depuis d'autres systèmes plus performants ou plus spécifiques à notre tache ou à nos données ont vu le jour. Il serait intéressant de mettre à jour nos systèmes pour bénéficier de l'apport de ces nouveautés.
+%Imaginer des embeddings spécial émotions
+De même, nous pourrions imaginer la construction de ce type de systèmes pour construire des embeddings représentant l'aspect émotionnel des données.
+
+%Elargir nos systèmes à d'autres corpus décrivant d'autres émotions
+Nous avons réalisé nos travaux en partant du corpus AlloSat. Nous avons également étendu nos travaux au corpus SEWA, afin de confirmer la pertinence de nos choix en terme de modèles et de représentation des données notamment. Il serait intéressant d'étendre encore nos travaux à d'autres corpus du domaine, notamment au corpus SEMAINE, afin de déterminer si nos expérimentations sont valables uniquement sur la modalité de la satisfaction et de la frustration ou si notre approche est compatible avec d'autres émotions, d'autres protocoles d'annotation et d'autres contextes de conversations.
+
+\vspace{1cm}
+
+\textit{De nouvelles solutions industrielles}
+
+%Construire une solution temps réel
+Lors de cette thèse, nous n'avons malheureusement pas pu répondre à la problématique de temps réel. En effet, il est très intéressant pour les industriels de détecter la satisfaction et la frustration directement lors de l'appel du client. Ainsi l'entreprise peut répondre instantanément à ces émotions. Un premier pas vers du temps réel a été réalisé après la rédaction de ce manuscrit en remplaçant les architectures bidirectionnelles par de l'unidirectionnelle et par la prise en compte de morceaux de conversation plutot que de conversations entière (soit des découpages de deux minutes). Ces travaux préliminaires donnant des résultats encourageants, il serait intéressant de les poursuivre.
+
+%S'élargir à des cas d'utilité public
+Enfin, l'entreprise Allo-Média a toujours eu à cœur de participer à des cas d'utilité public. Mettre en place de la reconnaissance de frustration dans des contextes critiques permettrait de mettre la technologie au profit direct des personnes vulnérables. Nous pouvons par exemple penser à de la modération des priorités dans des centres d'appels d'urgences.
