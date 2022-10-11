@@ -2,12 +2,13 @@
     \centering
     \begin{tabular}{|l|l||l|l|l|}
         \hline
-                    &satisfaction &activation &valence &liking \\
+                    &\textbf{AlloSat-Dev} &\multicolumn{3}{c |}{\textbf{SEWA-Dev}}
+                    & &satisfaction &activation &valence &liking \\
         \hline
         CNN         &.046 (.151)   &.368 (.401) &.375 (.424) &.074 (.089)\\
         biLSTM-4    &\textbf{.503} (.517)   &\textbf{.457}(.476) &\textbf{.411}(.420) &\textbf{.248}(.267) \\
         \hline
     \end{tabular}
-    \caption{Comparaison entre les scores obtenus sur l'ensemble de développement d'AlloSat et de SEWA en prenant en entrée des segments émotionnels de 500~ms. Comparaison réalisé sur deux architectures neuronales : CNN et biLSTM-4 avec eGeMAPS-47.}
+    \caption{Architectures entrainées sur l'ensemble de développement d'AlloSat et de SEWA en prenant en entrée des segments émotionnels de 500~ms. Comparaison entre deux architectures neuronales : CNN et biLSTM-4 avec eGeMAPS-47.}
     \label{tab:pasAnnotation}
 \end{table}

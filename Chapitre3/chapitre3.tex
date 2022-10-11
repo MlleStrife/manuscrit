@@ -4,31 +4,31 @@
 
 
 \section{Le domaine de la reconnaissance automatique des émotions}
-Le domaine de la reconnaissance automatique des émotions, ou Speech Emotion Recognition (SER) se concentre sur les tâches de reconnaissance des différents états émotionnels d'un ou de plusieurs locuteurs. Ce domaine est en plein expansion grâce notamment à l'utilisation de nouveaux systèmes neuronaux empruntés à d'autres domaines du Machine Learning.
-Afin de mettre en place des expérimentations sur ces tâches de reconnaissances et de caractérisations des émotions, il est important de mettre en place des données pertinentes sur lesquelles s'appuyer, des méthodes pour représenter efficacement ces données ainsi que de mettre en place des systèmes d'évaluation robustes permettant de comparer les différentes expérimentations.
+Le domaine de la reconnaissance automatique des émotions, ou Speech Emotion Recognition (SER) se concentre sur les tâches de reconnaissance des différents états émotionnels d'un ou de plusieurs locuteurs. Ce domaine est en pleine expansion grâce notamment à l'utilisation de nouveaux systèmes neuronaux empruntés à d'autres domaines du Machine Learning.
+Afin de mettre en place des expérimentations sur ces tâches de reconnaissance et de caractérisation des émotions, il est important de mettre en place des données pertinentes sur lesquelles s'appuyer, des méthodes pour représenter efficacement ces données ainsi que de mettre en place des systèmes d'évaluation robustes permettant de comparer les différentes expérimentations.
 
-\section{Les Corpus existants}
+\section{Les corpus existants}
 Aujourd'hui, les tâches de reconnaissance d'émotion sont principalement traitées en tant que tâches supervisées : le système apprend à reconnaître des étiquettes émotionnelles associées à des segments de parole à partir de corpus de parole annotés en émotions.
 
 \subsection{Les différents types de corpus}
 \subsubsection{Corpus actés}
-Comme nous l'avons vu dans le premier chapitre de cette thèse, la caractérisation de l'état émotionnel d'une personne peut être assez délicate, puisqu'elle est en grande partie subjective. De plus, il est communément admis que l'expression des états émotionnels sont ponctuels et rares dans la parole. Pour palier à ce problème, on peut construire des corpus dit \textit{actés}. Il s'agit de corpus où l'état émotionnel n'est pas naturel.
+Comme nous l'avons vu dans le premier chapitre de cette thèse, la caractérisation de l'état émotionnel d'une personne peut être assez délicate, puisqu'elle est en grande partie subjective. De plus, il est communément admis que l'expression des états émotionnels sont ponctuels et rares dans la parole. Pour pallier ce problème, on peut construire des corpus dit \textit{actés}. Il s'agit de corpus où l'état émotionnel n'est pas naturel.
 
 On fait alors appel à des acteurs, qui vont simuler des états émotionnels dictés par le responsable de l'élaboration du corpus. Par exemple, les acteurs devront dire le mot \textit{hippopotame} de façon joyeuse, triste puis avec dégoût. Cette pratique est très utilisée pour avoir différents états émotionnels d'un même locuteur, le tout rapidement. Elle est à privilégier quand on recherche l'exhaustivité des états émotionnels chez un sujet. Ces corpus sont aujourd'hui toujours majoritaires. On peut notamment citer les corpus Emo-Db~\cite{Burkhardt2005} et DES~\cite{Engberg1997}. L'inconvénient principal d'un tel protocole est que les émotions obtenues sont prototypiques dans leur manifestation, les rendant difficile à comparer à des émotions dites \textit{naturelles}. De plus, l'utilisation d'acteurs peut se révéler coûteuse.
 
 \subsubsection{Corpus induits}
 Un autre type de corpus utilisé dans la reconnaissance d'émotion est le corpus induit. On utilise différentes méthodes pour induire les états émotionnels que l'on souhaite étudier.
 
-Une des méthodes pour construire ce genre de corpus est d'utiliser un \textit{magicien d'Oz} abrégé WoZ (\textit{Wizard of Oz}). Cette méthode consiste à simuler un dialogue homme-machine, où la machine est en fait complètement commandée par par un opérateur humain, qui va simuler une réponse de machine. Ainsi l'humain pense avoir affaire à un serveur vocal ou un robot, alors que c'est l'opérateur qui est responsable des réponses engendrées par le système.
+Une des méthodes pour construire ce genre de corpus est d'utiliser un \textit{magicien d'Oz} abrégé WoZ (\textit{Wizard of Oz}). Cette méthode consiste à simuler un dialogue homme-machine, où la machine est en fait complètement commandée par un opérateur humain, qui va simuler une réponse de machine. Ainsi l'humain pense avoir affaire à un serveur vocal ou un robot, alors que c'est l'opérateur qui est responsable des réponses engendrées par le système.
 
 On peut également parler de la recherche de stress par laquelle on peut placer les sujets dans des situations stressantes comme des montagnes russes~\cite{Hansen1997} ou une prise de parole en public~\cite{Giraud2013}. Quant à la tristesse, on peut utiliser des extraits de films par exemple~\cite{Schuller2010cinemo}. Ces émotions sont plus proches des émotions réelles, elles sont donc moins manifestes.
 
 Les corpus actés et induits ont pour avantage d'être créés dans des environnements contrôlés et permettent de rendre les données facilement accessibles. Ces données sont, la plupart du temps, produites à des fins d'analyse. Il est donc facile de recueillir le consentement des participants avant la mise en place de l'expérience, de contrôler la qualité des enregistrements et la cohérence des données en contraignant les participants sur un sujet ou à exprimer un type d'état émotionnel défini. Néanmoins ils ne représentent pas la vie réelle, sont souvent de petite taille et sont difficilement fusionables pour permettre d'avoir une plus grande quantité de données.
 
 \subsubsection{Corpus naturels}
-Les corpus non actés, aussi appelés naturels ou \textit{real-life} sont obtenus directement à partir de données issues de la vraie vie. Ils proviennent d'environnements peu ou pas contrôlés où les participants n'ont pas connaissance de leur implication dans l'expérimentation a priori. On peut travailler par exemple avec des enregistrements provenant de débats télévisés, de reportages, de vidéos internet ou de centres d'appels. Ces données sont donc constituées d'états émotionnels spontanés. Les émotions y sont moins marquées et moins prototypiques que des émotions actées. De plus la parole spontanée contient une grande part de parole neutre non expressive, et la présence d'émotions reste peu fréquence.
+Les corpus non actés, aussi appelés naturels ou \textit{real-life} sont obtenus directement à partir de données issues de la vraie vie. Ils proviennent d'environnements peu ou pas contrôlés où les participants n'ont pas connaissance de leur implication dans l'expérimentation a priori. On peut travailler par exemple avec des enregistrements provenant de débats télévisés, de reportages, de vidéos internet ou de centres d'appels. Ces données sont donc constituées d'états émotionnels spontanés. Les émotions y sont souvent moins marquées et moins prototypiques que des émotions actées. De plus la parole spontanée contient une grande part de parole neutre non expressive, et la présence d'émotions reste peu fréquente.
 
-Ces corpus sont difficile à construire et à diffuser : soit les participants doivent être retrouvés et ils doivent donner leurs consentement a posteriori, soit les données doivent être anonymisées pour respecter la réglementation générale sur la protection de données (RGPD). De même, il est difficile d'avoir tous les états émotionnels de tous les locuteurs et de garantir une qualité d'enregistrement identique entre tous les documents.
+Ces corpus sont difficiles à construire et à diffuser : soit les participants doivent être retrouvés et ils doivent donner leurs consentement a posteriori, soit les données doivent être anonymisées pour respecter la réglementation générale sur la protection de données (RGPD). De même, il est difficile d'avoir tous les états émotionnels de tous les locuteurs et de garantir une qualité d'enregistrement identique entre tous les documents.
 De plus, l'étiquetage de ces données est souvent plus complexe, puisque le cadre expérimental n'a pas été expliqué aux participants.
 
 \subsection{Les différents types d'acquisition}
@@ -38,7 +38,7 @@ On retrouve plusieurs types d'acquisition :
 \begin{itemize}
   \item Acquisition en labo : le milieu d'acquisition est contrôlé par les responsables du corpus. Cela permet une homogénéité entre les différents enregistrements. On peut notamment citer le corpus SEWA~\cite{SEWA}.
   \item Acquisition en studio : les données sont acquises par des studios de radio ou de télévision. Par exemple MSP-Podcast~\cite{Lotfian2019} regroupe des enregistrements de podcast, réalisés en studio.
-  \item Acquisition en conditions réelles : le milieu d'acquisition est peu contrôlé par les responsables du corpus. Ce genre d'acquisition est prépondérante dans les corpus naturels. On peut citer notamment les corpus comportant des conversations de centres d'appels comme CallSurf~\cite{Garnier2008} ou Natural~\cite{Morrison2007}, ou bien de micro trottoir ou d'enregistrements de conversations dans des lieux public comme ESLO~\cite{Eshkol2011}.
+  \item Acquisition en conditions réelles : le milieu d'acquisition est peu contrôlé par les responsables du corpus. Ce genre d'acquisition est prépondérante dans les corpus naturels. On peut citer notamment les corpus comportant des conversations de centres d'appels comme CallSurf~\cite{Garnier2008} ou Natural~\cite{Morrison2007}, de conversations téléphoniques d'urgence~\cite{Devillers2010} ou bien de micro trottoir ou d'enregistrements de conversations dans des lieux publics comme ESLO~\cite{Eshkol2011}.
 \end{itemize}
 
 \subsection{Les différents types d'annotation}
@@ -55,7 +55,7 @@ Une liste non exhaustive des principaux corpus actés et non actés, utilisés d
 Les corpus les plus utilisés de nos jours sont le Berlin Emotional database, aussi appelé EMO-DB et IEMOCAP. Il s'agit de deux corpus annotés selon des catégories discrètes. EMO-DB~\cite{Burkhardt2005} est composé de phrases courtes en allemand prononcées par 10 acteurs et est annoté en peur, colère, joie, tristesse, dégoût, ennui et neutre. IEMOCAP~\cite{Busso2007} est composé de conversations scriptées entre deux acteurs et est annoté en peur, colère, joie, tristesse, dégoût, frustration, surprise, excitation, neutre et \textit{autres} pour toutes les autres émotions. Joué par 10 acteurs également, cette base de données est composée de 12 heures d'audio, ce qui lui permet d'être compatible avec des approches neuronales profondes, bien qu'on préfère généralement travailler avec un plus gros volume de données.
 
 Nous pouvons également citer en particulier le corpus RECOLA et le corpus SEWA. Ces deux corpus sont particulièrement adaptés à notre tâche, puisqu'ils sont annotés selon des émotions continues.
-RECOLA~\cite{Ringeval2013} est constitué de conversations dyadiques effectuées en visioconférence pendant laquelle les deux participants doivent compléter une tâche qui leur demande de coopérer. La base de données est notamment constituée des 5 premières minutes de l'enregistrement audio des 23 binômes ainsi formés, totalisant 3 heures et 50 minutes d'audio. 6 annotateurs ont mesurés les états de valence et d'activation des participants.
+RECOLA~\cite{Ringeval2013} est constitué de conversations dyadiques effectuées en visioconférence pendant laquelle les deux participants doivent compléter une tâche qui leur demande de coopérer. La base de données est notamment constituée des 5 premières minutes de l'enregistrement audio des 23 binômes ainsi formés, totalisant 3 heures et 50 minutes d'audio. 6 annotateurs ont mesuré les états de valence et d'activation des participants.
 SEWA~\cite{SEWA} est constitué de conversations entre deux locuteurs concernant des publicités visualisées en amont. Le corpus est notamment constitué des enregistrements audio de ces conversations réalisées en 6 langues différentes et réunissant 398 participants pour un total de 44 heures. Ces deux corpus sont disponibles pour les membres d'institution de recherche, en faisant des corpus de plus en plus utilisés par la communauté scientifique.
 
 Dans le cadre de cette thèse, nous avons décidé de comparer nos résultats à ceux obtenus avec le corpus SEWA, puisqu'il se rapproche sur plusieurs points de notre problématique.
@@ -63,40 +63,40 @@ Dans le cadre de cette thèse, nous avons décidé de comparer nos résultats à
 \section{Les descripteurs}
 \subsection{Descripteurs acoustiques}
 \label{sec:3.3.1}
-Afin de valoriser les données que nous avons dans les différents corpus, il est important de mettre en place une transformation pertinente des données brutes en descripteurs, aussi appelés caractéristiques ou features en anglais. Les descripteurs proviennent des domaines de l'acoustique notamment du modèle source-filtre de la voix, mais aussi de la musique. Ces descripteurs ont été conçus pour décrire le timbre, l'intonation, le rythme, et l'intensité des signaux de paroles. Les trois dernières éléments sont généralement regroupés sous le terme de prosodie. Le but est d'obtenir les caractéristiques phonatoires et articulatoires, ainsi que les évolutions prosodiques des locuteurs~\cite{Scherer1986} afin d'extraire les informations linguistiques et para-linguistiques du discours.
+Afin de valoriser les données que nous avons dans les différents corpus, il est important de mettre en place une transformation pertinente des données brutes en descripteurs, aussi appelés caractéristiques ou features en anglais. Les descripteurs proviennent des domaines de l'acoustique notamment du modèle source-filtre de la voix, mais aussi de la musique. Ces descripteurs ont été conçus pour décrire le timbre, l'intonation, le rythme, et l'intensité des signaux de paroles. Les trois derniers éléments sont généralement regroupés sous le terme de prosodie. Le but est d'obtenir les caractéristiques phonatoires et articulatoires, ainsi que les évolutions prosodiques des locuteurs~\cite{Scherer1986} afin d'extraire les informations linguistiques et para-linguistiques du discours.
 
 \subsubsection{Spectrogramme}
 %\input{./Chapitre3/figures/spectrogramme}
 
-Un spectrogramme est une représentation du signal audio mettant en avant l'énergie en fonction de la fréquence et du temps. %Comme on peut le voir sur la figure~\ref{fig:spectrogramme},
+Un spectrogramme est une représentation du signal audio mettant en avant l'intensité en fonction de la fréquence et du temps. %Comme on peut le voir sur la figure~\ref{fig:spectrogramme},
 Il s'agit d'une représentation tridimensionnelle du signal audio. Cette transformation est possible en utilisant la transformation de Fourier qui permet de passer de l'espace temporel à l'espace fréquentiel. Les zones des énergies les plus fortes sont appellées des formants.
 
-Cette représentation temps/fréquence peu être utilisée comme une image. Il est alors possible d'utiliser des systèmes de reconnaissance d'images afin de traiter des problématiques touchant au domaine de la parole~\cite{Stolar2017}.
+Cette représentation temps/fréquence peut être utilisée comme une image. Il est alors possible d'utiliser des systèmes de reconnaissance d'images afin de traiter des problématiques touchant au domaine de la parole~\cite{Stolar2017}.
 
 
-\subsubsection{Coefficients Cepstraux de Fréquence de Mel}
+\subsubsection{Coefficients Cepstraux en Fréquence Mel}
 Les MFCCs, Mel-Frequency Cepstral Coefficients en anglais, sont des descripteurs spectraux utilisés très largement en traitement du signal audio, que ce soit en reconnaissance de la parole, en identification du locuteur ou en détection de concepts sémantiques par exemple. Ils sont issus d'un ensemble de traitements qui est appliqué sur le signal audio traditionnellement sur des fenêtres temporelles de 30 ms tous les 10 ms. Afin de modéliser l'évolution temporelle du signal, on utilise les dérivées premières et secondes de ces coefficients. Contrairement aux Linear Predictive Coding (LPC)~\cite{Rabiner1993},
 %ou les Perceptual Linear Prediction (PLP)~\cite{Hermansky1990},
-ces coefficients perceptifs sont adaptés à l'audition humaine puisqu'ils suivent l'échelle de perception de Mel. En effet, notre perception des sons n'est pas linéaire : nous percevons plus de différence entre des sons de 1000 et 2000 kHz qu'entre des sons de 7000 et 8000 kHz.
+ces coefficients perceptifs sont adaptés à l'audition humaine puisqu'ils suivent l'échelle de perception de Mel. En effet, notre perception des sons n'est pas linéaire : nous percevons plus de différence entre des sons de 1000 et 2000 Hz qu'entre des sons de 7000 et 8000 Hz.
 
 Robustes au bruit, ces coefficients permettent de représenter le spectre de façon compacte en éliminant les redondances entre les différents coefficients.
 
 %Au total, nous avons donc une représentation en vecteurs de taille 39 pour chaque fenêtre de 10ms de signal, nous permettant de réduire considérablement le signal d'entrée, tout en gardant les informations essentielles contenues dans l'audio.
 
 \subsubsection{Descripteurs prosodiques}
-Dans le domaine du SER, il n'y a pas de consensus sur le meilleur ensemble de descripteurs à utiliser pour effectuer des tâches de reconnaissance d'émotions. C'est pour cela qu'il existe un grand nombre d'ensembles de descripteurs regroupant les différents indices acoustiques qui seront mis en relation avec les émotions. Ces indices sont soit extraits au niveau de fenêtres de courtes durées (30~ms le plus souvent), soit sur des fenêtres plus longues (plus d'une seconde) pour capturer les phénomènes para-linguistiques.
+Dans le domaine du SER, il n'y a pas de consensus sur le meilleur ensemble de descripteurs à utiliser pour effectuer des tâches de reconnaissance d'émotions. C'est pour cela qu'il existe un grand nombre d'ensembles de descripteurs regroupant les différents indices acoustiques qui seront mis en relation avec les émotions. Ces indices sont soit extraits au niveau de fenêtres de courtes durées (30~ms le plus souvent), soit sur des fenêtres plus longues (plus d'une seconde) pour capturer des phénomènes para-linguistiques.
 
 Traditionnellement, on prend un très grand nombre de descripteurs, comme par exemple l'ensemble de base extrait avec OpenSMILE~\cite{OPENSMILE}, qui compte 988 descripteurs acoustiques, puis on les filtre pour ne conserver que les plus pertinents par une sélection de descripteurs.
 
-La sélection des descripteurs réduit la dimensionnalité de leur espace, supprime les données redondantes, non pertinentes ou bruyantes. Elle apporte des effets bénéfices directes aux systèmes : l'accélération du temps de traitement puisqu'il y a moins de données à traiter, l'amélioration de la qualité des données et donc de la performance des systèmes. De plus, elle peut permettre de rendre les résultats plus compréhensibles.
+La sélection des descripteurs réduit la dimensionnalité de leur espace, supprime les données redondantes, non pertinentes ou bruitées. Elle apporte des effets bénéfiques directs aux systèmes : l'accélération du temps de traitement puisqu'il y a moins de données à traiter, l'amélioration de la qualité des données et donc de la performance des systèmes. De plus, elle peut permettre de rendre les résultats plus compréhensibles.
 Cette sélection peut s'effectuer de plusieurs manières :
 \begin{itemize}
     \item selon des méthodes de ranking, en comparant les descripteurs les uns aux autres.
-    \item en utilisant des \textit{wrappers} : en utilisant le modèle de classification et en testant chaque descripteur les uns après les autres. Pour ce faire, on les enlève ou on les ajoute un à un et on sélectionne l'ensemble de descripteurs qui donne au modèle sa meilleure performance.
+    \item en utilisant des \textit{wrappers} : en utilisant le modèle de classification et en testant tous les descripteur les uns après les autres. Pour ce faire, on les enlève ou on les ajoute un à un et on sélectionne l'ensemble de descripteurs qui donne au modèle sa meilleure performance.
 \end{itemize}
 Néanmoins l'ordre de grandeur des corpus annotés en émotion peut vite poser problème si la dimension des descripteurs est trop importante.
 
-Pour palier à ce problème, de plus petits ensembles de descripteurs, réalisés par des experts du domaine ont été proposés. On peut notamment citer l'ensemble INTERSPEECH 2009~\cite{Schuller2009} ainsi que \textit{The Geneva Minimalistic Acoustic Parameter Set} (GeMAPS) et sa version étendue (eGeMAPS)~\cite{Eyben2016}.
+Pour pallier ce problème, de plus petits ensembles de descripteurs, réalisés par des experts du domaine ont été proposés. On peut notamment citer l'ensemble INTERSPEECH 2009~\cite{Schuller2009} ainsi que \textit{The Geneva Minimalistic Acoustic Parameter Set} (GeMAPS) et sa version étendue (eGeMAPS)~\cite{Eyben2016}.
 
 L'ensemble INTERSPEECH 2009 contient 384 descripteurs qui ont été utilisés comme référence lors du premier challenge en reconnaissance d'émotions en 2009. Il est composé de 16 descripteurs de bas niveau (Low Level Descriptors en anglais) :
 \begin{itemize}
@@ -108,7 +108,7 @@ L'ensemble INTERSPEECH 2009 contient 384 descripteurs qui ont été utilisés co
 \end{itemize}
 Sur ces descripteurs sont calculées 12 fonctions statistiques (la moyenne, la variance, le coefficient de Pearson, de dissymétrie, le maximum, le minimum, la position relative, la plage de valeur et la régression linéaire). Soit, in fine, 16 descripteurs et leurs 16 dérivées sur lesquels on applique 12 fonctions pour un total de 384 descripteurs.
 
-GeMAPS est composé de 18 descripteurs de bas niveau représentant des propriétés de fréquence, d’énergie, d’amplitude et des propriétés spectrales sur lesquelles sont appliquées des fonctions statistiques pour un total de 62 descripteurs.
+GeMAPS est composé de 18 descripteurs de bas niveau représentant des propriétés de fréquence, d’énergie, d’amplitude et des propriétés spectrales sur lesquels sont appliquées des fonctions statistiques pour un total de 62 descripteurs.
 Nous reprenons la liste complète établie dans l'article de Eyben et al.~\cite{Eyben2016} dans le tableau~\ref{tab:egemaps}.
 
 \input{./Chapitre3/tables/egemaps}
@@ -117,9 +117,9 @@ Comme la version courte de l’ensemble minimaliste ne contient aucun paramètre
 % résume toutes les caractéristiques retenues dans ces deux ensembles.
 
 \subsubsection{Bag-of-Audio-Words (BoAW)}
-Comme nous l'avons déjà indiqué, la sélection de la représentation de l'audio est un choix qui va directement influencer la qualité de la reconnaissance des émotions. C'est pour cela qu'il existe de nombreuses représentations, dont les sacs de mots-audio, ou BoAW. Inspiré des sacs de mots utilisés en NLP, il s'agit d'utiliser des LLDs sélectionnés pour former un lexique appelé \textit{codebook} de toutes les valeurs possibles, puis de les coder par un vecteur. Ce vecteur est alors utilisé en tant qu'entrée du système.
+Comme nous l'avons déjà indiqué, la sélection de la représentation de l'audio est un choix qui va directement influencer la qualité de la reconnaissance des émotions. C'est pour cela qu'il existe de nombreuses représentations, dont les sacs de mots-audio, ou BoAW. Inspiré des sacs de mots utilisés en NLP, il s'agit d'utiliser les LLDs sélectionnés pour former un lexique appelé \textit{codebook} de toutes les valeurs possibles, puis de les coder par un vecteur. Ce vecteur est alors utilisé en tant qu'entrée du système.
 
-Cette solution présente comme avantage de renforcer la robustesse du système, vu que les LLDs en entrées sont en quelque sorte normalisées par ce processus. Ces features sont utilisées dans de nombreuses tâches reliées à la parole : la classification d'évènements sonores~\cite{Pancoast2012,Schmitt2016} ou la détection de plagiat~\cite{Liu2010} par exemple. Ils ont également été utilisés en reconnaissance d'émotion continue~\cite{Schmitt2016,Han2018}. %\textcolor{red}{Il manque une ref => codebook ?}.
+Cette solution présente comme avantage de renforcer la robustesse du système, vu que les LLDs en entrée sont en quelque sorte normalisées par ce processus. Ces features sont utilisées dans de nombreuses tâches reliées à la parole : la classification d'évènements sonores~\cite{Pancoast2012,Schmitt2016} ou la détection de plagiat~\cite{Liu2010} par exemple. Ils ont également été utilisés en reconnaissance d'émotions continues~\cite{Schmitt2016,Han2018}. %\textcolor{red}{Il manque une ref => codebook ?}.
 %In this approach, feature vectors of acoustic LLDs are quantised according to a learnt codebook of audio words. Then, a histogram of the occurring ‘words’ is built.
 
 \subsection{Descripteurs linguistiques}
@@ -128,37 +128,36 @@ Nous avons vu que lorsque l'on cherche à déterminer l'état émotionnel d'un l
 Les domaines du Sentiment Analysis et de l'Opinion Mining cherchent à identifier une opinion à partir d'un texte écrit. Il y a ici une différence sémantique significative entre opinion et état émotionnel, cependant les approches peuvent se rejoindre. On peut également considérer la transcription automatique comme un élément associé à la parole, et donc y retrouver des marqueurs de l'émotion. Nous détaillons dans cette partie certaines méthodes utilisées dans ces domaines pour transformer du texte (dans notre cas la transcription automatique) en descripteurs.
 
 \subsubsection{Représentation en one-hot}
-La représentation en \textit{one-hot}, comme illustrée sur la figure~\ref{fig:onehot}, correspond à associer à chaque mot un vecteur de binaires d'une taille fixe. On rassemble tous les mots différents utilisés dans ce que l'on nomme un vocabulaire. Puis pour chaque entrée (appelé token) de ce vocabulaire, on associe un vecteur binaire unique. Cette méthode présente l'avantage d'être exhaustive et facile à mettre en œuvre, cependant la représentation est très volumineuse : le vecteur sera de la taille du vocabulaire et elle contiendra principalement des zéros.
+La représentation en \textit{one-hot}, comme illustrée sur la figure~\ref{fig:onehot}, correspond à associer à chaque mot un vecteur de binaires d'une taille fixe. On rassemble tous les mots-types (appelés token en anglais) utilisés dans ce que l'on nomme un vocabulaire. Puis pour chaque mot-type de ce vocabulaire, on associe un vecteur binaire unique. Cette méthode présente l'avantage d'être exhaustive et facile à mettre en œuvre, cependant la représentation est très volumineuse : le vecteur sera de la taille du vocabulaire et elle contiendra principalement des zéros.
 
 \input{./Chapitre3/figures/onehot}
 
-Cette représentation permet de réaliser des opérations numériques directement sur les vecteurs \textit{one-hot}. Cependant elle ne porte aucune information sur le contexte (la position du token dans la séquence), la sémantique ou sur le nombre d’occurrence de chaque token.
+Cette représentation permet de réaliser des opérations numériques directement sur les vecteurs \textit{one-hot}. Cependant elle ne porte aucune information sur le contexte (la position du mot-type dans la séquence), la sémantique ou sur le nombre d’occurrence de chaque mot-type.
 
 \subsubsection{Représentation statistique}
 Parmi les représentations statistiques des données textuelles, les plus courantes et les plus mises en place sont les méthodes TF (Term Frequency) et TF-IDF (Term Frequency-Inverse Document Frequency) qui prennent en compte la distribution des tokens dans les documents.
 Le TF est défini comme ``the frequency of occurrence of the terms in the document or query texts''~\cite{salton_tf_idf}.
-C'est-à-dire que le TF d'un token $t$ présent dans un document $d$ correspond au nombre d’occurrences de $t$ dans $d$ divisé par le nombre total de tokens dans le document (Eq.~\ref{eq:tf}).
+C'est-à-dire que le TF d'un mot-type $t$ présent dans un document $d$ correspond au nombre d’occurrences de $t$ dans $d$ divisé par le nombre total de tokens dans le document (Eq.~\ref{eq:tf}).
 \begin{equation}
     \text{TF}(d,t) = \dfrac{\text{Nombre de } t \text{ dans } d}{\text{Nombre de tokens dans } d}
 \label{eq:tf}
 \end{equation}
 
 
-Toujours selon Salton~\cite{salton_tf_idf}, le facteur IDF varie ``inversely with the number of documents n to which a term is assigned in a collection of N documents. A typical idf factor may be computed as log N/n''.
+Toujours selon Salton~\cite{salton_tf_idf}, le facteur IDF varie ``inversely with the number of documents $n$ to which a term is assigned in a collection of $N $documents. A typical idf factor may be computed as log $N/n$''.
 Le facteur IDF correspond à l'inverse du rapport entre le nombre de documents où le token $t$ apparait sur le nombre total de documents $N$ (Eq.~\ref{eq:idf}).
 
 \begin{equation}
-    \text{IDF} = - log\left(\dfrac{N}{\text{Nombre de documents où } t \text{ est présent} + 1} \right)
+    \text{IDF(t)} = - log\left(\dfrac{N}{\text{Nombre de documents où } t \text{ est présent} + 1} \right)
 \label{eq:idf}
 \end{equation}
 
-Le TF-IDF est alors défini comme le produit des deux termes prédédent comme indiqué dans l'équation~\ref{eq:tfidf}.
+Le TF-IDF est alors défini comme le produit des deux termes précédents comme indiqué dans l'équation~\ref{eq:tfidf}.
 %Le +1 au dénominate
-ur permet d'éviter les cas où aucun documents ne contiendrait le token $t$ et donc la division par zéro.\textcolor{red}{ est-ce vrai ?}
-Cette approche permet que les tokens qui sont soit trop fréquents, soit présents dans tous les documents, soient moins mis en avant par la représentation.
+Pour permet d'éviter les cas où aucun document ne contiendrait le token $t$ et donc la division par zéro. Cette approche permet que les tokens qui sont soit trop fréquents, soit présents dans tous les documents, soient moins mis en avant par la représentation.
 
 \begin{equation}
-    \text{TF-IDF}(t) = \text{TF}(t,d) \times \text{IDF}(t)
+    \text{TF-IDF}(t,d) = \text{TF}(t,d) \times \text{IDF}(t)
 \label{eq:tfidf}
 \end{equation}
 
@@ -168,7 +167,7 @@ Ces méthodes statistiques ont fait leurs preuves~\cite{Martineau2009,Cambria201
 \input{./Chapitre3/figures/word2vec}
 
 Les plongements de mots (word embeddings en anglais) ont été présentés par Bengio et al.~\cite{Bengio2003}.
-A l'origine, un modèle neuronal est appris pour une tâche de reconnaissance automatique de la parole sur un grande nombre de donnée. Une fois le modèle entrainé, on peut prendre le réseau dans l'autre sens et supprimer les couches basses (proches de l'audio) et figer les poids afin de créer un extracteur capable de calculer des embeddings, c'est-à-dire les représentations internes du réseau de neurones, à partir d'une entrée textuelle. Ces emebeddings permettent d'avoir accès à une nouvelle représentation des mots dans un espace dense et à valeurs réelles.
+A l'origine, un modèle neuronal est appris pour une tâche de reconnaissance automatique de la parole sur un grande nombre de données. Une fois le modèle entrainé, on peut prendre le réseau dans l'autre sens et supprimer les couches basses (proches de l'audio) et figer les poids afin de créer un extracteur capable de calculer des embeddings, c'est-à-dire les représentations internes du réseau de neurones, à partir d'une entrée textuelle. Ces embeddings permettent d'avoir accès à une nouvelle représentation des mots dans un espace dense et à valeurs réelles.
 On projette les mots dans un espace de faible dimension, tout en isolant ensemble les mots qui ont des similarités sémantiques et syntaxiques~\cite{Ghannay2017}. Cela permet d'associer à chaque token un vecteur de valeurs réelles, de dimension bien inférieure à celle utilisée pour la représentation \textit{one-hot}. Chaque vecteur est ensuite inscrit dans un dictionnaire, et on peut alors remplacer chaque mot par le vecteur le représentant.
 
 Leur utilisation et leur pertinence a été démontré dans de nombreuses tâches, notamment des tâches de TALN: l’étiquetage morphosyntaxique, la reconnaissance d’entités nommées, la détection de mention~\cite{Turian2010,Bansal2014} et de compréhension de la parole~\cite{Mesnil2013,Yao2014,Liu2016}.
@@ -181,7 +180,7 @@ Il est utile de noter que ce genre de représentation peut être visualisée dan
 \section{Évaluation des performances}
 De nombreuses métriques ont été utilisées au fur et à mesure de l'avancée du domaine pour évaluer les performances des systèmes de reconnaissance d'émotions dans la parole suivant le type de tâche : classification ou régression.
 
-Pour les tâches de classification les métriques d'accuracy, de précision et de rappel pondéré ou non pondéré sont les métriques les plus utilisées traditionnellement. On peut notamment se référer aux challenges INTERSPEECH en émotions de 2009 et 2011~\cite{Schuller2009,Schuller2011} qui utilisent le rappel moyen non pondéré comme métrique afin de compenser le biais de données souvent très déséquilibrées en nombre d'instance par classe.
+Pour les tâches de classification les métriques d'\textit{accuracy}, de précision et de rappel pondérés ou non pondérés sont les métriques les plus utilisées traditionnellement. On peut notamment se référer aux challenges INTERSPEECH en émotions de 2009 et 2011~\cite{Schuller2009,Schuller2011} qui utilisent le rappel moyen non pondéré comme métrique afin de compenser le biais de données souvent très déséquilibrées en nombre d'instances par classe.
 
 En ce qui concerne les tâches de régression, l'erreur quadratique moyenne est une métrique efficace qui a été largement utilisée avant que des campagnes d'évaluation~\cite{AVEC2017} ne standardisent l'utilisation du Coefficient de Corrélation de Concordance (CCC) comme la mesure de référence pour l'évaluation de systèmes de reconnaissance de l'émotion continue.
 
@@ -194,21 +193,21 @@ La matrice de confusion est une matrice permettant de mesurer la performance d'u
 \input{./Chapitre3/tables/matriceConf}
 %\input{./Chapitre3/figures/precisionRappel}
 
-Cette présentation permet notamment de visualiser si une classe est mieux prédite que d'autres. Il est facile de relever si le système est performant en se basant sur la diagonale, qui regroupe les vrais positifs et donc de calculer l'accuracy définie par le nombre de segments correctement prédits sur le nombre total de segments $N$ (eq.~\ref{eq:accuracy}), tandis que les autres cases correspondent à des erreurs du système.
+Cette présentation permet notamment de visualiser si une classe est mieux prédite que d'autres. Il est facile de relever si le système est performant en se basant sur la diagonale, qui regroupe les vrais positifs et donc de calculer l'\textit{accuracy} définie par le nombre de segments correctement prédits sur le nombre total de segments $N$ (eq.~\ref{eq:accuracy}), tandis que les autres cases correspondent à des erreurs du système.
 
 \begin{equation}
-\text{Ac} = \dfrac{\text{Nb de prédiction vraies}}{N}
+\text{Ac} = \dfrac{\text{Nb de prédictions vraies}}{N}
 \end{equation}\label{eq:accuracy}
 
 Cette matrice de confusion permet également de calculer le rappel et la précision de chaque classe. La précision $P_i$ de la classe $c_i$, correspond au nombre de segments de la classe $c_i$ correctement prédits parmi tous les segments prédits comme étant de classe $c_i$. (eq.~\ref{eq:precision}). Le rappel $R_i$ de la classe $c_i$ est donné par l'équation~\ref{eq:rappel} et correspond au nombre de segments correctement prédits parmi tous les segments de la classe $c_i$
 
 \begin{equation}
-  P_i = \frac{\text{nb prediction vraie}_i}{\text{nb prediction vraie}_i + \text{nb prediction fausse}_i}
+  P_i = \frac{\text{nb predictions vraies}_i}{\text{nb predictions vraies}_i + \text{nb predictions fausses}_i}
   \label{eq:precision}
 \end{equation}
 
 \begin{equation}
-  R_i = \frac{\text{nb prediction vraie}_i}{\text{nb segments de classe } c_i}
+  R_i = \frac{\text{nb predictions vraies}_i}{\text{nb segments de classe } c_i}
   \label{eq:rappel}
 \end{equation}
 
@@ -217,14 +216,12 @@ Bien que pratique, la matrice de confusion ne permet pas de donner un score uniq
 
 \subsubsection{Précision ou rappel pondéré et non-pondéré}
 
-Afin d'avoir un score global de la classification des émotions, on
-peut moyenner les précisions et rappel par classe en pondérant ou non en fonction du nombre de segments par classe.
-La précision moyenne non pondérée  (unweighted average precision, UAP) est obtenu en prenant simplement la moyenne des précisions par classe.
-La précision moyenne pondérée (weighted average precision, WAP) est calculée en prenant la moyenne des précisions par classe suivant l'équation~\ref{eq:WA} où $N$ est le nombre de segments total et $n_i$ le nombre de segments dans la classe $c_i$.Pour éviter des possibles confusions entre les métriques de précision et de rappel, comme dans les travaux de Lee et Tashev~\cite{Lee2015} ou de Han et al.~\cite{Han2014} (où la définition de l'accuracy par classe est ambigüe) nous indiquerons systématiquement sur quelle métrique s'applique la pondération.
+Afin d'avoir un score global de la classification des émotions, on peut moyenner les précisions et rappels par classe en pondérant ou non en fonction du nombre de segments par classe. La précision moyenne non pondérée (unweighted average precision, UAP) est obtenu en prenant simplement la moyenne des précisions par classe.
+La précision moyenne pondérée (weighted average precision, WAP) est calculée en prenant la moyenne des précisions par classe suivant l'équation~\ref{eq:WA} où $N$ est le nombre de segments total et $n_i$ le nombre de segments dans la classe $c_i$. Pour éviter des possibles confusions entre les métriques de précision et de rappel, comme dans les travaux de Lee et Tashev~\cite{Lee2015} ou de Han et al.~\cite{Han2014} (où la définition de l'\textit{accuracy} par classe est ambigüe) nous indiquerons systématiquement sur quelle métrique s'applique la pondération.
 
 
 \begin{equation}
-  \text{WA} = \dfrac{1}{N}\sum^n_{i=1}n_i \cdot P_i
+  \text{WAP} = \dfrac{1}{N}\sum^n_{i=1}n_i \cdot P_i
   \label{eq:WA}
 \end{equation}
 
@@ -239,14 +236,14 @@ Nous pouvons également utiliser le rappel moyen non-pondéré, comme lors des c
 
 \subsubsection{F-mesure}
 
-La F-mesure, ou F-score en anglais, combine à la fois la précision et le rappel selon l'équation~\ref{eq:Fmesure}. Elle est comprise entre 0 et 1. Plus elle est grande, plus le système évalué est performant. Elle peut être calculée par classe sur les précisions $P_i$ et rappels $R_i$, ou bien globalement les moyennes des précisions et rappels par classe.
+La F-mesure, ou F-score en anglais, combine à la fois la précision et le rappel selon l'équation~\ref{eq:Fmesure}. Elle est comprise entre 0 et 1. Plus elle est grande, plus le système évalué est performant. Elle peut être calculée par classe sur les précisions $P_i$ et rappels $R_i$.
 
 \begin{equation}
   F = 2 \left( \frac{precision.rappel}{precision+rappel} \right)
   \label{eq:Fmesure}
 \end{equation}
 
-Néanmoins toutes les reconnaissances d'émotion ne se font pas sur des émotions discrètes, il existe donc d'autres indicateurs utilisés pour mesurer la performance des systèmes.
+Néanmoins toutes les reconnaissances d'émotions ne se font pas sur des émotions discrètes, il existe donc d'autres indicateurs utilisés pour mesurer la performance des systèmes.
 
 \subsection{Tâche de régression}
 
@@ -258,10 +255,10 @@ L'erreur quadratique moyenne est une métrique qui est utilisée dans l'évaluat
 \label{eq:RMSE_score}
 \end{equation}
 
-Elle est comprise entre 0 et 1. Comme il s'agit d'un taux d'erreur, les systèmes à haute performance se rapproche de 0, ce qui indique un ajustement parfait entre les références et les prédictions. Cette métrique n'est pas exempte d'inconvénients. En effet, elle est très sensible aux valeurs extrêmes et elle est difficilement comparable à d'autre scores calculés sur des valeurs d'ordres de grandeur différents.
+Elle est généralement comprise entre 0 et 1 (en fonction des valeurs $x_i$ et $y_i$). Comme il s'agit d'une mesure d'erreur, les systèmes à haute performance se rapprochent de 0, ce qui indique un ajustement parfait entre les références et les prédictions. Cette métrique n'est pas exempte d'inconvénients. En effet, elle est très sensible aux valeurs extrêmes et elle est difficilement comparable à d'autre scores calculés sur des valeurs d'ordres de grandeur différents.
 
 \subsubsection{Coefficient de Corrélation de Concordance}
-Le coefficient de corrélation de concordance (CCC)~\cite{CCC} a été établi comme un standard d'évaluation lors notamment des trois précédents Audio/Visual Emotion Challenge and Workshops (AVEC)~\cite{AVEC2017,AVEC2018,AVEC2019}. Cette métrique évalue l'accord entre deux séries temporelles selon l'équation~\ref{eq:CCC_score}, où $x$ et $y$ sont les deux variables, dans notre cas la prédiction et la référence. $\mu_x$, $\mu_y$ correspondent à leur moyenne, $\sigma_x$, $\sigma_y$ à leur écart-type et $\rho$ le coefficient de corrélation entre ces deux variables aléatoires.
+Le coefficient de corrélation de concordance (CCC)~\cite{CCC} a été établi comme un standard d'évaluation lors notamment des trois précédents Audio/Visual Emotion Challenge and Workshops (AVEC)~\cite{AVEC2017,AVEC2018,AVEC2019}. Cette métrique évalue l'accord entre deux séries temporelles selon l'équation~\ref{eq:CCC_score}, où $x$ et $y$ sont les deux séries temporelles, dans notre cas la prédiction et la référence. $\mu_x$, $\mu_y$ correspondent à leur moyenne, $\sigma_x$, $\sigma_y$ à leur écart-type et $\rho$ le coefficient de corrélation entre ces deux variables aléatoires.
 
  \begin{equation}
     CCC = \frac{2\rho\sigma_x\sigma_y}{\sigma_x^2 + \sigma_y^2 + (\mu_x - \mu_y)^2 + \epsilon}
@@ -269,14 +266,14 @@ Le coefficient de corrélation de concordance (CCC)~\cite{CCC} a été établi c
  \end{equation}
 
 Plus le CCC s'approche de 1 et plus le système est considéré comme performant. A l'inverse, plus le score s'approche de 0 et moins il y a de corrélation entre les prédictions et les références, dénotant un système peu performant.
-Cette métrique n'est pas définie dans le cas où les deux séries temporelles $x$ et $y$ sont constantes et de mêmes moyennes. En ce cas, on ajoute un $\epsilon$ au dénominateur pour pallier à ce problème lors de l'implémentation.
+Cette métrique n'est pas définie dans le cas où les deux séries temporelles $x$ et $y$ sont constantes et de mêmes moyennes. On ajoute un $\epsilon$ au dénominateur pour pallier à ce problème lors de l'implémentation.
 
-Cette métrique sera utilisée dans les travaux de cette thèse pour évaluer la performance des systèmes de prédiction continue de la satisfaction. Afin de nuancer les différences de scores entre différentes configurations de nos systèmes, nous avons mis en place un intervalle de confiance, qui est explicité dans le chapitre~\ref{chapitre6}.
+Cette métrique sera utilisée dans les travaux de cette thèse pour évaluer la performance des systèmes de prédiction continue de la satisfaction. %Afin de nuancer les différences de scores entre différentes configurations de nos systèmes, nous avons mis en place un intervalle de confiance, qui est explicité dans le chapitre~\ref{chapitre6}.
 
 \section{Fusion de modalités}
 Afin de pouvoir profiter à la fois des informations acoustiques et linguistiques, il est pertinent de fusionner ces deux modalités pour avoir un système performant et plus robuste~\cite{Wollmer2013,Alam2014,Atrey2010,Liu2018}. La fusion de modalités est assez vaste: il est possible également d'inclure des informations issues de vidéos ou de capteurs physiologiques, dont nous avons parlé au premier chapitre.
 
-Dans le cadre de cette thèse, nous sommes principalement intéressés par les modalités acoustiques et linguistiques, puisque le reste des modalités ne peuvent pas être récupérées depuis les centres d'appels.
+Dans le cadre de cette thèse, nous sommes principalement intéressés par les modalités acoustiques et linguistiques, puisque les autres des modalités ne peuvent pas être récupérées depuis les centres d'appels.
 \\
 \\
 \textbf{Type de fusion}
@@ -284,7 +281,7 @@ Dans le cadre de cette thèse, nous sommes principalement intéressés par les m
 La fusion peut s'effectuer de différentes manières.
 \begin{itemize}
   \item Fusion des features~\cite{Wollmer2013,Alam2014,Atrey2010} : La fusion s'opère au niveau des features, on concatène les vecteurs représentant les différentes modalités. Cette méthode augmente le nombre de features en entrée du système et peut donner des résultats très différents en fonction de la stratégie de normalisation des données. En effet, il peut être compliqué pour le système de comprendre que les données représentent deux espaces différents. Donc il est courant de normaliser les données afin de se référer à un seul espace.
-  \item Fusion des modèles~\cite{Atrey2010,Liu2018} : Plusieurs apprentissages sont faits de façon distincts pour chaque modalité jusqu'à une certaine couche dans le réseau de neurone. Les couches sont alors fusionnées, et l'apprentissage reprend. Plus la fusion arrive tôt et plus le système doit en théorie avoir un bon pouvoir de généralisation.
+  \item Fusion des modèles~\cite{Atrey2010,Liu2018} : Plusieurs apprentissages sont faits de façon distincts pour chaque modalité jusqu'à une certaine couche dans le réseau de neurones. Les couches sont alors fusionnées, et l'apprentissage reprend. Plus la fusion arrive tôt et plus le système doit en théorie avoir un bon pouvoir de généralisation.
   \item Fusion de décision~\cite{Wollmer2013,Atrey2010} : Plusieurs apprentissages sont faits de façon distincts pour chaque modalité. On prend la prédiction de chacun des modèles et on les fusionne. S'il s'agit d'une classification, on peut fusionner par vote majoritaire par exemple. S'il s'agit d'une régression, on peut faire la moyenne des sorties. De plus, on peut facilement mettre plus d'importance sur une des modalités en faisant une moyenne pondérée des sorties.
 \end{itemize}
 
@@ -296,10 +293,10 @@ Si nous nous replaçons dans le contexte de la thèse, nous cherchons à constru
 Ce challenge, qui en était à sa huitième itération en 2018, vise à comparer les méthodes de traitement multimédia et d'apprentissage automatique pour l'analyse automatique de la santé et des émotions dans les modalités audio et visuelles. Ces campagnes sont divisées en différents objectifs qui gravitent autour des émotions: de la détection de dépression, de bipolarité, d'état d'esprit ou d'émotions issues de différentes cultures par exemple. Comme ces campagnes s'appuient sur des corpus multimodaux comme RECOLA~\cite{Ringeval2013} et SEWA~\cite{SEWA} notamment, les émotions peuvent être détectées à partir de différentes modalités, notamment depuis la parole et les expressions faciales.
 
 Afin de pouvoir nous comparer à l'état de l'art, nous avons décidé de comparer nos résultats à ceux obtenus sur le corpus SEWA, dont nous avons parlé dans ce chapitre.
-Ce corpus considère trois dimensions émotionnelles : la valence, l'activation et le \textit{liking}. Il est utilisé notamment dans les campagnes AVEC depuis 2017~\cite{AVEC2017,AVEC2018,AVEC2019} et sert actuellement de baseline dans la communauté. Nous nous intéressons donc à la tâche de régression audio uniquement.
+Ce corpus considère trois dimensions émotionnelles : la valence, l'activation et le \textit{liking} qui correspond à l'appréciation par les participants des clips visionnés en amont. Il est utilisé notamment dans les campagnes AVEC depuis 2017~\cite{AVEC2017,AVEC2018,AVEC2019} et sert actuellement de baseline dans la communauté. Nous nous intéressons donc à la tâche de régression audio uniquement.
 
 Nous résumons dans le tableau~\ref{tab:avec}, différents résultats obtenus qui utilisent la partie Allemande et Hongroise du corpus, soit celle à laquelle nous avons accès. Comme nous pouvons le voir, de nombreux ensembles de features et types d'algorithme ont été utilisés pour la reconnaissance des émotions depuis la parole pour le corpus SEWA.
-Pour ce qui est de la modalité acoustique, nous pouvons voir que les systèmes les plus performants ont des scores de 0.571 pour l'activation, 0.561 pour la valence et 0.335 pour le liking. Nous voyons que la plupart des participants ont utilisés des systèmes CNN ou LSTM (détaillé dans le chapitre~\ref{chapitre5}) pour résoudre la régression. En regardant les deux études de Huang et al.~\cite{Huang2017,Huang2018}, nous pouvons remarquer que le choix de l'ensemble de descripteurs influence fortement sur les scores des systèmes de regression. On remarque également une prédominance de l'utilisation des eGeMAPS, qui donne les meilleurs scores.
+Pour ce qui est de la modalité acoustique, nous pouvons voir que les systèmes les plus performants ont des scores de 0.571 pour l'activation, 0.561 pour la valence et 0.335 pour le liking. Nous voyons que la plupart des participants ont utilisé des systèmes CNN ou LSTM (détaillés dans le chapitre~\ref{chapitre5}) pour résoudre la régression. En regardant les deux études de Huang et al.~\cite{Huang2017,Huang2018}, nous pouvons remarquer que le choix de l'ensemble de descripteurs influence fortement sur les scores des systèmes de regression. On remarque également une prédominance de l'utilisation des eGeMAPS, qui donne les meilleurs scores.
 
 Pour ce qui est de la modalité linguistique, on peut notamment remarquer que l'on retrouve principalement l'utilisation de plongements de mots (word2vec et GloVe) et le même type d'architecture que pour la modalité acoustique, avec une variation du réseau LSTM, qui possède deux couches pour les expérimentations sur le liking.
 

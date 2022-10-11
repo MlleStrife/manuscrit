@@ -3,91 +3,17 @@
 
 \section{Motivation}
 
-Dans ce dernier chapitre de contribution, nous allons détailler les nouvelles méthodes que nous avons appliqués à la reconnaissance d'émotions continues. Comme nous l'avons précédemment indiqué, le corpus AlloSat, quoique contenant 37 heures d'audio, n'est pas considéré comme un grand corpus, surtout si on parle uniquement de la partie utilisée pour l'apprentissage. En effet, les corpus utilisés pour l'apprentissage de système de reconnaissance sont plutôt de l'ordre de grandeur de la centaine d'heures. Cependant les architectures neuronales sont connues pour mieux fonctionner et mieux généraliser si elles sont apprises sur une grande quantité de données. Pour palier à ce problème, nous avons investi deux solutions différentes mais qui se sont révélées être complémentaires.
+Dans ce dernier chapitre de contribution, nous allons détailler les nouvelles méthodes que nous avons appliqués à la reconnaissance d'émotions continues. Comme nous l'avons précédemment indiqué, le corpus AlloSat, quoique contenant 37 heures d'audio, n'est pas considéré comme un grand corpus, surtout si on parle uniquement de la partie utilisée pour l'apprentissage. En effet, les corpus utilisés pour l'apprentissage de système de reconnaissance sont plutôt de l'ordre de grandeur de la centaine d'heures. Cependant les architectures neuronales sont connues pour mieux fonctionner et mieux généraliser si elles sont apprises sur une grande quantité de données. Pour pallier ce problème, nous avons investi deux solutions différentes mais qui se sont révélées être complémentaires.
 
 Tout d'abord, nous avons voulu bénéficier du contenu linguistique des conversations téléphoniques en complément du contenu acoustique.
 En effet, ces informations sont déjà présentes implicitement dans les données d'entrée des différents systèmes, mais d'une part, elles ont été transformées, et d'autre part, il est possible que les modèles, n'ayant pas assez de données, n'aient pas réussi à dissocier les informations linguistiques des informations acoustiques. Nous avons donc fait le choix de traiter la modalité linguistique à part et de trouver la meilleure fusion permettant de profiter des caractéristiques présentes dans les deux modalités.
 
 De plus, le pré-apprentissage permettant l'extraction de caractéristiques est une approche de plus en plus étudiée pour obtenir de meilleures représentations continues du contenu audio et textuel. Ces solutions ont pour but de compenser le manque de données sur une tâche courante en utilisant des données sur lesquelles sont appris des systèmes pour des tâches voisines. Ainsi, le travail d'apprentissage est facilité, puisqu'il ne part pas de zéro.
 
-Enfin, nous avons combiné ces deux solutions, afin d'avoir des performances suffisantes permettant d'implémentater une nouvelle fonctionnalité de reconnaissance des émotions au sein des solutions logiciels de la société Allo-Média.
+Enfin, nous avons combiné ces deux solutions, afin d'avoir des performances suffisantes permettant d'implémenter une nouvelle fonctionnalité de reconnaissance des émotions au sein des solutions logiciels de la société Allo-Média.
 
-Ces différentes expérimentations et leurs résultats sont détaillées dans les sections suivantes. Mais avant cela, nous avons mis en place un score de confiance du score CCC. En effet, il est difficile d'analyser si un modèle est plus performant qu'un autre sans avoir mis en place un intervalle de confiance dans nos mesures.
+Nous avons mis en place un score de confiance du score CCC. En effet, il est difficile d'analyser si un modèle est plus performant qu'un autre sans avoir mis en place un intervalle de confiance dans nos mesures. La mise en oeuvre de cet intervalle est disponible en annexe. Les différentes expérimentations et leurs résultats sont détaillées dans les sections suivantes.
 
-\section{Intervalles de confiance des scores CCC}
-Comme nous l'avons expliqué précédemment, le score CCC est devenu un score de référence pour l'évaluation des systèmes de reconnaissance des émotions continues. %Cependant, nous n'avons pas trouvé d'intervalle de confiance ou de score de confiance associé à cette mesure.\textcolor{red}{ce n'est pas vrai=>
-Cependant, nous n'avons pas trouvé d'expérience en reconnaissance des émotions continues  mentionnant l'utilisation d'un intervalle de confiance ou de score de confiance associé à cette mesure.
-
-Nous avons donc cherché à mettre en place un intervalle de confiance. Notre travail se plaçant dans un contexte industriel, il est important de vérifier la pertinence des scores de nos modèles. En effet, comme notre corpus est assez petit, nous avons un nombre limité d'échantillons de test utilisés pour le calcul du score final et une petite variation dans le choix de ces échantillons peut induire une variations importantes au niveau du résultat.
-
-%\textcolor{red}{attention pour cette section, c'est vraiment tu expliques comment fonctionne l'intervalle de confiance. Il manque des éléments comme par exemple ce qu'est la transformation de Fisher et pourquoi on l'utilise.}
-À partir des travaux de Liao et al.~\cite{Liao2000} et McBride~\cite{McBride2005}, nous avons mis en place un intervalle de confiance du CCC. Nous repartons de la définition du CCC, donnée par l'équation~\ref{eq:CCC_rappel}.
-
-\begin{equation}
-   CCC = \frac{2\rho\sigma_x\sigma_y}{\sigma_x^2 + \sigma_y^2 + (\mu_x - \mu_y)^2}
-\label{eq:CCC_rappel}
-\end{equation}
-
-Il s'agit d'un coefficient calculé entre deux vecteurs $x$ et $y$ par exemple, $x$ étant la séquence prédite et $y$ la séquence de référence.
-À partir de ces deux séquences, on peut calculer :
-
-\begin{itemize}
-  \item l'écart type :
-  \begin{equation}
-      \sigma_x = \dfrac{1}{N} \sum_{i} \left(x_i - \mu_x\right)^2
-  \end{equation}
-
-  \item la covariance :
-  \begin{equation}
-    \sigma_{xy} = \dfrac{1}{N} \sum_{i} \left(x_i - \mu_x\right)\left(y_i - \mu_y\right)
-  \end{equation}
-
-  \item le coefficient de correlation :
-  \begin{equation}
-    \rho = \dfrac{\sigma_{xy}}{\sigma_{x} \sigma_{y} }
-  \end{equation}
-\end{itemize}
-
-D'après McBride~\cite{McBride2005}, le CCC ne suit pas une loi normale. En effet, sa distribution est fortement asymétrique, notamment dans les cas où nous avons un coefficient de corrélation proche de $\pm 1$.
-Ainsi, on ne peut pas utiliser les intervalles de confiance classiques sur le CCC.
-Afin de palier à ce problème, on utilise la transformation de Fisher.
-Cette transformation consiste à prendre la tangente hyperbolique inverse du coefficient de corrélation.
-L'estimateur $\hat{Z}$ du CCC est alors défini par l'équation~\ref{eq:hat_Z} où $\hat{\rho_c}$ représente le CCC.
-
-
-%\textcolor{blue}{Cette transformation consiste à prendre la tangente hyperbolique inverse du coefficient de corrélation. Elle est utilisée pour palier aux cas où nous avons un coefficient de corrélation proche de ± 1, puisque dans ce cas sa distribution est fortement asymétrique, ce qui rend difficile l'estimation des intervalles de confiance pertinents. La transformation de Fisher résout ce problème en produisant une variable dont la distribution est approximativement distribuée normalement, avec une variance stable.} Comme dans les travaux de McBride, on appelle $\hat{Z}$ l'estimateur du CCC~\cite{McBride2005} défini dans l'équation~\ref{eq:hat_Z}
-
-\begin{equation}
-  \hat{Z} = \tanh^{-1}(\hat{\rho_c}) =  \dfrac{1}{2} \ln \left( \dfrac{1+ \hat{\rho_c} }{1 -\hat{\rho_c}}  \right)
-  \label{eq:hat_Z}
-\end{equation}
-
-L'écart type de cet estimateur est donné par l'équation~\ref{eq:et_hat_Z}.
-
-\begin{equation}
-\sigma_{\hat{Z} }^2 = \dfrac{\dfrac{(1-\rho^2) \hat{\rho_c} ^2}{(1-\hat{\rho_c}^2)\rho^2 } +  \dfrac{2\hat{\rho_c} ^3(1-\hat{\rho_c} )u^2}{\rho(1-\hat{\rho_c} ^2)^2} - \dfrac{\hat{\rho_c}^4 u^4}{2 \rho^2 (1-\hat{\rho_c}^2 )^2}}{N-2}
-\label{eq:et_hat_Z}
-\end{equation}
-
-où $u = \dfrac{\mu_x - \mu_y}{\sigma_x \sigma_y}$.
-%\textcolor{blue}{j'avoue je ne sais pas pourquoi on fait cette opération.}
-
-Ce qui nous permet de déduire un intervalle de confiance à $90\%$ pour le score de CCC selon l'équation~\ref{eq:inter_conf}.
-
-\begin{equation}
-    [\tanh (\hat{Z} - 1.64 \sigma_{\hat{Z}}); \tanh(\hat{Z} + 1.64 \sigma_{\hat{Z}})]
-    \label{eq:inter_conf}
-\end{equation}
-
-Afin de se rendre compte de cet intervalle de confiance, nous avons donné quelques scores et leur intervalle associé dans le tableau~\ref{tab:inter_conf}.
-
-\input{./Chapitre6/tables/inter_conf.tex}
-
-Nous pouvons observer que l'intervalle de confiance est relativement faible. En effet, il ne concerne que les centièmes. De même que pour l'intervalle de confiance pour une variable aléatoire normale, on remarque également que plus le score est élevé, plus on a un faible intervalle. Par contre, on peut également constater que cet intervalle n'est pas symétrique.
-
-Dans toutes les expériences suivantes, une différence de performance sera jugée significative uniquement si leur intervalle de confiance ne se chevauchent pas.
-
-Un deuxième intervalle de confiance lié à l'initialisation peut également être calculé. Cet intervalle ne sera pertinent que dans le cas où l'on entraîne un nouveau modèle.
 
 \section{Représentation linguistique}
 Comme nous l'avons dit précédemment, la représentation linguistique peut apporter des informations qui diffèrent de celles retenues par les systèmes de la modalité acoustique. Pour mettre en place un système appris sur cette modalité, nous avons utilisé les transcriptions automatiques des conversations téléphoniques.
@@ -95,12 +21,12 @@ Comme nous l'avons dit précédemment, la représentation linguistique peut appo
 \subsection{Transcriptions automatiques}
 Ces transcriptions sont obtenues à partir d'un système de reconnaissance de la parole utilisé dans l'entreprise Allo-Media issu des travaux de Rousseau et al.~\cite{Rousseau2014}. Le modèle acoustique est appris en utilisant le framework Kaldi~\cite{Povey2011} sur un volume d'environ mille heures de transcriptions manuelles de conversations issues de différents centre d'appels. Ainsi ce modèle est appris sur une grande quantité de données qualitatives, puisque manuelles mais aussi appropriées au domaine, puisque provenant de centre d'appels.
 
-Le modèle linguistique appartient également à l'entreprise et il est mis à jour continuellement en utilisant les conversations transcrites automatiquement par l'entreprise. Chaque segment transcrit est associé à un score de vraisemblance, et seuls les segments ayant de haut scores sont utilisés pour remettre à jour le modèle linguistique.
+Le modèle linguistique appartient également à l'entreprise et il est mis à jour continuellement en utilisant les conversations transcrites automatiquement par l'entreprise. Chaque segment transcrit est associé à un score de vraisemblance, et seuls les segments ayant de hautS scores sont utilisés pour remettre à jour le modèle linguistique.
 
 Enfin le vocabulaire est également mis en place par l'entreprise, qui est partie d'un dictionnaire de français qu'un linguiste de l'équipe a phonétisé. Le vocabulaire a ensuite était manuellement vérifié pour retirer toute occurrence de mots n'ayant pas sa place dans des conversations de centre d'appels, afin de réduire les erreurs de reconnaissance dues à des mots à phonétique voisine ou aux homonymes. Ce travail est effectué de façon itérative en fonction des remontées des modérateurs. De plus, le vocabulaire est régulièrement mis à jour avec des noms de famille ou des noms de produits ou de marques.
 
 \subsection{Synchroniser le linguistique et l'acoustique}
-Comme notre objectif est d'utiliser conjointement la linguistique et l'acoustique, nous avons fait le choix de nous aligner sur les annotations émotionnelles dans les deux cas. Pour l'acoustique, nous extrayons un vecteur descripteur du signal toutes les 250~ms, soit un vecteur par pas d'annotation. Nous faisons la même chose pour le linguistique.
+Comme notre objectif est d'utiliser conjointement l'information linguistique et l'acoustique, nous avons fait le choix de nous aligner sur les annotations émotionnelles dans les deux cas. Pour l'acoustique, nous extrayons un vecteur descripteur du signal toutes les 250~ms, soit un vecteur par pas d'annotation. Nous faisons la même chose pour le linguistique.
 
 Pour cela, nous partons des CTM (\textit{time-marked conversation}) issus de la transcription automatique, comme par exemple ceux illustrés dans le tableau~\ref{tab:ctm}. Ce format se compose d'autant de lignes que de mots transcrits avec le code temps de l'émission du mot ainsi que la durée du mot. De plus, on peut retrouver à quel segment de parole sont associés tous les mots.
 
@@ -108,7 +34,7 @@ Pour cela, nous partons des CTM (\textit{time-marked conversation}) issus de la 
 
 Nous définissons le protocole suivant pour aligner la transcription et l'annotation :
 \begin{itemize}
-  \item Tous les mots sont conservés, même les \textit{stop words}. Nous avons également fait des tests en supprimant ces mots tesl que définis dans le toolkit NLTK~\footnote{https://www.nltk.org/api/nltk.html}. Comme les performances finales de reconnaissance ne s'en retrouvaient pas améliorées, nous avons décidés de conserver tous les mots.
+  \item Tous les mots sont conservés, même les \textit{stop words}. Nous avons également fait des tests en supprimant ces mots tels que définis dans le toolkit NLTK~\footnote{https://www.nltk.org/api/nltk.html}. Comme les performances finales de reconnaissance ne s'en retrouvaient pas améliorées, nous avons décidés de conserver tous les mots.
   \item Si un mot est prononcé dans plusieurs trames consécutives, le mot est dupliqué sur toutes les trames concernées.
   \item Si plusieurs mots sont prononcés dans la même trame, on conserve tous les mots prononcés. Pour les représenter, on fera la moyenne des représentations de chacun de ces mots.
 \end{itemize}
@@ -116,7 +42,7 @@ Nous définissons le protocole suivant pour aligner la transcription et l'annota
 Cette synchronisation nous permet de mettre l'acoustique et le linguistique sur le même plan, ce qui nous permettra par la suite d'utiliser conjointement les deux modalités pour la reconnaissance continue de la satisfaction et de la frustration.
 
 \subsection{Exploration des word2vec}
-Les plongements de mots, ou \textit{words embeddings} sont actuellement l'une des représentations continues les plus populaires de données textuelles. Ces plongements sont des représentations vectorielles appliquées à chacun des mots retrouvés dans le texte.
+Les plongements de mots, ou \textit{word embeddings} sont actuellement l'une des représentations continues les plus populaires de données textuelles. Ces plongements sont des représentations vectorielles appliquées à chacun des mots retrouvés dans le texte.
 Parmi eux, word2vec~\cite{word2vec} est l'un des plus utilisés dans les tâches d'analyse des sentiments telles que la polarité ou la classification des états émotionnels~\cite{Dong2018}.
 
 Afin de paramétrer des word2vec cohérents avec nos données, nous avons choisi d’entraîner nos propres représentations. Pour cela, nous avons entraîné un système avec le toolkit GENSIM~\cite{gensim}, en utilisant des données privées détenues par Allo-Media. Ces données sont composées de transcriptions manuelles d'appels reçues par les centres d'appels, totalisant plus de 4,5 millions de mots.
@@ -143,16 +69,16 @@ Si nous comparons avec le maximum atteint par la modalité acoustique (cf sectio
 %\textcolor{red}{est-ce que le mauvais sscore obtenu avec word2vec-200 infirme la justification "limite le sur-apprentissage" ?}
 Plusieurs justifications peuvent expliquer ce résultat. Tout d'abord, les mots sont porteurs d'informations émotionnelles qui sont moins souvent ambiguës que celles convoyées par la voix. On peut notamment mentionner les injures ou les mots contenus dans des champs lexicaux de polarité négative (par exemple ``inadmissible'', ``honteux'' ou encore ``arnaque'').
 
-De plus, nous simplifions le travail du système de reconnaissance des émotions, puisque nous extrayons la modalité linguistique du signal audio et celle-ci est plus haut niveau. Lorsque l'on traite la modalité acoustique, les informations linguistiques sont toujours implicitement présentes et le système peut avoir des difficultés à les modéliser, notamment à cause du peu de données dont nous disposons.
+De plus, nous simplifions le travail du système de reconnaissance des émotions, puisque nous extrayons la modalité linguistique du signal audio et celle-ci est de plus haut niveau. Lorsque l'on traite la modalité acoustique, les informations linguistiques sont toujours implicitement présentes et le système peut avoir des difficultés à les modéliser, notamment à cause du peu de données dont nous disposons.
 
-De plus, les mots sont porteurs d'informations émotionnelles qui sont moins souvent ambiguës que celles convoyées par la voix. On peut notamment mentionner les injures ou les mots contenus dans des champs lexicaux de polarité négative (par exemple inadmissible, honteux ou encore arnaque).
+%De plus, les mots sont porteurs d'informations émotionnelles qui sont moins souvent ambiguës que celles convoyées par la voix. On peut notamment mentionner les injures ou les mots contenus dans des champs lexicaux de polarité négative (par exemple inadmissible, honteux ou encore arnaque).
 
 Ces résultats nous permettent de valider l'utilisation de la modalité linguistique seule dans la détection de la satisfaction et de la frustration.
 
-Nous avons donc chercher à tirer parti de ces deux modalités afin d'améliorer la reconnaissance de la satisfaction et de la frustration.
+Nous avons donc cherché à tirer parti de ces deux modalités afin d'améliorer la reconnaissance de la satisfaction et de la frustration.
 
 \section{Fusion des modalités acoustiques et linguistiques}
-Comme nous l'avons défini dans le chapitre~\ref{chapitre3}, il existe plusieurs méthodes pour fusionner des modalités différentes. Chaque fusion a ses avantages et ses inconvénients et peut être plus ou moins adaptée aux descripteurs et aux modèles utilisés. Nous avons donc fait le choix de comparer les trois fusions existantes, à savoir la fusion des descripteurs, la fusion des modèles et la fusion de décision.
+Comme nous l'avons décrit dans le chapitre~\ref{chapitre3}, il existe plusieurs méthodes pour fusionner des modalités différentes. Chaque fusion a ses avantages et ses inconvénients et peut être plus ou moins adaptée aux descripteurs et aux modèles utilisés. Nous avons donc fait le choix de comparer les trois fusions existantes, à savoir la fusion des descripteurs, la fusion des modèles et la fusion des décisions.
 
 Ces trois fusions sont opérées sur les modalités acoustiques et linguistiques en utilisant le système biLSTM-4 précédemment introduit à la section~\ref{sec:5.3}. La figure~\ref{fig:archi_fusion} résume les quatre expérimentations dont nous rapportons les résultats dans le tableau~\ref{tab:res_fusion}.
 
@@ -161,28 +87,28 @@ Ces trois fusions sont opérées sur les modalités acoustiques et linguistiques
 Les quatre architectures ont les caractéristiques suivantes:
 \begin{itemize}
   \item \textbf{Fusion\_features} : La fusion s'effectue avant l'apprentissage en concaténant les descripteurs audio et texte. Une passe de normalisation est ensuite effectuée, pour ramener les descripteurs sur une même échelle. Il s'agit de la fusion la moins coûteuse, puisque nous n'avons qu'un seul modèle à entraîner, bien qu'il y ait plus d'entrées. Cette fusion correspond à la sous-figure a.
-  \item \textbf{Fusion\_model\_precoce} : La fusion s'effectue  au niveau de la deuxième couche du réseau de neurone. Chaque modalité est d'abord traitée séparément dans la première couche, puis les deux sorties de ces deux couches sont concaténées avant d'être introduites dans la deuxième couche. La fusion précoce permet également de projeter les modalités dans des dimensions de même taille, sans pour autant que toutes les informations utiles soient déjà extraites avant d'être fusionnées. Cette fusion est modérément coûteuse, le nombre de paramètres lorsque les tailles des vecteurs d'entrée pour chaque modalité sont inférieures ou égales à 100, est du même ordre de grandeur que précédemment. Cette fusion correspond à la sous-figure b.
-  \item \textbf{Fusion\_model\_tardif} : A l'inverse, la fusion va s'effectuer plus tard, au niveau de la quatrième couche du réseau. La sortie des troisièmes couches sont concaténées avant d'être données à la quatrième couche. Ce fusion tardive va prendre en compte des descripteurs très modifiés, desquels les informations importantes sont normalement déjà extraites. Cette fusion correspond à la sous-figure c.
+  \item \textbf{Fusion\_model\_precoce} : La fusion s'effectue  au niveau de la deuxième couche du réseau de neurones. Chaque modalité est d'abord traitée séparément dans la première couche, puis les sorties de ces deux couches sont concaténées avant d'être introduites dans la deuxième couche. La fusion précoce permet également de projeter les modalités dans des dimensions de même taille, sans pour autant que toutes les informations utiles soient déjà extraites avant d'être fusionnées. Cette fusion est modérément coûteuse, le nombre de paramètres lorsque les tailles des vecteurs d'entrée pour chaque modalité sont inférieures ou égales à 100, est du même ordre de grandeur que précédemment. Cette fusion correspond à la sous-figure b.
+  \item \textbf{Fusion\_model\_tardif} : A l'inverse, la fusion va s'effectuer plus tard, au niveau de la quatrième couche du réseau. La sortie des troisièmes couches sont concaténées avant d'être données à la quatrième couche. Cette fusion tardive va prendre en compte des descripteurs très modifiés, desquels les informations importantes sont normalement déjà extraites. Cette fusion correspond à la sous-figure c.
   \item \textbf{Fusion\_decision} : Cette fusion s'effectue sur les sorties des deux modèles. On entraîne séparément deux modèles pour les deux modalités, puis on met en concours les deux vecteurs de sorties des deux modèles en utilisant une moyenne pondérée ou non. Cette fusion est la plus coûteuse puisque nous apprenons deux modèles distincts et que nous appliquons un post-traitement sur les sorties de ces modèles. Cette fusion correspond à la sous-figure d.
 \end{itemize}
 
 \input{./Chapitre6/tables/res_fusion}
-Les résultats de ces différentes fusions sont disponibles dans le tableau~\ref{tab:res_fusion}. Nous observons que les scores de fusion, quelqu'ils soient, permettent d'égaler ou d'améliorer les résultats unimodaux. Nous remarquons que dans tous les types de fusion, c'est l'utilisation des word2vec-40 qui donne de meilleurs résultats. Cela peut être dû à la similarité entre les dimensions acoustiques et linguistiques : les MFCC-lib sont constitués de 48 descripteurs.
-Nous pouvons également noter que le meilleur score atteint sur l'ensemble de dev ($0.917$) est attribué à la fusion tardive de modèle. Cependant, nous voyons que ce n'est pas la fusion de modèle qui donne le meilleur résultat sur l'ensemble de test. Le meilleur score ($0.840$) est atteint avec la fusion tardive. De plus l'écart entre le score de dev et de test est moins important pour la fusion tardive. Nous avons donc décidé de conserver la fusion tardive comme fusion de référence dans la suite de nos expérimentations.
+Les résultats de ces différentes fusions sont disponibles dans le tableau~\ref{tab:res_fusion}. Nous observons que les scores de fusion, quels qu'ils soient, permettent d'égaler ou d'améliorer les résultats unimodaux. Nous remarquons que dans tous les types de fusion, c'est l'utilisation des word2vec-40 qui donne de meilleurs résultats. Cela peut être dû à la similarité entre les dimensions acoustiques et linguistiques : les MFCC-lib sont constitués de 48 descripteurs.
+Nous pouvons également noter que le meilleur score atteint sur l'ensemble de dev ($0.917$) est attribué à la fusion tardive de modèle. Cependant, nous voyons que ce n'est pas la fusion de modèle qui donne le meilleur résultat sur l'ensemble de test. Le meilleur score ($0.840$) est atteint avec la fusion de décision. De plus l'écart entre le score de dev et de test est moins important pour la fusion de décision. Nous avons donc décidé de conserver la fusion de décision comme fusion de référence dans la suite de nos expérimentations.
 
 Comme nous l'avons déjà présenté dans le chapitre~\ref{chapitre3}, les word2vec sont statiques : un mot a toujours la même représentation vectorielle, quel que soit le vrai sens du mot et le contexte de son apparition. Cela peut être problématique pour les mots polysémiques, par exemple fréquents en français~\cite{Pustejovsky1996}. C'est pour cette raison que nous avons souhaité mettre en place des représentations permettant de prendre en compte le contexte, que ce soit sur l'acoustique ou sur le linguistique.
 
 \section{Descripteurs pré-entraînés}
 
-L'apprentissage par transfert, \textit{transfert-learning} est largement utilisé dans l'analyse des sentiments, où de grandes bases de données non spécifiques sont utilisées pour former des caractéristiques génériques qui sont introduits dans le processus d’apprentissage.
+L'apprentissage par transfert, \textit{transfert-learning} est largement utilisé dans l'analyse des sentiments, où de grandes bases de données non spécifiques sont utilisées pour former des caractéristiques génériques qui sont introduites dans le processus d’apprentissage.
 Ce procédé permet de donner aux systèmes de meilleures capacités de généralisation compte tenu des données d'apprentissage fortement limitées~\cite{Dong2018}.
 
 Une autre méthode permettant d'exploiter des modèles qui ont déjà vu une très grande quantité de données est d'utiliser des représentations auto-apprises. L'apprentissage auto-supervisé des représentations de la parole ou du langage a été proposé ces dernières années, par exemple avec le système BERT~\cite{Devlin2019}, utilisé pour la représentation textuelle que nous avons présenté au chapitre~\ref{chapitre2}.
 
-De telles représentations, calculées par des modèles neuronaux entraînés sur d'énormes quantités de données non étiquetées, ont montré leur efficacité, par exemple pour la vision par ordinateur~\cite{Nanni2017} et des tâches de traitement du langage naturel (NLP) telles que de la
-classification, de la similarité de texte, ou du classement par pertinence~\cite{Liu2019,Young2018,Yang2019}. Ils ont également prouvés leur efficacité dans les domaines de l'ASR~\cite{Kahn2020,Liu2020} et de la traduction~\cite{Nguyen2020}.
+De telles représentations, calculées par des modèles neuronaux entraînés sur d'énormes quantités de données non étiquetées, ont montré leur efficacité, par exemple pour la vision par ordinateur~\cite{Nanni2017} et des tâches de traitement du langage naturel (NLP) telles que de
+classification, de similarité de texte, ou de classement par pertinence~\cite{Liu2019,Young2018,Yang2019}. Elles ont également prouvé leur efficacité dans les domaines de l'ASR~\cite{Kahn2020,Liu2020} et de la traduction~\cite{Nguyen2020}.
 
-Néanmoins, ces représentations n'avaient jamais été utilisé pour de la reconnaissance d'émotions continues à notre connaissance. Nous avons donc proposé de tester cette approche pour réaliser notre tâche de reconnaissance des émotions. Il n'est, en effet, pas évident qu'elle soit pertinente pour la SER. Par exemple, au niveau acoustique, l'ASR a tendance à se concentrer sur des durées d'environ 30 ms, tandis que les émotions sont généralement prises en charge sur environ 1 seconde de parole.
+Néanmoins, ces représentations n'avaient jamais été utilisées pour de la reconnaissance d'émotions continues à notre connaissance. Nous avons donc proposé de tester cette approche pour réaliser notre tâche de reconnaissance des émotions. Il n'est, en effet, pas évident qu'elle soit pertinente pour le domaine de Speech Emotion Recognition. Par exemple, au niveau acoustique, l'ASR a tendance à se concentrer sur des durées d'environ 30 ms, tandis que les émotions sont généralement prises en charge sur environ 1 seconde de parole.
 
 Nous pensons que l'utilisation de ces représentations peut limiter l'impact du manque de données lorsque seules de petites bases de données sont disponibles pour former un réseau de neurones pour une tâche spécifique.
 
@@ -191,7 +117,7 @@ Pour modéliser la partie linguistique, nous sommes partis sur des systèmes dé
 
 Chronologiquement, nous avons découvert CamemBERT en premier, et une fois que nous avions expérimenté avec ce modèle, nous avons comparé les résultats obtenus avec le modèle FlauBERT.
 
-Pour l'extraction des descripteurs, nous avons utilisé le toolkit Fairseq~\cite{Ott2019}. Nous utilisons le modèle pré-entraîné, appelé \textit{camemBERT-base}, entraîné sur la partie française du corpus OSCAR~\cite{Ortizsuarez2019} constitué d'un ensemble de corpus monolingues extraits du \textit{Common Crawl snapshot} et totalisant 138Go de texte brut et 32,7 milliards de tokens après la tokenisation en sous-mots~\cite{Wu2016}. Les sous-mots sont des ensembles de caractères qui ne sont pas des mots à proprement parlé et qui sont déduit par le système de tokenisation, ici SentencePiece~\cite{Kudo2018}.
+Pour l'extraction des descripteurs, nous avons utilisé le toolkit Fairseq~\cite{Ott2019}. Nous utilisons le modèle pré-entraîné, appelé \textit{camemBERT-base}, entraîné sur la partie française du corpus OSCAR~\cite{Ortizsuarez2019} constitué d'un ensemble de corpus monolingues extraits du \textit{Common Crawl snapshot} et totalisant 138Go de texte brut et 32,7 milliards de tokens après la tokenisation en sous-mots~\cite{Wu2016}. Les sous-mots sont des ensembles de caractères qui ne sont pas des mots à proprement parler et qui sont déduits par le système de tokenisation, ici SentencePiece~\cite{Kudo2018}.
 
 Les caractéristiques ont été extraites sur Allosat à l'aide de ce modèle pré-entraîné, et nous avons résumé les résultats au niveau du segment émotionnel (250~ms) en faisant la moyenne des représentations continues des sous-mots apparaissant dans le segment courant. Au total, nous utilisons un vecteur de caractéristiques à 768 dimensions.
 
@@ -208,7 +134,7 @@ Comme nous l'avons déjà dit (cf section~\ref{sec:3.3.1}), la plupart des ensem
 Une autre approche consiste à extraire des caractéristiques spectrales : les coefficients cepstraux à fréquence mel (MFCC) sont clairement les plus utilisés car ils sont robustes aux signaux bruités même s'ils n'ont pas été conçus pour la prosodie ou l'émotion.
 
 Récemment, wav2vec~\cite{Schneider2019} et Audio AlBERT~\cite{Chi2020} ont été introduits dans les domaines de la reconnaissance automatique de la parole et dans l'identification du locuteur comme l'une des premières approches pré-entraînées pour extraire des caractéristiques contextuelles des signaux bruts.
-Comme nous l'avons expliqué au chapitre~\ref{chapitre2}, wav2vec~\cite{Schneider2019} est un modèle pré-entraîné par auto-supervision : il apprend à prédire les futurs échantillons à partir de l'une analyse de le fenêtre courante.
+Comme nous l'avons expliqué au chapitre~\ref{chapitre2}, wav2vec~\cite{Schneider2019} est un modèle pré-entraîné par auto-supervision : il apprend à prédire les futurs échantillons à partir de l'analyse de le fenêtre courante.
 
 Dans nos expérimentations, nous utilisons deux modèles pré-entraînés. Le premier, appelé \textit{wav2vec-EN}, fourni par Schneider et al.,  a été entraîné sur le corpus Librispeech~\cite{librispeech} qui est composé de 960 heures de livre audio en anglais.
 Nous formons également notre propre modèle, appelé \textit{wav2vec-FR}, dérivé du premier modèle et fine-tuné sur les conversations non étiquetées de centres d'appels français correspondant à plus de 500 heures de données privées.
@@ -219,22 +145,22 @@ Au final, chaque segment émotionnel est représenté par un vecteur de taille 5
 
 \input{./Chapitre6/tables/res_wav2vec}
 
-Les résultats sont présentés dans le tableau~\ref{tab:res_wav2vec}. Comme nous pouvons l'observer, les modèles sont également très performants pour la reconnaissance des émotions continues. Les descripteurs issus de wav2vec-EN donne de meilleurs résultats que ceux issus de wav2vec-FR même s'il reste dans la même ordre de grandeur. Cela peut être expliqué par le fine-tuning effectué sur à peine 500 heures de données, ce qui a pu suffisamment dérégler le modèle sans pour autant lui faire intégrer des renseignements pertinents. Si on se compare aux meilleurs résultats des MFCCs, à savoir respectivement $0.698$ et $0.513$ sur le dev et le test, on peut affirmer que la représentation wav2vec-EN permet au système de mieux reconnaître les états émotionnels, puisqu'on améliore les scores respectivement de $0.153$ et $0.217$ sur le dev et le test.
+Les résultats sont présentés dans le tableau~\ref{tab:res_wav2vec}. Comme nous pouvons l'observer, les modèles sont également très performants pour la reconnaissance des émotions continues. Les descripteurs issus de wav2vec-EN donne de meilleurs résultats que ceux issus de wav2vec-FR même s'ils restent dans la même ordre de grandeur. Cela peut être expliqué par le fine-tuning effectué sur à peine 500 heures de données, ce qui a pu suffisamment dérégler le modèle sans pour autant lui faire intégrer des renseignements pertinents. Si on se compare aux meilleurs résultats des MFCCs, à savoir respectivement $0.698$ et $0.513$ sur le dev et le test, on peut affirmer que la représentation wav2vec-EN permet au système de mieux reconnaître les états émotionnels, puisqu'on améliore les scores respectivement de $0.153$ et $0.217$ sur le dev et le test.
 
 \subsection{Reproduction sur SEWA}
-Afin d'étendre l'utilisation des descripteurs pré-entraînés, nous avons voulu tester les performances d'un système biLSTM-4 apprenant avec ce type de descripteurs pour le corpus SEWA. Le corpus étant en allemand et en hongrois, nous avons uniquement considéré le modèle wav2vec-EN.
+Afin d'étendre l'utilisation des descripteurs pré-entraînés, nous avons voulu tester les performances d'un système biLSTM-4 appris avec ce type de descripteurs pour le corpus SEWA. Le corpus étant en allemand et en hongrois, nous avons uniquement considéré le modèle wav2vec-EN.
 
 \input{./Chapitre6/tables/sewa_wav2vec}
 
 Les résultats sont présentés dans le tableau~\ref{tab:sewa_wav2vec}. Les scores obtenus sur les dimensions de l'activation et de la valence sont moins élevés que lorsque l'on utilise les ensembles de descripteurs MFCCs ou eGeMAPS. Cependant on peut constater une amélioration sur l'axe du liking, mais qui n'atteint pas un score suffisant pour être considéré comme une réussite.
 
-Dans le cas du corpus SEWA, l'utilisation de descripteurs pré-entraînés ne semble pas permettre d'améliorer les performances du système. Notre hypothèse réside dans la différence de quantité de données entre les deux corpus : le set de train d'AlloSat est composé de 25 heures d'enregistrement audio alors que celui de SEWA a moins de 2 heures de conversations. %Malgré l'utilisation des descripteurs pré-entraînés, le réseau n'est pas en mesure d'obtenir de bons résultats, probablement en raison de la faible quantité de données.
+Dans le cas du corpus SEWA, l'utilisation de descripteurs pré-entraînés ne semble pas permettre d'améliorer les performances du système. Notre hypothèse réside dans la différence de quantité de données entre les deux corpus : le set de train d'AlloSat est composé de 25 heures d'enregistrements audio alors que celui de SEWA a moins de 2 heures de conversations. %Malgré l'utilisation des descripteurs pré-entraînés, le réseau n'est pas en mesure d'obtenir de bons résultats, probablement en raison de la faible quantité de données.
 Nous pensons également que la conception du corpus SEWA peut avoir un impact sur la performance de ces descripteurs. Le fait que SEWA soit composé de conversations dyadiques où deux locuteurs sont présents dans le même document peut complexifier le processus d'extraction de descripteurs, alors qu'AlloSat ne contient que la voix du client.
 
 Nous avons vu précédemment que la fusion des deux modalités, en considérant les descripteurs MFCC et word2vec, permet d'améliorer les performances du système. Nous expérimentons donc la fusion des descripteurs pré-appris.
 
-\section{Fusion des modalités acoustiques et linguistiques pré-entraînés}
-Différents protocoles de fusion ont été explorés : fusion features (concaténation des vecteurs wav2vec et camemBERT), fusion au niveau du modèle (au niveau de la première et de la dernière couche) et fusion de décision. Les fusions features et au niveau du modèle requièrent beaucoup plus de temps d'apprentissage, puisque nous doublons le nombre d'entrées du réseau (768+512). De plus, les résultats que nous avons obtenus sur ces features sont peu intéressants puisqu'au niveau des scores d'unimodalité. Nous ne les présentons pas dans ce document.
+\section{Fusion des modalités acoustique et linguistique pré-entraînées}
+Différents protocoles de fusion ont été explorés : fusion des features (concaténation des vecteurs wav2vec et camemBERT), fusion au niveau du modèle (au niveau de la première et de la dernière couche) et fusion de décision. Les fusions au niveau des features et au niveau du modèle requièrent beaucoup plus de temps d'apprentissage, puisque nous doublons le nombre d'entrées du réseau (768+512). De plus, les résultats que nous avons obtenus sur ces features sont peu intéressants puisqu'au niveau des scores d'unimodalité. Nous ne les présentons pas dans ce document.
 
 Comme jusqu'à présent la modalité linguistique donne de meilleurs résultats que la modalité acoustique et que la dimension des descripteurs camemBERT est grande, nous avons voulu quantifier l'apport de ces descripteurs en les comparant aux descripteurs word2vec. Ainsi en fonction de l'ordre de grandeur de cet apport, nous pourrons statuer sur la pertinence ou non de l'utilisation de plus de ressources.
 
@@ -245,8 +171,8 @@ Comme pour les résultats précédents sur la fusion des descripteurs de la base
 Nous atteignons donc des scores très performants pour la reconnaissance des émotions continues sur le corpus AlloSat, permettant à l'entreprise de penser à la commercialisation de cet indicateur.
 
 \section{Conclusion}
-Dans ce chapitre, nous avons décrit les différents choix que nous avons considéré pour améliorer nos performances en terme de reconnaissance continue des émotions. Après une discussion autour de la confiance dans les scores CCC, nous avons mis en place une représentation linguistique des conversations que nous avons fusionné avec la représentation acoustique. De plus, nous avons mis en place des nouveaux modèles entraînés avec des descripteurs pré-entraînés.
+Dans ce chapitre, nous avons décrit les différents choix que nous avons considéré pour améliorer nos performances en terme de reconnaissance continue des émotions. Nous avons mis en place une représentation linguistique des conversations que nous avons fusionné avec la représentation acoustique. De plus, nous avons mis en place des nouveaux modèles entraînés avec des descripteurs pré-entraînés.
 
 Nous pouvons conclure que le meilleur système de reconnaissance des émotions continues utilise un réseau de neurones récurrents, une utilisation des deux modalités en les fusionnant et des entrées issues de descripteurs pré-entraînés.
 
-Ces scores a l'état de l'art sont très corrects, mais une question reste en suspens : pourquoi la modalité linguistique permet une telle amélioration de la reconnaissance continue des émotions ? Nous allons tenter de répondre à cette question dans le prochain chapitre.
+Ces scores à l'état de l'art sont très corrects, mais une question reste en suspens : pourquoi la modalité linguistique permet-elle une telle amélioration de la reconnaissance continue des émotions ? Nous allons tenter de répondre à cette question dans le prochain chapitre.

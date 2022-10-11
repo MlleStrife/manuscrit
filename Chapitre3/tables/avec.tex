@@ -1,51 +1,51 @@
 \begin{table}[]
     \centering
-    \begin{tabular}{| l | l | c | c | c |}
+    \begin{tabular}{| l | l | l | c | c | c |}
         \hline
-        \textbf{Models} &\textbf{Features} &\multicolumn{3}{c|}{\textbf{SEWA}} \\ \cline{3-5}
-        & &activation &valence &liking \\
+        \textbf{Models} &\textbf{Modalité} &\textbf{Features} &\multicolumn{3}{c|}{\textbf{SEWA}} \\ \cline{3-6}
+        & & &activation &valence &liking \\
         \hline
-        \multicolumn{5}{|l|}{AVEC 2017~\cite{AVEC2017} : Sur les conversations allemandes} \\
+        \multicolumn{6}{|l|}{AVEC 2017~\cite{AVEC2017} : Sur les conversations allemandes} \\
         \hline
-        SVR      &BoAW~\cite{Schmitt2016} &.344  &.351 &.081 \\
-        SVR      &BoTW                    &.373  &.390 &.314 \\
+        SVR      &audio &BoAW~\cite{Schmitt2016} &.344  &.351 &.081 \\
+        SVR      &audio &BoTW                    &.373  &.390 &.314 \\
        \hline
-       \multicolumn{5}{|l|}{Huang et al.~\cite{Huang2017} : Sur les conversations allemandes} \\
+       \multicolumn{6}{|l|}{Huang et al.~\cite{Huang2017} : Sur les conversations allemandes} \\
        \hline
-       LSTM     &eGeMAPS-88  &.506  &.455 &.193 \\
-       LSTM     &IS10        &.465  &.440 &.227 \\
-       LSTM     &Bottle-neck~\cite{Fer2015} &.533  &.466 &     \\
-       LSTM     &Mfcc        &.341  &.421 &     \\
-       LSTM     &BoTW        &.451  &.518 &.473 \\
+       LSTM     &audio &eGeMAPS-88  &.506  &.455 &.193 \\
+       LSTM     &audio &IS10        &.465  &.440 &.227 \\
+       LSTM     &audio &Bottle-neck~\cite{Fer2015} &.533  &.466 &     \\
+       LSTM     &audio &Mfcc        &.341  &.421 &     \\
+       LSTM     &texte &BoTW        &.451  &.518 &.473 \\
         \hline
-        \multicolumn{5}{|l|}{AVEC 2018~\cite{AVEC2018} : Sur les conversations allemandes} \\
+        \multicolumn{6}{|l|}{AVEC 2018~\cite{AVEC2018} : Sur les conversations allemandes} \\
         \hline
-        biLSTM-2 &eGeMAPS-88  &.124  &.112 &.001 \\
-        biLSTM-2 &Mfcc        &.253  &.217 &.136 \\
+        biLSTM-2 &audio &eGeMAPS-88  &.124  &.112 &.001 \\
+        biLSTM-2 &audio &Mfcc        &.253  &.217 &.136 \\
          \hline
-       \multicolumn{5}{|l|}{Huang et al.~\cite{Huang2018} : Sur les conversations allemandes} \\
+       \multicolumn{6}{|l|}{Huang et al.~\cite{Huang2018} : Sur les conversations allemandes} \\
        \hline
-       LSTM     &eGeMAPS-88   &.497  &.438 &.281 \\
-       LSTM     &eGeMAPS-89   &.520  &.461 &\textbf{.335} \\
-       LSTM     &eGeMAPS-176  &.514  &.493 &.217 \\
-       LSTM       &Word2Vec-300   &\textbf{.597}  &\textbf{.600} &.454 \\
-       LSTM-2     &BoW            &  & &.407 \\
-       LSTM-2     &Word2Vec       &  & &\textbf{.480} \\
-       LSTM-2     &GloVe          &  & &.413 \\
+       LSTM     &audio &eGeMAPS-88   &.497  &.438 &.281 \\
+       LSTM     &audio &eGeMAPS-89   &.520  &.461 &\textbf{.335} \\
+       LSTM     &audio &eGeMAPS-176  &.514  &.493 &.217 \\
+       LSTM       &texte &Word2Vec-300   &\textbf{.597}  &\textbf{.600} &.454 \\
+       LSTM-2     &texte &BoW            &  & &.407 \\
+       LSTM-2     &texte &Word2Vec       &  & &\textbf{.480} \\
+       LSTM-2     &texte &GloVe          &  & &.413 \\
         \hline
-        \multicolumn{5}{|l|}{AVEC 2019~\cite{AVEC2019} : Sur les conversations allemandes et hongroises} \\
+        \multicolumn{6}{|l|}{AVEC 2019~\cite{AVEC2019} : Sur les conversations allemandes et hongroises} \\
         \hline
-        biLSTM-2 &eGeMAPS-88  &.371 &.286 &.159 \\
-        biLSTM-2 &Mfcc        &.326 &.187 &.144 \\
+        biLSTM-2 &audio &eGeMAPS-88  &.371 &.286 &.159 \\
+        biLSTM-2 &audio &Mfcc        &.326 &.187 &.144 \\
          \hline
-       \multicolumn{5}{|l|}{Schmitt et al.~\cite{Schmitt2019} : Sur les conversations allemandes} \\
+       \multicolumn{6}{|l|}{Schmitt et al.~\cite{Schmitt2019} : Sur les conversations allemandes} \\
        \hline
        \rowcolor{Red}
-       CNN      &eGeMAPS-47    &\textbf{.571}  &.517 & \\
+       CNN      &audio &eGeMAPS-47    &\textbf{.571}  &.517 & \\
        \rowcolor{Red}
-       biLSTM-4 &eGeMAPS-47    &.568  &\textbf{.561} & \\
+       biLSTM-4 &audio &eGeMAPS-47    &.568  &\textbf{.561} & \\
        \hline
     \end{tabular}
-    \caption{Compilation des scores de CCC sur l'ensemble de développement de SEWA sur les 3 dimensions : activation, valence et \textit{liking}. L'accronyme BoAW signifie \textit{Bag-of-audio-words}, BoTW signifie \textit{Bag-of-text-words}, SVR signifie Support Vector Regression~\cite{Smola2004}, proche des SVM mais applicable à des problèmes de régression et donc à une annotation continue. Les différents nombres associés aux features de type eGeMAPS dénotent de différentes configurations utilisées autour de ces sets : soit avec une sélection reduite des LLDs (47), soit avec l'ajout d'information sur le locuteur courant (89 et 176).}
+    \caption{Compilation des scores de CCC sur l'ensemble de développement de SEWA sur les 3 dimensions : activation, valence et \textit{liking}. L'acronyme BoAW signifie \textit{Bag-of-audio-words}, BoTW signifie \textit{Bag-of-text-words}, SVR signifie Support Vector Regression~\cite{Smola2004}, proche des SVM mais applicable à des problèmes de régression et donc à une annotation continue. Les différents nombres associés aux features de type eGeMAPS dénotent de différentes configurations utilisées autour de ces sets : soit avec une sélection reduite des LLDs (47), soit avec l'ajout d'information sur le locuteur courant (89 et 176).}
     \label{tab:avec}
 \end{table}

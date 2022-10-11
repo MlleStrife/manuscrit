@@ -1,7 +1,7 @@
 % Cette classe de document est basee sur [report].
 % Assurez vous d'avoir installe tous les paquets utiles
 %%%%%% Licence%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% la classe LaTeX these-ubl 
+% la classe LaTeX these-ubl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -25,9 +25,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{these-ubl}[15/10/2020 v5.0]
 
-\LoadClass[twoside,multicol,12pt,a4paper]{report}	% notez le "twoside", essentiellement pour alterner les en-tete et pieds de page gauche et droit si on veut utliser les fancyhead. 
+\LoadClass[twoside,multicol,12pt,a4paper]{report}	% notez le "twoside", essentiellement pour alterner les en-tete et pieds de page gauche et droit si on veut utliser les fancyhead.
 
-\RequirePackage[utf8]{inputenc} 
+\RequirePackage[utf8]{inputenc}
 \RequirePackage[english,french]{babel} % Last language is the default, use \selectlanguage{english} to switch
 \RequirePackage{ifpdf}
 \RequirePackage[usenames,dvipsnames]{color} % pour les couleurs
@@ -50,7 +50,7 @@
 \RequirePackage{wallpaper}
 \RequirePackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
 \RequirePackage{setspace}
-%Ou bien : \RequirePackage[top=4 cm, bottom=4 cm, left=3 cm, right=3 cm]{geometry} % On peut modifier ces valeurs pour augmenter ou r\'{e}duire les marges. Attention aux en-têtes de chapitres. 
+%Ou bien : \RequirePackage[top=4 cm, bottom=4 cm, left=3 cm, right=3 cm]{geometry} % On peut modifier ces valeurs pour augmenter ou r\'{e}duire les marges. Attention aux en-têtes de chapitres.
 \RequirePackage{epigraph} % \cleartoevenpage
 
 \RequirePackage{setspace} % permet d'utiliser les commandes \spacing, doublespace (double interligne), singlespace (simple interligne) et onehalfspace (un interligne et demi)
@@ -69,13 +69,13 @@
 \FrenchFootnotes
 
 % Define commands to set fonts throughout the document
-\newcommand*{\selectfontfrontcover}{\fontfamily{phv}\selectfont}  % Font style used in front cover 
-\newcommand*{\selectfontbackcover}{\fontfamily{phv}\selectfont}   % Font style used in back cover 
+\newcommand*{\selectfontfrontcover}{\fontfamily{phv}\selectfont}  % Font style used in front cover
+\newcommand*{\selectfontbackcover}{\fontfamily{phv}\selectfont}   % Font style used in back cover
 \newcommand*{\selectfontchapheads}{\fontfamily{phv}\selectfont} % Font style used chapter headings
 
 % Override default font here if you want
 %\renewcommand{\rmdefault}{qpl}
-%\renewcommand{\sfdefault}{qpl} 
+%\renewcommand{\sfdefault}{qpl}
 
 
 
@@ -121,13 +121,13 @@
 			#1
 		\end{Huge}
 		\end{center}
-		\vspace{1cm}		
+		\vspace{1cm}
 	\begin{center}
 %\begin{Huge}
 		%\ding{167}
-	%\end{Huge}	
+	%\end{Huge}
 	\hrulefill
-	\end{center}		
+	\end{center}
 	}
 
 \parttitlefont{\jolipart}
@@ -140,21 +140,23 @@
 %%%%%%%%%%%%%%%% REGLAGE DE LA BIBLIOGRAPHIE %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% ATTENTION, on utilise Biblatex %%%%%%%%%%%%%
 
+\RequirePackage[style=alphabetic,citestyle=alphabetic,maxcitenames=2,hyperref,backend=biber]{biblatex}
+
 % Les dernieres versions de biblatex pr\'{e}conisent l'option backend=biber
 % pour profiter des derni\`{e}res nouveaut\'{e}s. Si vous choisissez cette
 % option, il vous faut simplement compiler avec $biber nomdufichier (sans le
 % .tex). Pour utiliser bibtex, remplacer par backend=bibtex.
-\RequirePackage[hyperref,backend=biber,
+%\RequirePackage[hyperref,backend=biber,style=verbose-trad1,citestyle=authoryear]{biblatex}
   % Exemples de styles: alphabetic, ieee, nature, numeric, verbose-trad1 (en utilisant \footcite{}).
   % https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
-  style=verbose-trad1
-  ]{biblatex}
+  %style=verbose-trad1
+  %]{biblatex}
 
 % Style biblatex avec gestion des mots cl\'{e}s des entr\'{e}es bibliographiques
 % + les abbr\'{e}viations idem, ibidem, op cit. Pr\'{e}voir un fichier bib
 % contenant ces mots-cl\'{e}s, ici primary et secondary.
-\defbibheading{primary}{\section*{Sources primaires}}
-\defbibheading{secondary}{\section*{Sources secondaires}}
+%\defbibheading{primary}{\section*{Sources primaires}}
+%\defbibheading{secondary}{\section*{Sources secondaires}}
 
 
 %%%% Ajustements pour la bibliographie
@@ -166,7 +168,7 @@
 %\DeclareFieldFormat{pages}{page(s): #1} % page(s) en toutes lettres, si on veut...
 
 % Locutions latines en italique (comme ibid, loc.cit. , etc.) Merci \`{a} Josquin Debaz
-\renewcommand{\mkibid}[1]{\emph{#1}}
+%%\renewcommand{\mkibid}[1]{\emph{#1}}
 
 % Et pour mettre le in en italique dans la ref\'{e}rence biblio (merci encore \`{a} Josquin Debaz)
 \DefineBibliographyStrings{english}{%
@@ -365,7 +367,7 @@
 \hspace{0.6cm}{\LARGETwelve \textbf{\@author}} \vspace{0.5cm}
 
 {\LargeTwelve \textbf{\@title}} \vspace{0.5cm}
-	
+
 {\largeTwelve \@lesoustitre} \vspace{0.5cm}
 \begin{spacing}{1}
 	 \smallTwelve
@@ -465,7 +467,7 @@
 
 
 \fancyhf{}                       % on annule le fancy automatique
-   
+
 
 %%%%%%%%%% Gerer les en tetes dans les frontmatter mainmatter et backmatter
 \RequirePackage{geometry}
@@ -487,7 +489,7 @@
     \fancyhead[RO]{\small\rightmark}   % \rightmark = section courante
     \fancyhead[LE]{\small Partie~\thepart, \leftmark} % \leftmark = chapitre courant
     \fancyfoot[C]{\thepage}               % marque la page au centre
-}     
+}
 
 \appto\backmatter{\pagestyle{fancy}
 \renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
@@ -497,7 +499,7 @@
     \fancyhead[LE]{} % \leftmark = chapitre courant
     \fancyfoot[C]{\thepage}               % marque la page au centre
 
-} 
+}
 
 
 

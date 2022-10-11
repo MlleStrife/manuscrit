@@ -1,14 +1,14 @@
 \begin{table}[h]
   \centering
-\begin{tabular}{|l|l|c|c|c||c|c|}
-\cline{3-5}
-\multicolumn{1}{c}{}       &         &\multicolumn{3}{c||}{\textbf{Prédiction}} \\ \cline{3-7}
-\multicolumn{1}{c}{}       &             & joie        & neutre      & colère      &précision &rappel\\ \hline
-\multirow{4}{*}{\rotatebox[origin=c]{90}{\textbf{Référence}}} &joie   & \textbf{90} & 11          & 2           &0.874     &0.900\\ \cline{2-7}
-                     & neutre & 4           & \textbf{80} & 10          &0.851     &0.889\\ \cline{2-7}
-                     & colère & 6           & 9           & \textbf{20} &0.571     &0.625\\ \cline{2-7} \cline{2-7}
-                     & total  & 100         & 90          & 32           & & \\ \hline
+\begin{tabular}{|l|l|c|c|c|c||c|c|}
+\cline{3-6}
+\multicolumn{1}{c}{}       &         &\multicolumn{4}{c||}{\textbf{Prédiction}} \\ \cline{4-8}
+\multicolumn{1}{c}{}       &             & joie        & neutre      & colère &total      &précision &rappel\\ \hline
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\textbf{Réf}}} &joie   & \textbf{90} & 11          & 2 &103                &0.900 &0.874\\ \cline{2-7}
+                     & neutre & 4           & \textbf{80} & 10       &94        &0.889 &0.851 \\ \cline{2-8}
+                     & colère & 6           & 9           & \textbf{20} &35      &0.625 &0.571 \\ \cline{2-8} \cline{2-8}
+                     %& total  & 100         & 90          & 32           & & \\ \hline
 \end{tabular}
-\caption{Matrice de Confusion entre trois classes émotionnelles : la joie, le neutre et la colère. Les colonnes correspondent aux prédictions du système et les lignes correspondent aux références. On voit que sur 100 prédictions de la classe joie, seules 90 sont pertinentes et le système a mal prédit 10 segments qui devraient être dans la classe joie.}
+\caption{Matrice de Confusion entre trois classes émotionnelles : la joie, le neutre et la colère. Les colonnes correspondent aux prédictions du système et les lignes correspondent aux références. On voit que sur 100 prédictions de la classe joie, seules 90 sont pertinentes et le système a mal prédit 13 segments qui ne devraient pas être dans la classe joie.}
 \label{tab:matriceConf}
 \end{table}
